@@ -3,3 +3,4 @@ target
 *.zip
 .svn
 *.iws
+docs/gapi/*
