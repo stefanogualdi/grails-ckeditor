@@ -1,11 +1,11 @@
-<plugin name='ckeditor' version='0.1' grailsVersion='1.1 &gt; *'>
+<plugin name='ckeditor' version='0.2' grailsVersion='1.1 &gt; *'>
   <author>Stefano Gualdi</author>
   <authorEmail>stefano.gualdi@gmail.com</authorEmail>
   <title>CKeditor plugin</title>
   <description>\
 CKeditor web WYSIWYG editor integration plugin.
 </description>
-  <documentation>http://grails.org/Ckeditor+Plugin</documentation>
+  <documentation>http://grails.org/plugin/ckeditor</documentation>
   <resources>
     <resource>BuildConfig</resource>
     <resource>CkeditorUrlMappings</resource>
@@ -13,7 +13,9 @@ CKeditor web WYSIWYG editor integration plugin.
     <resource>org.gualdi.grails.plugins.ckeditor.CkeditorTagLib</resource>
   </resources>
   <dependencies>
-    <resolvers />
+    <resolvers>
+      <resolver type='grailsPlugins' name='grailsPlugins' />
+    </resolvers>
   </dependencies>
   <behavior />
 </plugin>
