@@ -129,16 +129,13 @@ class CkeditorConfig {
         }
 
 		// Config options
-		// StringBuffer configs = new StringBuffer()
 		def configs = []
 		this.config.each {k, v ->
 			if (!localConfig[k]) {
-				// configs << "${k}: ${v},\n"
 				configs << "${k}: ${v}"
 			}
 		}
 		this.localConfig.each {k, v ->
-			// configs << "${k}: ${v},\n"
 			configs << "${k}: ${v}"
 		}
 
