@@ -1,4 +1,4 @@
-<plugin name='ckeditor' version='0.2' grailsVersion='1.1 &gt; *'>
+<plugin name='ckeditor' version='0.3' grailsVersion='1.1 &gt; *'>
   <author>Stefano Gualdi</author>
   <authorEmail>stefano.gualdi@gmail.com</authorEmail>
   <title>CKeditor plugin</title>
