@@ -158,15 +158,20 @@ class CkeditorConfig {
 		// Main config
 		'customConfig',
 		'autoUpdateElement',
+		'baseFloatZIndex',
 		'baseHref',
 		'contentsCss',
 		'contentsLangDirection',
+		'contentsLanguage',
 		'language',
 		'defaultLanguage',
 		'enterMode',
+		'forceEnterMode',
 		'shiftEnterMode',
 		'corePlugins',
 		'docType',
+		'bodyId',
+		'bodyClass',
 		'fullPage',
 		'height',
 		'plugins',
@@ -179,26 +184,28 @@ class CkeditorConfig {
 		'width',
 		'baseFloatZIndex',
 
+		// plugins/basicstyles/plugin.js
+		'coreStyles_bold',
+		'coreStyles_italic',
+		'coreStyles_underline',
+		'coreStyles_strike',
+		'coreStyles_subscript',
+		'coreStyles_superscript',
+
 		// plugins/colorbutton/plugin.js
 		'colorButton_enableMore',
 		'colorButton_colors',
 		'colorButton_foreStyle',
 		'colorButton_backStyle',
 
-		// plugins/keystrokes/plugin.js
-		'blockedKeystrokes',
-		'keystrokes',
+		// plugins/contextmenu/plugin.js
+		'browserContextMenuOnCtrl',
 
 		// plugins/dialog/plugin.js
 		'dialog_backgroundCoverColor',
 		'dialog_backgroundCoverOpacity',
+		'dialog_startupFocusTab',
 		'dialog_magnetDistance',
-
-		// plugins/wysiwygarea/plugin.js
-		'disableObjectResizing',
-		'disableNativeTableHandles',
-		'disableNativeSpellChecker',
-		'ignoreEmptyParagraph',
 
 		// plugins/editingblock/plugin.js
 		'startupMode',
@@ -212,7 +219,16 @@ class CkeditorConfig {
 		'entities_processNumerical',
 		'entities_additional',
 
-		// plugins/find/plugin.js 
+		// plugins/filebrowser/plugin.js
+		'filebrowserBrowseUrl',
+		'filebrowserUploadUrl',
+		'filebrowserImageBrowseUrl',
+		'filebrowserFlashBrowseUrl',
+		'filebrowserImageUploadUrl',
+		'filebrowserFlashUploadUrl',
+		'filebrowserImageBrowseLinkUrl',
+
+		// plugins/find/plugin.js
 		'find_highlight',
 
 		// plugins/font/plugin.js
@@ -222,12 +238,6 @@ class CkeditorConfig {
 		'fontSize_sizes',
 		'fontSize_defaultLabel',
 		'fontSize_style',
-
-		// plugins/pastetext/plugin.js
-		'forcePasteAsPlainText',
-
-		// plugins/htmldataprocessor/plugin.js
-		'forceSimpleAmpersand',
 
 		// plugins/format/plugin.js
 		'format_tags',
@@ -242,22 +252,37 @@ class CkeditorConfig {
 		'format_h5',
 		'format_h6',
 
+		// plugins/htmldataprocessor/plugin.js
+		'forceSimpleAmpersand',
+
 		// plugins/image/plugin.js
 		'image_removeLinkByEmptyURL',
+		'image_previewText',
+
+		// plugins/indent/plugin.js
+		'indentOffset',
+		'indentUnit',
+		'indentClasses',
+
+		// plugins/keystrokes/plugin.js
+		'blockedKeystrokes',
+		'keystrokes',
 
 		// plugins/menu/plugin.js
 		'menu_subMenuDelay',
 		'menu_groups',
 
-		// plugins/newpage/plugin.js 
+		// plugins/newpage/plugin.js
 		'newpage_html',
 
 		// plugins/pastefromword/plugin.js
-		'pasteFromWordIgnoreFontFace',
-		'pasteFromWordRemoveStyle',
-		'pasteFromWordKeepsStructure',
+		'pasteFromWordPromptCleanup',
+		'pasteFromWordCleanupFile',
 
-		// plugins/removeformat/plugin.js 
+		// plugins/pastetext/plugin.js
+		'forcePasteAsPlainText',
+
+		// plugins/removeformat/plugin.js
 		'removeFormatTags',
 		'removeFormatAttributes',
 
@@ -267,35 +292,63 @@ class CkeditorConfig {
 		'resize_maxWidth',
 		'resize_maxHeight',
 		'resize_enabled',
+		'resize_dir',
+
+		// plugins/scayt/plugin.js
+		'scayt_autoStartup',
+		'scayt_maxSuggestions',
+		'scayt_customerid',
+		'scayt_moreSuggestions',
+		'scayt_contextCommands',
+		'scayt_sLang',
+		'scayt_uiTabs',
+		'scayt_srcUrl',
+		'scayt_customDictionaryIds',
+		'scayt_userDictionaryName',
+		'scayt_contextMenuOntop',
+		'scayt_contextMenuItemsOrder',
+
+		// plugins/showblocks/plugin.js
+		'startupOutlineBlocks',
+
+		// plugins/showborders/plugin.js
+		'startupShowBorders',
 
 		// plugins/smiley/plugin.js
 		'smiley_path',
 		'smiley_images',
 		'smiley_descriptions',
 
-		// plugins/showblocks/plugin.js
-		'startupOutlineBlocks',
-
-		// plugins/stylescombo/plugin.js
-		'stylesCombo_stylesSet',
+		// plugins/styles/plugin.js
+		'stylesSet',
 
 		// plugins/tab/plugin.js
 		'tabSpaces',
 
-		//  plugins/templates/plugin.js
+		// plugins/templates/plugin.js
 		'templates',
 		'templates_files',
 		'templates_replaceContent',
 
 		// plugins/toolbar/plugin.js
 		'toolbarLocation',
+		'toolbar',
 		'toolbar_Basic',
 		'toolbar_Full',
-		'toolbar',
 		'toolbarCanCollapse',
 		'toolbarStartupExpanded',
 
 		// plugins/undo/plugin.js
-		'undoStackSize'
+		'undoStackSize',
+
+		// plugins/wsc/plugin.js
+		'wsc_customerId',
+		'wsc_customLoaderScript',
+
+		// plugins/wysiwygarea/plugin.js
+		'disableObjectResizing',
+		'disableNativeTableHandles',
+		'disableNativeSpellChecker',
+		'ignoreEmptyParagraph'
     ]
 }
