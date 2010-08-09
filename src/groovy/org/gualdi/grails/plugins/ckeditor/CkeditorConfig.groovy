@@ -155,6 +155,9 @@ class CkeditorConfig {
 
     // See: http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html
     static final ALLOWED_CONFIG_ITEMS = [
+        // Items not listed in main config file
+        'uiColor',
+            
 		// Main config
 		'customConfig',
 		'autoUpdateElement',
