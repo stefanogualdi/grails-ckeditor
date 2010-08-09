@@ -54,6 +54,8 @@ class CkeditorConfig {
     def contextPath
     def basePath
 
+    def skipAllowedItemsCheck
+
     def instanceName
     def userSpace
 	def append
@@ -70,6 +72,8 @@ class CkeditorConfig {
     CkeditorConfig(request, attrs = null) {
 		this.contextPath = request.contextPath
 		this.basePath = PluginUtils.getPluginResourcePath(this.contextPath, this.PLUGIN_NAME)
+
+        this.skipAllowedItemsCheck = ConfigurationHolder.config.ckeditor?.skipAllowedItemsCheck ?: false
 
 		this.localConfig = [:]
 		
@@ -99,7 +103,7 @@ class CkeditorConfig {
 
     def addConfigItem(attrs, local = false) {
         attrs?.each { key, value ->
-            if (key in ALLOWED_CONFIG_ITEMS || key.startsWith('filebrowser')) {
+            if (this.skipAllowedItemsCheck || key in ALLOWED_CONFIG_ITEMS || key.startsWith('filebrowser')) {
 				def tmp = value?.trim()
 				if (!tmp?.isNumber() && 
 					!tmp?.equalsIgnoreCase('true') && 
@@ -121,7 +125,7 @@ class CkeditorConfig {
     }
 
 	def addComplexConfigItem(var, value) {
-        if (var in ALLOWED_CONFIG_ITEMS || var.startsWith('toolbar_')) {
+        if (this.skipAllowedItemsCheck || var in ALLOWED_CONFIG_ITEMS || var.startsWith('toolbar_')) {
 			this.config[var] = value
 		}
 		else {
