@@ -321,6 +321,7 @@ class CkeditorConfig {
 		'smiley_path',
 		'smiley_images',
 		'smiley_descriptions',
+        'smiley_columns',
 
 		// plugins/styles/plugin.js
 		'stylesSet',
