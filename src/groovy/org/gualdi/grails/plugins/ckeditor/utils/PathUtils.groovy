@@ -1,13 +1,68 @@
+/*
+ * Copyright 2010 Stefano Gualdi
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 package org.gualdi.grails.plugins.ckeditor.utils
+
+import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.gualdi.grails.plugins.ckeditor.CkeditorConfig
 
 /**
  * @author Stefano Gualdi <stefano.gualdi@gmail.com>
  */
-
 class PathUtils {
+
+    static getBaseUrl(params) {
+        def config = ConfigurationHolder.config.ckeditor
+        def baseUrl = config?.upload?.basedir ?: CkeditorConfig.DEFAULT_BASEDIR
+        baseUrl = PathUtils.checkSlashes(baseUrl, "L- R+")
+
+        def spaceDir = PathUtils.sanitizePath(params.space)
+        if (spaceDir) {
+            baseUrl += spaceDir + File.separator
+        }
+
+        def typeName = ''
+        switch (params.type?.toLowerCase()) {
+            case 'image':
+                typeName = "Image"
+                break
+            case 'file':
+                typeName = "File"
+                break
+            case 'flash':
+                typeName = "Flash"
+                break
+        }
+
+        if (typeName) {
+            baseUrl += typeName + File.separator
+        }
+
+        return baseUrl
+    }
+
     static splitFilename(fileName) {
     	def idx = fileName.lastIndexOf(".")
-    	return  [name: fileName[0..idx - 1], ext: fileName[idx + 1..-1]]
+        def name = fileName
+        def ext = ""
+        if (idx > 0) {
+            name = fileName[0..idx - 1]
+            ext = fileName[idx + 1..-1]
+        }
+        return [name: name, ext: ext]
     }
 
     static sanitizePath(path) {
@@ -67,5 +122,39 @@ class PathUtils {
             }
         }
         return result
+    }
+
+    static normalizePath(path) {
+        def el = path.tokenize(File.separator)
+        def p = []
+        for(e in el) {
+            if (e == ".") {
+                // skip
+            }
+            else if (e == "..") {
+                p.pop()
+            }
+            else {
+                p << e
+            }
+        }
+
+        def result = "" << ""
+        if (path.startsWith(File.separator)) {
+            result << File.separator
+        }
+
+        result << p.join(File.separator)
+
+        if (path.endsWith(File.separator)) {
+            result << File.separator
+        }
+
+        return result.toString()
+    }
+
+    static isSafePath(baseDir, file) {
+        def p = normalizePath(file.absolutePath)
+        return p.startsWith(baseDir)
     }
 }

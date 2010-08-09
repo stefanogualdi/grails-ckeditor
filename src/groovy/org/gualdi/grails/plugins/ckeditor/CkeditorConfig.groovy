@@ -1,3 +1,19 @@
+/*
+ * Copyright 2010 Stefano Gualdi
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 package org.gualdi.grails.plugins.ckeditor
 
 import org.apache.log4j.Logger
@@ -22,9 +38,18 @@ class CkeditorConfig {
 	static final DEFAULT_BASEDIR = "/uploads/"
 
 	static final DEFAULT_USERSPACE = ""
+    
 	static final DEFAULT_INSTANCENAME = "editor"
 
+	static final DEFAULT_FILEBROWSER = "standard" // standard | ofm
+
+    static final DEFAULT_SHOWTHUMBS = false
+
 	static final RESOURCE_TYPES = ['link', 'image', 'flash']
+
+    static final OFM_IMAGE_EXTS = ['jpg', 'jpeg', 'gif', 'png']
+
+    static final OFM_LOCALES = ['ca', 'cs', 'da', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pl']
 
     def contextPath
     def basePath
@@ -32,6 +57,9 @@ class CkeditorConfig {
     def instanceName
     def userSpace
 	def append
+
+    def fileBrowser
+    def showThumbs
 
 	def type
 	def target
@@ -51,6 +79,9 @@ class CkeditorConfig {
 	        this.instanceName = attrs.remove("name") ?: this.DEFAULT_INSTANCENAME
 			this.userSpace = attrs.remove("userSpace") ?: this.DEFAULT_USERSPACE  
 			this.append = (attrs.remove("append") == "true")
+
+            this.fileBrowser = attrs.remove("fileBrowser") ?: this.DEFAULT_FILEBROWSER
+            this.showThumbs = (attrs.remove("showThumbs") == "true")
 
 			this.type = attrs.remove("type")
 			this.target = attrs.remove("target")
@@ -98,8 +129,17 @@ class CkeditorConfig {
         }
     }
 
-	def getBrowseUrl(type, userSpace) {
-		return "${this.basePath}/js/filebrowser/browser.html?Connector=${this.contextPath}/ckconnector?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}"	
+	def getBrowseUrl(type, userSpace, fileBrowser, showThumbs) {
+        def browserUrl
+
+        if (fileBrowser == 'ofm') {
+            browserUrl = "${this.basePath}/js/ofm/filemanager.gsp?fileConnector=${this.contextPath}/ofm/filemanager&treeConnector=${this.contextPath}/ofm/filetree&type=${type}${userSpace ? '&space='+ userSpace : ''}${showThumbs ? '&showThumbs='+ showThumbs : ''}"
+        }
+        else {
+            browserUrl = "${this.basePath}/js/filebrowser/browser.html?Connector=${this.contextPath}/ckconnector?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}"
+        }
+
+        return browserUrl
 	}
 	
 	def getUploadUrl(type, userSpace) {
@@ -121,7 +161,7 @@ class CkeditorConfig {
 			def typeForConnector = "${type == 'Link' ? 'File' : type}"
 			
             if (ckconfig?.upload?."${t}"?.browser) {
-				this.config["filebrowser${type}BrowseUrl"] = "'${getBrowseUrl(typeForConnector, this.userSpace)}'" 
+				this.config["filebrowser${type}BrowseUrl"] = "'${getBrowseUrl(typeForConnector, this.userSpace, this.fileBrowser, this.showThumbs)}'" 
             }
             if (ckconfig?.upload?."${t}"?.upload) {
 				this.config["filebrowser${type}UploadUrl"] = "'${getUploadUrl(typeForConnector, this.userSpace)}'" 

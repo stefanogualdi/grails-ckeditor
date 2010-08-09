@@ -1,6 +1,24 @@
+/*
+ * Copyright 2010 Stefano Gualdi
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ *
+ */
+
 package org.gualdi.grails.plugins.ckeditor
 
 import org.gualdi.grails.plugins.ckeditor.utils.PathUtils
+import org.gualdi.grails.plugins.ckeditor.utils.FileUtils
 
 class CkeditorController {
 
@@ -208,7 +226,7 @@ class CkeditorController {
 				def newFinalName = new File(finalDir, newName)
 
                 errorNo = this.ERROR_NOERROR
-                if (!newFinalName.exists() && isFileAllowed(newName, type)) {
+                if (!newFinalName.exists() && FileUtils.isFileAllowed(newName, type)) {
                     try {
 						if( oldFinalName.renameTo( newFinalName ) ) {
 							errorNo = this.ERROR_NOERROR
@@ -288,7 +306,7 @@ class CkeditorController {
 							newName = file.originalFilename
 
                             def f = PathUtils.splitFilename(newName)
-							if (isAllowed(f.ext, type)) {
+							if (FileUtils.isAllowed(f.ext, type)) {
                                 def fileToSave = new File(finalDir, newName)
 								if ( !overwrite ) {
 									def idx = 1
@@ -339,22 +357,5 @@ class CkeditorController {
     	}
 
     	return config.upload."${resType}".upload
-    }
-
-    private isFileAllowed( filename, type ) {
-        def f = PathUtils.splitFilename(filename)
-        return isAllowed(f.ext, type)
-    }
-
-    private isAllowed( ext, type ) {
-		def config = grailsApplication.config.ckeditor.upload
-
-		def resourceType = type.toLowerCase()
-		def fileExt = ext.toLowerCase()
-
-		def allowed = config."${resourceType}".allowed ?: []
-		def denied = config."${resourceType}".denied ?: []
-
-		return ((fileExt in allowed || allowed.empty ) && !(fileExt in denied))
     }
 }
