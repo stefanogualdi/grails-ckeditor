@@ -5,3 +5,4 @@ target
 *.iws
 docs/gapi/*
 plugin.xml
+.idea/workspace.xml

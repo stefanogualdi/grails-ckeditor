@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/grails-ckeditor.iml" filepath="$PROJECT_DIR$/grails-ckeditor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/grails-ckeditor-grailsPlugins.iml" filepath="$PROJECT_DIR$/grails-ckeditor-grailsPlugins.iml" />
+    </modules>
+  </component>
+</project>
+
