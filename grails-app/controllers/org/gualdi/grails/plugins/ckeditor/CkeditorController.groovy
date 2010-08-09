@@ -113,7 +113,7 @@ class CkeditorController {
 							}
 						}
 						Files {
-							finalDir.eachFile {
+							finalDir.listFiles().sort().each {
 								if (!it.directory) {
 									'File'(name: it.name, size: it.length() / 1024)
 								}
