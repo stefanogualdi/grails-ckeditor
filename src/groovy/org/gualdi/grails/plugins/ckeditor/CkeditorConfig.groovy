@@ -137,17 +137,17 @@ class CkeditorConfig {
         def browserUrl
 
         if (fileBrowser == 'ofm') {
-            browserUrl = "${this.basePath}/js/ofm/filemanager.gsp?fileConnector=${this.contextPath}/ofm/filemanager&treeConnector=${this.contextPath}/ofm/filetree&type=${type}${userSpace ? '&space='+ userSpace : ''}${showThumbs ? '&showThumbs='+ showThumbs : ''}"
+            browserUrl = "${this.basePath}/js/ofm/filemanager.gsp?fileConnector=${this.contextPath}/ck/ofm/filemanager&treeConnector=${this.contextPath}/ck/ofm/filetree&type=${type}${userSpace ? '&space='+ userSpace : ''}${showThumbs ? '&showThumbs='+ showThumbs : ''}"
         }
         else {
-            browserUrl = "${this.basePath}/js/filebrowser/browser.html?Connector=${this.contextPath}/ckconnector?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}"
+            browserUrl = "${this.basePath}/js/filebrowser/browser.html?Connector=${this.contextPath}/ck/standard/filemanager?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}"
         }
 
         return browserUrl
 	}
 	
 	def getUploadUrl(type, userSpace) {
-		return "${this.contextPath}/ckuploader?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}" 
+		return "${this.contextPath}/ck/standard/uploader?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}" 
 	}
 
     def getConfiguration() {

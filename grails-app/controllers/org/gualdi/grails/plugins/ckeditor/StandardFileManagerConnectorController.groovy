@@ -20,7 +20,7 @@ package org.gualdi.grails.plugins.ckeditor
 import org.gualdi.grails.plugins.ckeditor.utils.PathUtils
 import org.gualdi.grails.plugins.ckeditor.utils.FileUtils
 
-class CkeditorController {
+class StandardFileManagerConnectorController {
 
 	// Generic errors
 	static final ERROR_NOERROR = 0

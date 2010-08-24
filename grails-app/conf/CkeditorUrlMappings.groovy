@@ -1,11 +1,13 @@
 class CkeditorUrlMappings {
     static mappings = {
         // Legacy file manager
-    	"/ckconnector" ( controller: "ckeditor", action: "connector" )
-    	"/ckuploader" ( controller: "ckeditor", action: "uploader" )
+    	"/ck/standard/filemanager" (controller: "standardFileManagerConnector", action: "connector")
+
+        // File uploader
+    	"/ck/standard/uploader" (controller: "standardFileManagerConnector", action: "uploader")
 
         // Open file manager
-        "/ofm/filemanager" (controller: "openFileManagerConnector", action: "fileManager")
-        "/ofm/filetree" (controller: "openFileManagerConnector", action: "fileTree")
+        "/ck/ofm/filemanager" (controller: "openFileManagerConnector", action: "fileManager")
+        "/ck/ofm/filetree" (controller: "openFileManagerConnector", action: "fileTree")
     }
 }
