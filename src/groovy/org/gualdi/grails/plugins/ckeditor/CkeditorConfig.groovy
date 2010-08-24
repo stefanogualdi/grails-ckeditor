@@ -231,172 +231,177 @@ class CkeditorConfig {
 		'width',
 		'baseFloatZIndex',
 
-		// plugins/basicstyles/plugin.js
-		'coreStyles_bold',
-		'coreStyles_italic',
-		'coreStyles_underline',
-		'coreStyles_strike',
-		'coreStyles_subscript',
-		'coreStyles_superscript',
+        // plugins/autogrow/plugin.js
+        'autoGrow_minHeight',
+        'autoGrow_maxHeight',
 
-		// plugins/colorbutton/plugin.js
-		'colorButton_enableMore',
-		'colorButton_colors',
-		'colorButton_foreStyle',
-		'colorButton_backStyle',
+        // plugins/basicstyles/plugin.js
+        'coreStyles_bold',
+        'coreStyles_italic',
+        'coreStyles_underline',
+        'coreStyles_strike',
+        'coreStyles_subscript',
+        'coreStyles_superscript',
 
-		// plugins/contextmenu/plugin.js
-		'browserContextMenuOnCtrl',
+        // plugins/colorbutton/plugin.js
+        'colorButton_enableMore',
+        'colorButton_colors',
+        'colorButton_foreStyle',
+        'colorButton_backStyle',
 
-		// plugins/dialog/plugin.js
-		'dialog_backgroundCoverColor',
-		'dialog_backgroundCoverOpacity',
-		'dialog_startupFocusTab',
-		'dialog_magnetDistance',
+        // plugins/contextmenu/plugin.js
+        'browserContextMenuOnCtrl',
 
-		// plugins/editingblock/plugin.js
-		'startupMode',
-		'startupFocus',
-		'editingBlock',
+        // plugins/dialog/plugin.js
+        'dialog_backgroundCoverColor',
+        'dialog_backgroundCoverOpacity',
+        'dialog_startupFocusTab',
+        'dialog_magnetDistance',
 
-		// plugins/entities/plugin.js
-		'entities',
-		'entities_latin',
-		'entities_greek',
-		'entities_processNumerical',
-		'entities_additional',
+        // plugins/editingblock/plugin.js
+        'startupMode',
+        'startupFocus',
+        'editingBlock',
 
-		// plugins/filebrowser/plugin.js
-		'filebrowserBrowseUrl',
-		'filebrowserUploadUrl',
-		'filebrowserImageBrowseUrl',
-		'filebrowserFlashBrowseUrl',
-		'filebrowserImageUploadUrl',
-		'filebrowserFlashUploadUrl',
-		'filebrowserImageBrowseLinkUrl',
+        // plugins/entities/plugin.js
+        'entities',
+        'entities_latin',
+        'entities_greek',
+        'entities_processNumerical',
+        'entities_additional',
 
-		// plugins/find/plugin.js
-		'find_highlight',
+        // plugins/filebrowser/plugin.js
+        'filebrowserBrowseUrl',
+        'filebrowserUploadUrl',
+        'filebrowserImageBrowseUrl',
+        'filebrowserFlashBrowseUrl',
+        'filebrowserImageUploadUrl',
+        'filebrowserFlashUploadUrl',
+        'filebrowserImageBrowseLinkUrl',
 
-		// plugins/font/plugin.js
-		'font_names',
-		'font_defaultLabel',
-		'font_style',
-		'fontSize_sizes',
-		'fontSize_defaultLabel',
-		'fontSize_style',
+        // plugins/find/plugin.js
+        'find_highlight',
 
-		// plugins/format/plugin.js
-		'format_tags',
-		'format_p',
-		'format_div',
-		'format_pre',
-		'format_address',
-		'format_h1',
-		'format_h2',
-		'format_h3',
-		'format_h4',
-		'format_h5',
-		'format_h6',
+        // plugins/font/plugin.js
+        'font_names',
+        'font_defaultLabel',
+        'font_style',
+        'fontSize_sizes',
+        'fontSize_defaultLabel',
+        'fontSize_style',
 
-		// plugins/htmldataprocessor/plugin.js
-		'forceSimpleAmpersand',
+        // plugins/format/plugin.js
+        'format_tags',
+        'format_p',
+        'format_div',
+        'format_pre',
+        'format_address',
+        'format_h1',
+        'format_h2',
+        'format_h3',
+        'format_h4',
+        'format_h5',
+        'format_h6',
 
-		// plugins/image/plugin.js
-		'image_removeLinkByEmptyURL',
-		'image_previewText',
+        // plugins/htmldataprocessor/plugin.js
+        'forceSimpleAmpersand',
 
-		// plugins/indent/plugin.js
-		'indentOffset',
-		'indentUnit',
-		'indentClasses',
+        // plugins/image/plugin.js
+        'image_removeLinkByEmptyURL',
+        'image_previewText',
 
-		// plugins/keystrokes/plugin.js
-		'blockedKeystrokes',
-		'keystrokes',
+        // plugins/indent/plugin.js
+        'indentOffset',
+        'indentUnit',
+        'indentClasses',
 
-		// plugins/menu/plugin.js
-		'menu_subMenuDelay',
-		'menu_groups',
+        // plugins/keystrokes/plugin.js
+        'blockedKeystrokes',
+        'keystrokes',
 
-		// plugins/newpage/plugin.js
-		'newpage_html',
+        // plugins/menu/plugin.js
+        'menu_subMenuDelay',
+        'menu_groups',
 
-		// plugins/pastefromword/plugin.js
-		'pasteFromWordPromptCleanup',
-		'pasteFromWordCleanupFile',
+        // plugins/newpage/plugin.js
+        'newpage_html',
 
-		// plugins/pastetext/plugin.js
-		'forcePasteAsPlainText',
+        // plugins/pastefromword/plugin.js
+        'pasteFromWordPromptCleanup',
+        'pasteFromWordCleanupFile',
 
-		// plugins/removeformat/plugin.js
-		'removeFormatTags',
-		'removeFormatAttributes',
+        // plugins/pastetext/plugin.js
+        'forcePasteAsPlainText',
 
-		// plugins/resize/plugin.js
-		'resize_minWidth',
-		'resize_minHeight',
-		'resize_maxWidth',
-		'resize_maxHeight',
-		'resize_enabled',
-		'resize_dir',
+        // plugins/removeformat/plugin.js
+        'removeFormatTags',
+        'removeFormatAttributes',
 
-		// plugins/scayt/plugin.js
-		'scayt_autoStartup',
-		'scayt_maxSuggestions',
-		'scayt_customerid',
-		'scayt_moreSuggestions',
-		'scayt_contextCommands',
-		'scayt_sLang',
-		'scayt_uiTabs',
-		'scayt_srcUrl',
-		'scayt_customDictionaryIds',
-		'scayt_userDictionaryName',
-		'scayt_contextMenuOntop',
-		'scayt_contextMenuItemsOrder',
+        // plugins/resize/plugin.js
+        'resize_minWidth',
+        'resize_minHeight',
+        'resize_maxWidth',
+        'resize_maxHeight',
+        'resize_enabled',
+        'resize_dir',
 
-		// plugins/showblocks/plugin.js
-		'startupOutlineBlocks',
+        // plugins/scayt/plugin.js
+        'scayt_autoStartup',
+        'scayt_maxSuggestions',
+        'scayt_customerid',
+        'scayt_moreSuggestions',
+        'scayt_contextCommands',
+        'scayt_sLang',
+        'scayt_uiTabs',
+        'scayt_srcUrl',
+        'scayt_customDictionaryIds',
+        'scayt_userDictionaryName',
+        'scayt_contextMenuOntop',
+        'scayt_contextMenuItemsOrder',
 
-		// plugins/showborders/plugin.js
-		'startupShowBorders',
+        // plugins/showblocks/plugin.js
+        'startupOutlineBlocks',
 
-		// plugins/smiley/plugin.js
-		'smiley_path',
-		'smiley_images',
-		'smiley_descriptions',
+        // plugins/showborders/plugin.js
+        'startupShowBorders',
+
+        // plugins/smiley/plugin.js
+        'smiley_path',
+        'smiley_images',
+        'smiley_descriptions',
         'smiley_columns',
 
-		// plugins/styles/plugin.js
-		'stylesSet',
+        // plugins/styles/plugin.js
+        'stylesSet',
 
-		// plugins/tab/plugin.js
-		'tabSpaces',
+        // plugins/tab/plugin.js
+        'tabSpaces',
+        'enableTabKeyTools',
 
-		// plugins/templates/plugin.js
-		'templates',
-		'templates_files',
-		'templates_replaceContent',
+        // plugins/templates/plugin.js
+        'templates',
+        'templates_files',
+        'templates_replaceContent',
 
-		// plugins/toolbar/plugin.js
-		'toolbarLocation',
-		'toolbar',
-		'toolbar_Basic',
-		'toolbar_Full',
-		'toolbarCanCollapse',
-		'toolbarStartupExpanded',
+        // plugins/toolbar/plugin.js
+        'toolbarLocation',
+        'toolbar',
+        'toolbar_Basic',
+        'toolbar_Full',
+        'toolbarCanCollapse',
+        'toolbarStartupExpanded',
 
-		// plugins/undo/plugin.js
-		'undoStackSize',
+        // plugins/undo/plugin.js
+        'undoStackSize',
 
-		// plugins/wsc/plugin.js
-		'wsc_customerId',
-		'wsc_customLoaderScript',
+        // plugins/wsc/plugin.js
+        'wsc_customerId',
+        'wsc_customLoaderScript',
 
-		// plugins/wysiwygarea/plugin.js
-		'disableObjectResizing',
-		'disableNativeTableHandles',
-		'disableNativeSpellChecker',
-		'ignoreEmptyParagraph'
+        // plugins/wysiwygarea/plugin.js
+        'disableObjectResizing',
+        'disableNativeTableHandles',
+        'disableNativeSpellChecker',
+        'ignoreEmptyParagraph'
     ]
 }
