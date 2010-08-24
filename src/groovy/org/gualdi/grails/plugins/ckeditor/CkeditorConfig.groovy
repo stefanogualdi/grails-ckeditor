@@ -71,12 +71,14 @@ class CkeditorConfig {
 	def localConfig
 
     CkeditorConfig(request, attrs = null) {
+        def cfg = ConfigurationHolder.config
+
 		this.contextPath = request.contextPath
 		this.basePath = PluginUtils.getPluginResourcePath(this.contextPath, this.PLUGIN_NAME)
 
-        this.defaultFileBrowser = ConfigurationHolder.config.ckeditor?.defaultFileBrowser ?: this.DEFAULT_FILEBROWSER
+        this.defaultFileBrowser = cfg.ckeditor?.defaultFileBrowser ?: this.DEFAULT_FILEBROWSER
 
-        this.skipAllowedItemsCheck = ConfigurationHolder.config.ckeditor?.skipAllowedItemsCheck ?: false
+        this.skipAllowedItemsCheck = cfg.ckeditor?.skipAllowedItemsCheck ?: false
 
 		this.localConfig = [:]
 		
