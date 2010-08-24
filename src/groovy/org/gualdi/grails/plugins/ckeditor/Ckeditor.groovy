@@ -17,9 +17,6 @@
 package org.gualdi.grails.plugins.ckeditor
 
 import org.apache.log4j.Logger
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-import org.apache.commons.lang.StringUtils
-import org.gualdi.grails.plugins.ckeditor.utils.PluginUtils
 
 /**
  * @author Stefano Gualdi <stefano.gualdi@gmail.com>

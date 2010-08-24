@@ -16,8 +16,6 @@
 
 package org.gualdi.grails.plugins.ckeditor
 
-import org.codehaus.groovy.grails.plugins.PluginManagerHolder
-
 /**
  * @author Stefano Gualdi <stefano.gualdi@gmail.com>
  */

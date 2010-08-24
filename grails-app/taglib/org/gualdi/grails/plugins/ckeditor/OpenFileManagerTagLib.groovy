@@ -23,9 +23,9 @@ class OpenFileManagerTagLib {
     static namespace = "ofm"
 
     def baseUrl = { attrs ->
-        def baseUrl = PathUtils.getBaseUrl([space: attrs.space, type: attrs.type])
-        baseUrl = PathUtils.checkSlashes(baseUrl, "R-")
-        out << "${request.contextPath}/${baseUrl}"
+        def bUrl = PathUtils.getBaseUrl([space: attrs.space, type: attrs.type])
+        bUrl = PathUtils.checkSlashes(bUrl, "R-")
+        out << "${request.contextPath}/${bUrl}"
     }
 
     def currentLocale = { attrs ->
