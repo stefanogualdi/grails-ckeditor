@@ -18,6 +18,7 @@ package org.gualdi.grails.plugins.ckeditor.utils
 
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.gualdi.grails.plugins.ckeditor.CkeditorConfig
+import org.apache.commons.lang.WordUtils
 
 /**
  * @author Stefano Gualdi <stefano.gualdi@gmail.com>
@@ -34,20 +35,9 @@ class PathUtils {
             baseUrl += spaceDir + File.separator
         }
 
-        def typeName = ''
-        switch (params.type?.toLowerCase()) {
-            case 'image':
-                typeName = "Image"
-                break
-            case 'file':
-                typeName = "File"
-                break
-            case 'flash':
-                typeName = "Flash"
-                break
-        }
-
+        def typeName = PathUtils.sanitizePath(params.type?.toLowerCase())
         if (typeName) {
+            typeName = WordUtils.capitalize(typeName)
             baseUrl += typeName + File.separator
         }
 
