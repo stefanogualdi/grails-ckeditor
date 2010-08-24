@@ -61,6 +61,7 @@ class CkeditorConfig {
 	def append
 
     def fileBrowser
+    def defaultFileBrowser
     def showThumbs
 
 	def type
@@ -73,6 +74,8 @@ class CkeditorConfig {
 		this.contextPath = request.contextPath
 		this.basePath = PluginUtils.getPluginResourcePath(this.contextPath, this.PLUGIN_NAME)
 
+        this.defaultFileBrowser = ConfigurationHolder.config.ckeditor?.defaultFileBrowser ?: this.DEFAULT_FILEBROWSER
+
         this.skipAllowedItemsCheck = ConfigurationHolder.config.ckeditor?.skipAllowedItemsCheck ?: false
 
 		this.localConfig = [:]
@@ -84,7 +87,7 @@ class CkeditorConfig {
 			this.userSpace = attrs.remove("userSpace") ?: this.DEFAULT_USERSPACE  
 			this.append = (attrs.remove("append") == "true")
 
-            this.fileBrowser = attrs.remove("fileBrowser") ?: this.DEFAULT_FILEBROWSER
+            this.fileBrowser = attrs.remove("fileBrowser") ?: this.defaultFileBrowser
             this.showThumbs = (attrs.remove("showThumbs") == "true")
 
 			this.type = attrs.remove("type")
