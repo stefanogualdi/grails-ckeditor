@@ -21,7 +21,7 @@ import org.gualdi.grails.plugins.ckeditor.utils.PluginUtils
 import org.gualdi.grails.plugins.ckeditor.utils.PathUtils
 import org.gualdi.grails.plugins.ckeditor.exceptions.UnknownOptionException
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
-import org.apache.commons.lang.StringUtils
+import org.apache.commons.lang.WordUtils
 
 /**
  * @author Stefano Gualdi <stefano.gualdi@gmail.com>
@@ -164,7 +164,7 @@ class CkeditorConfig {
 
 		// Collect browser settings per media type
         this.resourceTypes.each { t ->
-            def type = StringUtils.capitalize(t)
+            def type = WordUtils.capitalize(t)
 			def typeForConnector = "${type == 'Link' ? 'File' : type}"
 			
             if (ckconfig?.upload?."${t}"?.browser) {
