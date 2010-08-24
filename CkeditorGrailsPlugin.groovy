@@ -1,6 +1,6 @@
 /*
 *
-* Copyright 2009 Stefano Gualdi
+* Copyright 2009-2010 Stefano Gualdi
 *
 *   Licensed under the Apache License, Version 2.0 (the "License");
 *   you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 
 class CkeditorGrailsPlugin {
     // the plugin version
-    def version = "3.3.2"
+    def version = "3.4.0"
 
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.1 > *"
