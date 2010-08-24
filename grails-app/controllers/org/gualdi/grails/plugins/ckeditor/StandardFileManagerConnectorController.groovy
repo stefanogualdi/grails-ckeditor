@@ -55,8 +55,6 @@ class StandardFileManagerConnectorController {
 
         def spaceDir = PathUtils.sanitizePath(userSpace)
         spaceDir = PathUtils.checkSlashes(spaceDir, "L- R+", true)
-
-        log.debug params
         
 		def type = params.Type
 		def currentPath = "${baseDir}${spaceDir}${type}${currentFolder}"
