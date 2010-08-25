@@ -151,7 +151,12 @@ var formatBytes = function(bytes){
 // function to retrieve GET params
 $.urlParam = function(name){
 	var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-	return results[1] || 0;
+    if (results != null) {
+	    return results[1] || 0;
+    }
+    else {
+        return 0;
+    }
 }
 
 
@@ -170,21 +175,20 @@ var selectItem = function(data){
 		if($.urlParam('CKEditor')){
 			// use CKEditor 3.0 integration method
 			window.opener.CKEDITOR.tools.callFunction($.urlParam('CKEditorFuncNum'), webRoot + data['Path']);
-		} else {
-			// use FCKEditor 2.0 integration method
-			if(data['Properties']['Width'] != ''){
-				var p = webRoot + data['Path'];
-				var w = data['Properties']['Width'];
-				var h = data['Properties']['Height'];			
-				window.opener.SetUrl(p,w,h);
-			} else {
-				window.opener.SetUrl(webRoot + data['Path']);
-			}		
 		}
+        else {
+            try {
+                window.opener.ckeditorFileBrowserItemSelected(webRoot + data['Path']);
+            }
+            catch (e) {
+                // $.prompt(lg.fck_select_integration + ' -> ' + webRoot + data['Path']);
+                // Ignored
+            }
+        }
 
 		window.close();
 	} else {
-		$.prompt(lg.fck_select_integration + ' -> ' + webRoot + data['Path']);
+        $.prompt(lg.fck_select_integration + ' -> ' + webRoot + data['Path']);
 	}
 }
 
