@@ -34,10 +34,10 @@ class Ckeditor {
 		this.initialValue = value
     }
 
-    def renderResources() {
+    def renderResources(minified) {
         StringBuffer outb = new StringBuffer()
 
-        outb << """<script type="text/javascript" src="${this.config.basePath}/js/ckeditor/ckeditor.js"></script>"""
+        outb << """<script type="text/javascript" src="${this.config.basePath}/js/ckeditor/ckeditor${minified ? '' : '_source'}.js"></script>"""
 
         return outb.toString()
     }
