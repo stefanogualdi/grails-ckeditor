@@ -28,7 +28,7 @@ class CkeditorTagLib {
         def minified = attrs?.minified ? attrs?.minified == 'true' : true
         attrs.remove('minified')
         def editor = new Ckeditor(request, attrs)
-        out << editor.renderResources()
+        out << editor.renderResources(minified)
     }
 
 	def config = { attrs, body ->
