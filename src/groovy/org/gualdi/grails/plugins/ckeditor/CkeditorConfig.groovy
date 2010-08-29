@@ -32,8 +32,10 @@ class CkeditorConfig {
 	private final Logger log = Logger.getLogger(getClass())
 
     static final REQUEST_CONFIG = "ckeditor.plugin.config"
-	
+
 	static final PLUGIN_NAME = "ckeditor"
+
+    static final DEFAULT_CONNECTORS_PREFIX = "ck"
 
 	static final DEFAULT_BASEDIR = "/uploads/"
 
@@ -53,6 +55,8 @@ class CkeditorConfig {
 
     def contextPath
     def basePath
+
+    def connectorsPrefix
 
     def skipAllowedItemsCheck
 
@@ -75,6 +79,8 @@ class CkeditorConfig {
 
 		this.contextPath = request.contextPath
 		this.basePath = PluginUtils.getPluginResourcePath(this.contextPath, this.PLUGIN_NAME)
+
+        this.connectorsPrefix = getConnectorsPrefix()
 
         this.defaultFileBrowser = cfg.ckeditor?.defaultFileBrowser ?: this.DEFAULT_FILEBROWSER
 
@@ -140,19 +146,19 @@ class CkeditorConfig {
 
 	def getBrowseUrl(type, userSpace, fileBrowser, showThumbs) {
         def browserUrl
-
+        def prefix = getConnectorsPrefix()
         if (fileBrowser == 'ofm') {
-            browserUrl = "${this.basePath}/js/ofm/filemanager.gsp?fileConnector=${this.contextPath}/ck/ofm/filemanager&treeConnector=${this.contextPath}/ck/ofm/filetree&type=${type}${userSpace ? '&space='+ userSpace : ''}${showThumbs ? '&showThumbs='+ showThumbs : ''}"
+            browserUrl = "${this.basePath}/js/ofm/filemanager.gsp?fileConnector=${this.contextPath}/${prefix}/ofm/filemanager&treeConnector=${this.contextPath}/${prefix}/ofm/filetree&type=${type}${userSpace ? '&space='+ userSpace : ''}${showThumbs ? '&showThumbs='+ showThumbs : ''}"
         }
         else {
-            browserUrl = "${this.basePath}/js/filebrowser/browser.html?Connector=${this.contextPath}/ck/standard/filemanager?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}"
+            browserUrl = "${this.basePath}/js/filebrowser/browser.html?Connector=${this.contextPath}/${prefix}/standard/filemanager?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}"
         }
 
         return browserUrl
 	}
 	
 	def getUploadUrl(type, userSpace) {
-		return "${this.contextPath}/ck/standard/uploader?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}" 
+		return "${this.contextPath}/${getConnectorsPrefix()}/standard/uploader?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}" 
 	}
 
     def getConfiguration() {
@@ -200,6 +206,11 @@ class CkeditorConfig {
 
     static getResourceTypes() {
         return RESOURCE_TYPES
+    }
+
+    static getConnectorsPrefix() {
+        def prefix = ConfigurationHolder.config.ckeditor?.connectors?.prefix ?: this.DEFAULT_CONNECTORS_PREFIX
+        return PathUtils.checkSlashes(prefix, "L- R-", true)
     }
 
     // See: http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html

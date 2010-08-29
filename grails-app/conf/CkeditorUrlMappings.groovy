@@ -1,13 +1,19 @@
+import org.gualdi.grails.plugins.ckeditor.CkeditorConfig
+
 class CkeditorUrlMappings {
+
     static mappings = {
+
+        def prefix = "/${CkeditorConfig.getConnectorsPrefix()}"
+
         // Legacy file manager
-    	"/ck/standard/filemanager" (controller: "standardFileManagerConnector", action: "connector")
+        delegate.(prefix + "/standard/filemanager") (controller: "standardFileManagerConnector", action: "connector")
 
         // File uploader
-    	"/ck/standard/uploader" (controller: "standardFileManagerConnector", action: "uploader")
+        delegate.(prefix + "/standard/uploader") (controller: "standardFileManagerConnector", action: "uploader")
 
         // Open file manager
-        "/ck/ofm/filemanager" (controller: "openFileManagerConnector", action: "fileManager")
-        "/ck/ofm/filetree" (controller: "openFileManagerConnector", action: "fileTree")
+        delegate.(prefix + "/ofm/filemanager") (controller: "openFileManagerConnector", action: "fileManager")
+        delegate.(prefix + "/ofm/filetree") (controller: "openFileManagerConnector", action: "fileTree")
     }
 }
