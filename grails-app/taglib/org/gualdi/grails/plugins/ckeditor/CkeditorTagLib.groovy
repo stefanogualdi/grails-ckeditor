@@ -16,6 +16,8 @@
 
 package org.gualdi.grails.plugins.ckeditor
 
+import grails.util.Environment
+
 /**
  * @author Stefano Gualdi <stefano.gualdi@gmail.com>
  */
@@ -25,8 +27,13 @@ class CkeditorTagLib {
     static namespace = "ckeditor"
 
     def resources = { attrs ->
-        def minified = attrs?.minified ? attrs?.minified == 'true' : true
+        // In production always use minified version 
+        def minified = true
+        if (Environment.current != Environment.PRODUCTION) {
+            minified = attrs?.minified ? attrs?.minified == 'true' : true
+        }
         attrs.remove('minified')
+        
         def editor = new Ckeditor(request, attrs)
         out << editor.renderResources(minified)
     }
