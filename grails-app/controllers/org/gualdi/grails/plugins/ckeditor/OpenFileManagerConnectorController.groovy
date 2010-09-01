@@ -253,7 +253,7 @@ class OpenFileManagerConnectorController {
         def resp
         if (PathUtils.isSafePath(baseDir, newFile)) {
             if (!newFile.exists()) {
-                if (FileUtils.isFileAllowed(newName, type)) {
+                if (FileUtils.isFileAllowed(newName, type) || oldFile.isDirectory()) {
                     try {
                         if(oldFile.renameTo(newFile)) {
                             def tmpJSON = [
