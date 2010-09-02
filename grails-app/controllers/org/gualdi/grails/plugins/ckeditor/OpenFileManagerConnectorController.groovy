@@ -250,16 +250,26 @@ class OpenFileManagerConnectorController {
         def oldFile = new File(baseDir + PathUtils.checkSlashes(oldName, "L-"))
         def newFile = new File(oldFile.parent, newName)
 
+        def isDirectory = oldFile.isDirectory()
+
+        def path
+        if (isDirectory) {
+            path = PathUtils.getFilePath(PathUtils.checkSlashes(oldName, "R-"))
+        }
+        else {
+            path = PathUtils.getFilePath(oldName)
+        }
+
         def resp
         if (PathUtils.isSafePath(baseDir, newFile)) {
             if (!newFile.exists()) {
-                if (FileUtils.isFileAllowed(newName, type) || oldFile.isDirectory()) {
+                if (isDirectory || FileUtils.isFileAllowed(newName, type)) {
                     try {
                         if(oldFile.renameTo(newFile)) {
                             def tmpJSON = [
-                                'Old Path' : oldFile.parent,
+                                'Old Path' : oldName,
                                 'Old Name' : oldFile.name,
-                                'New Path' : newFile.parent,
+                                'New Path' : path + newFile.name + (isDirectory ? File.separator : ''),
                                 'New Name' : newFile.name,
                                 'Error' : '',
                                 'Code' : 0
@@ -348,6 +358,10 @@ class OpenFileManagerConnectorController {
             resp = error('ofm.noPermissions', 'No permissions')    
         }
 
+        log.debug "***************************************"
+        log.debug resp
+        log.debug "***************************************"
+
         return resp
     }
 
@@ -426,6 +440,10 @@ class OpenFileManagerConnectorController {
                 resp = error('ofm.noPermissions', 'No permissions')
             }
         }
+
+        log.debug "***************************************"
+        log.debug resp
+        log.debug "***************************************"
 
         return resp
     }

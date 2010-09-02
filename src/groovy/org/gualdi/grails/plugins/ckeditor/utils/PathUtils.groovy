@@ -55,6 +55,13 @@ class PathUtils {
         return [name: name, ext: ext]
     }
 
+    static getFilePath(fileName) {
+    	def idx = fileName.lastIndexOf(File.separator)
+        def path = fileName[0..idx]
+
+        return path
+    }
+
     static sanitizePath(path) {
         def result = ""
         if (path) {
