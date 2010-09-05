@@ -376,7 +376,8 @@ var addFolder = function(parent, name){
 	if(parent != fileRoot){
 		parentNode.next('ul').prepend(newNode).prev('a').click().click();
 	} else {
-		$('#filetree > ul').append(newNode);
+		// $('#filetree > ul').append(newNode);
+        setupFileTree(); // ugly hack!!!
 	}
 	
 	$.prompt(lg.successful_added_folder);
