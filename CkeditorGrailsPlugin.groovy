@@ -18,7 +18,7 @@
 
 class CkeditorGrailsPlugin {
     // the plugin version
-    def version = "3.4.0.1-SNAPSHOT"
+    def version = "3.4.0.1"
 
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.1 > *"
