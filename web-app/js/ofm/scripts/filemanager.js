@@ -315,6 +315,10 @@ var addNode = function(path, name){
 	parentNode.find('ul').prepend(newNode);
 	thisNode.click().click();
 
+    if (path == fileRoot) {
+        setupFileTree(); // ugly hack!!!
+    }
+
 	getFolderInfo(path);
 
 	$.prompt(lg.successful_added_file);
