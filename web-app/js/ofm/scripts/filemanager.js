@@ -349,7 +349,7 @@ var removeNode = function(path){
             .fadeOut('slow', function(){ 
                 $(this).remove();
         });
-    } 
+    }
     // list case
     else {
         $('table#contents')
@@ -359,10 +359,10 @@ var removeNode = function(path){
                 $(this).remove();
         });
     }
-    // remove fileinfo
-		$('#fileinfo').fadeOut('slow', function(){
-			$(this).empty().show();
-		});
+
+    if($('#preview')[0]) {
+        getFolderInfo($('#currentpath').val());
+    }
 }
 
 
@@ -404,10 +404,11 @@ var getDetailView = function(path){
 // Binds contextual menus to items in list and grid views.
 var setMenus = function(action, path){
 	$.getJSON(fileConnector + '?mode=getinfo&path=' + path + '&space=' + space + '&type=' + type, function(data){
+        var item;
 		if($('#fileinfo').data('view') == 'grid'){
-			var item = $('#fileinfo').find('img[alt="' + data['Path'] + '"]').parent();
+			item = $('#fileinfo').find('img[alt="' + data['Path'] + '"]').parent();
 		} else {
-			var item = $('#fileinfo').find('td[title="' + data['Path'] + '"]').parent();
+			item = $('#fileinfo').find('td[title="' + data['Path'] + '"]').parent();
 		}
 	
 		switch(action){
