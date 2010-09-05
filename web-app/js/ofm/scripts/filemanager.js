@@ -601,6 +601,27 @@ var getFolderInfo = function(path){
   Initialization
 ---------------------------------------------------------*/
 
+function setupFileTree() {
+	// Creates file tree.
+    $('#filetree').fileTree({
+		root: fileRoot,
+		script: treeConnector + '?space=' + space + '&type=' + type,
+		multiFolder: false,
+		folderCallback: function(path){ getFolderInfo(path); },
+		after: function(data){
+			$('#filetree').find('li a').contextMenu(
+				{ menu: 'itemOptions' },
+				function(action, el, pos){
+					var path = $(el).attr('rel');
+					setMenus(action, path);
+				}
+			);
+		}
+	}, function(file){
+		getFileInfo(file);
+	});
+}
+
 $(function(){
 	// Adjust layout.
 	setDimensions();
@@ -652,23 +673,7 @@ $(function(){
 	});
 
 	// Creates file tree.
-    $('#filetree').fileTree({
-		root: fileRoot,
-		script: treeConnector + '?space=' + space + '&type=' + type,
-		multiFolder: false,
-		folderCallback: function(path){ getFolderInfo(path); },
-		after: function(data){
-			$('#filetree').find('li a').contextMenu(
-				{ menu: 'itemOptions' }, 
-				function(action, el, pos){
-					var path = $(el).attr('rel');
-					setMenus(action, path);
-				}
-			);
-		}
-	}, function(file){
-		getFileInfo(file);
-	});
+    setupFileTree();
 
     // Initial folder view
     getFolderInfo($('#currentpath').val());
