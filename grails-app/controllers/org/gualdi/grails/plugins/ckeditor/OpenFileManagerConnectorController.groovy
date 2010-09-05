@@ -78,6 +78,7 @@ class OpenFileManagerConnectorController {
             resp << dirs.join('\n')
             resp << files.join('\n')
             resp << "</ul>"
+
             render resp
         }
         else {
@@ -358,10 +359,6 @@ class OpenFileManagerConnectorController {
             resp = error('ofm.noPermissions', 'No permissions')    
         }
 
-        log.debug "***************************************"
-        log.debug resp
-        log.debug "***************************************"
-
         return resp
     }
 
@@ -410,7 +407,7 @@ class OpenFileManagerConnectorController {
                 resp = error('ofm.invalidFileType', 'Invalid file type', true)
             }
         }
-        
+
         return resp
     }
     
@@ -440,10 +437,6 @@ class OpenFileManagerConnectorController {
                 resp = error('ofm.noPermissions', 'No permissions')
             }
         }
-
-        log.debug "***************************************"
-        log.debug resp
-        log.debug "***************************************"
 
         return resp
     }
