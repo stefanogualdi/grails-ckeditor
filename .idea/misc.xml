@@ -80,9 +80,15 @@
         <content-type name="Java" enabled="true" />
         <content-type name="SQL" enabled="true" />
         <content-type name="PL/SQL" enabled="true" />
+        <content-type name="JPA QL" enabled="true" />
         <content-type name="JavaScript" enabled="true" />
         <content-type name="PHP" enabled="true" />
         <content-type name="JSP" enabled="true" />
+        <content-type name="JSPx" enabled="true" />
+        <content-type name="Groovy" enabled="true" />
+        <content-type name="GSP" enabled="true" />
+        <content-type name="AIDL" enabled="true" />
+        <content-type name="YAML" enabled="true" />
       </lob-content-types>
     </dataset-editor-settings>
     <code-completion-settings>
@@ -230,7 +236,16 @@
         <sorting-element type="RESERVED_WORD" id="parameter" />
       </sorting>
     </code-completion-settings>
-    <execution-engine-settings />
+    <execution-engine-settings>
+      <statement-execution>
+        <fetch-block-size value="100" />
+        <execution-timeout value="20" />
+      </statement-execution>
+      <compiler>
+        <compile-type value="NORMAL" />
+        <always-show-controls value="false" />
+      </compiler>
+    </execution-engine-settings>
     <ddl-file-settings>
       <extensions>
         <mapping file-type-id="VIEW" extensions="vw" />
