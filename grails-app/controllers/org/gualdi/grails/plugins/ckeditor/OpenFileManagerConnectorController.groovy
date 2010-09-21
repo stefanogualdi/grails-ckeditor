@@ -197,7 +197,7 @@ class OpenFileManagerConnectorController {
         def fileType
         def properties
         if (file.isDirectory()){
-            path = PathUtils.checkSlashes(path, "L+ R+")
+            path = PathUtils.checkSlashes(path, "L+ R+", true)
             preview = g.resource(dir: "js/ofm/images/fileicons", file: "_Open.png", plugin: "ckeditor")
             fileType = 'dir'
             properties = [
@@ -270,7 +270,7 @@ class OpenFileManagerConnectorController {
                             def tmpJSON = [
                                 'Old Path' : oldName,
                                 'Old Name' : oldFile.name,
-                                'New Path' : path + newFile.name + (isDirectory ? File.separator : ''),
+                                'New Path' : path + newFile.name + (isDirectory ? '/' : ''),
                                 'New Name' : newFile.name,
                                 'Error' : '',
                                 'Code' : 0
