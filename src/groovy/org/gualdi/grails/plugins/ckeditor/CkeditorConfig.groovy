@@ -209,7 +209,7 @@ class CkeditorConfig {
     }
 
     static getConnectorsPrefix() {
-        def prefix = ConfigurationHolder.config.ckeditor?.connectors?.prefix ?: this.DEFAULT_CONNECTORS_PREFIX
+        def prefix = ConfigurationHolder.config.ckeditor?.connectors?.prefix ?: DEFAULT_CONNECTORS_PREFIX
         return PathUtils.checkSlashes(prefix, "L- R-", true)
     }
 
