@@ -294,6 +294,7 @@ class CkeditorConfig {
         'filebrowserImageUploadUrl',
         'filebrowserFlashUploadUrl',
         'filebrowserImageBrowseLinkUrl',
+        'filebrowserWindowFeatures',    
 
         // plugins/find/plugin.js
         'find_highlight',
