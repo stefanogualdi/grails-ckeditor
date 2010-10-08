@@ -3,6 +3,7 @@
 	"INVALID_ACTION": "Acció invàlida.",
 	"MODE_ERROR": "Error de mode.",
 	"DIRECTORY_ALREADY_EXISTS": "La carpeta '%s' ja existeix.",
+	"FILE_ALREADY_EXISTS": "The file '%s' already exists.",
 	"UNABLE_TO_CREATE_DIRECTORY": "Impossible crear la carpeta %s.",
 	"INVALID_VAR": "Variable %s invàlida.",
 	"DIRECTORY_NOT_EXIST": "La carpeta %s no existeix.",
@@ -47,6 +48,10 @@
 	"grid_view": "Canviar a vista de quadricular.",
 	"list_view": "Canviar a vista de llista.",
 	"current_folder": "Carpeta actual: ",
-    "gotoroot": "Directori pare"
-    }
+    "gotoroot": "Directori pare",
+	"bytes": " bytes",
+	"kb": "kb",
+	"mb": "mb",
+	"gb": "gb"
+}
     

@@ -3,6 +3,7 @@
 	"INVALID_ACTION": "Acción inválida.",
 	"MODE_ERROR": "Error de modo.",
 	"DIRECTORY_ALREADY_EXISTS": "La carpeta '%s' ya existe.",
+	"FILE_ALREADY_EXISTS": "El archivo '%s' ya existe.",
 	"UNABLE_TO_CREATE_DIRECTORY": "No se ha podido crear la carpeta %s.",
 	"INVALID_VAR": "Variable %s inválida.",
 	"DIRECTORY_NOT_EXIST": "La carpeta %s no existe.",
@@ -47,5 +48,9 @@
 	"grid_view": "Cambiar a vista de cuadrícula.",
 	"list_view": "Cambiar a vista de lista.",
 	"current_folder": "Carpeta actual: ",
-    "gotoroot": "Directorio padre"
+    "gotoroot": "Directorio padre",
+	"bytes": " bytes",
+	"kb": "kb",
+	"mb": "mb",
+	"gb": "gb"
 }

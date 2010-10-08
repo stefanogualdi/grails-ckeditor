@@ -3,6 +3,7 @@
     "INVALID_ACTION": "Action invalide.",
     "MODE_ERROR": "Erreur de mode.",
 	"DIRECTORY_ALREADY_EXISTS": "Le répertoire '%s' existe déjà.",
+	"FILE_ALREADY_EXISTS": "Le fichier '%s' existe déjà.",
 	"UNABLE_TO_CREATE_DIRECTORY": "Impossible de créer le répertoire %s.",
 	"INVALID_VAR": "Variable invalide %s.",
 	"DIRECTORY_NOT_EXIST": "Le répertoire %s n'existe pas.",
@@ -47,5 +48,9 @@
 	"grid_view": "Affichage en mode 'miniatures'",
 	"list_view": "Affichage en mode 'liste'",
 	"current_folder": "Dosssier courant : ",
-    "gotoroot": "Dossier parent"
+    "gotoroot": "Dossier parent",
+	"bytes": " octets",
+	"kb": "ko",
+	"mb": "mo",
+	"gb": "go"
 }

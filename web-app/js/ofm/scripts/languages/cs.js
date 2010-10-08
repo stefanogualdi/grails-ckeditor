@@ -3,6 +3,7 @@
     "INVALID_ACTION": "Neplatná akce.",
     "MODE_ERROR": "Mode error.",
 	"DIRECTORY_ALREADY_EXISTS": "Adresář '%s' už existuje.",
+	"FILE_ALREADY_EXISTS": "The file '%s' already exists.",
 	"UNABLE_TO_CREATE_DIRECTORY": "Vytváření adresáře %s selhalo.",
 	"INVALID_VAR": "Volána neplatná proměnná %s.",
 	"DIRECTORY_NOT_EXIST": "Adresář %s nebyl nalezen.",
@@ -47,5 +48,9 @@
 	"grid_view": "Zobrazit v mřížce.",
 	"list_view": "Zobrazit jako seznam.",
 	"current_folder": "Aktivní adresář: ",
-    "gotoroot": "Nadřazený adresář"
+    "gotoroot": "Nadřazený adresář",
+	"bytes": " bytes",
+	"kb": "kb",
+	"mb": "mb",
+	"gb": "gb"
 }

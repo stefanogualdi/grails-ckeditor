@@ -3,6 +3,7 @@
     "INVALID_ACTION": "Invalid handling.",
     "MODE_ERROR": "Mode fejl.",
 	"DIRECTORY_ALREADY_EXISTS": "Mappen '%s'  eksisterer allerede.",
+	"FILE_ALREADY_EXISTS": "The file '%s' already exists.",
 	"UNABLE_TO_CREATE_DIRECTORY": "Ude af stand til at oprette mappen %s.",
 	"INVALID_VAR": "Invalid variabel %s.",
 	"DIRECTORY_NOT_EXIST": "Mappen %s eksisterer ikke.",
@@ -46,5 +47,9 @@
 	"new_folder": "Ny mappe",
 	"grid_view": "Skift til gitter visning.",
 	"list_view": "Skift til liste visning.",
-	"current_folder": "Du er her: "
+	"current_folder": "Du er her: ",
+	"bytes": " bytes",
+	"kb": "kb",
+	"mb": "mb",
+	"gb": "gb"
 }

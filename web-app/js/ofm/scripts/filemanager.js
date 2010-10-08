@@ -1,9 +1,33 @@
+/**
+ *	Filemanager JS core
+ *
+ *	filemanager.js
+ *
+ *	@license	MIT License
+ *	@author		Jason Huck - Core Five Labs
+ *	@author		Simon Georget <simon (at) linea21 (dot) com>
+ *	@copyright	Authors
+ */
+ 
+// function to retrieve GET params
+$.urlParam = function(name){
+	var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results != null) {
+	    return results[1] || 0;
+    }
+    else {
+        return 0;
+    }
+}
+
+
 /*---------------------------------------------------------
   Setup, Layout, and Status Functions
 ---------------------------------------------------------*/
 
 // Get localized messages from file 
-// through culture var
+// through culture var or from URL
+if($.urlParam('langCode') != 0) culture = $.urlParam('langCode');
 var lg = [];
 $.ajax({
   url: 'scripts/languages/'  + culture + '.js',
@@ -41,13 +65,16 @@ $.SetImpromptuDefaults({
 // Forces columns to fill the layout vertically.
 // Called on initial page load and on resize.
 var setDimensions = function(){
-	var newH = $(window).height() - 50;	
+	var newH = $(window).height() - $('#uploader').height();	
 	$('#splitter, #filetree, #fileinfo, .vsplitbar').height(newH);
 }
 
 // Display Min Path
-var disp = function(path){
-	return path.replace(fileRoot, "/");
+var displayRoot = function(path){
+	if(showFullPath == false)
+		return path.replace(fileRoot, "/");
+	else 
+		return path;
 }
 
 // from http://phpjs.org/functions/basename:360
@@ -66,8 +93,7 @@ var basename = function(path, suffix) {
 // whenever a new directory is selected.
 var setUploader = function(path){
 	$('#currentpath').val(path);
-
-	$('#uploader h1').text(lg.current_folder + disp(path));
+	$('#uploader h1').text(lg.current_folder + displayRoot(path));
 
     $('#gotoroot').unbind().click(function() {
         getFolderInfo(fileRoot);
@@ -135,7 +161,7 @@ var formatBytes = function(bytes){
 	var n = parseFloat(bytes);
 	var d = parseFloat(1024);
 	var c = 0;
-	var u = [' bytes','kb','mb','gb'];
+	var u = [lg.bytes,lg.kb,lg.mb,lg.gb];
 	
 	while(true){
 		if(n < d){
@@ -146,17 +172,6 @@ var formatBytes = function(bytes){
 			c += 1;
 		}
 	}
-}
-
-// function to retrieve GET params
-$.urlParam = function(name){
-	var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    if (results != null) {
-	    return results[1] || 0;
-    }
-    else {
-        return 0;
-    }
 }
 
 
@@ -172,6 +187,22 @@ $.urlParam = function(name){
 // NOTE: closes the window when finished.
 var selectItem = function(data){
 	if(window.opener){
+	 	if(window.tinyMCEPopup){
+        	// use TinyMCE > 3.0 integration method
+            var win = tinyMCEPopup.getWindowArg("window");
+			win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = data['Path'];
+            if (typeof(win.ImageDialog) != "undefined") {
+				// Update image dimensions
+            	if (win.ImageDialog.getImageData)
+                 	win.ImageDialog.getImageData();
+
+                // Preview if necessary
+                if (win.ImageDialog.showPreviewImage)
+					win.ImageDialog.showPreviewImage(data['Path']);
+			}
+			tinyMCEPopup.close();
+			return;
+		}
 		if($.urlParam('CKEditor')){
 			// use CKEditor 3.0 integration method
 			window.opener.CKEDITOR.tools.callFunction($.urlParam('CKEditorFuncNum'), webRoot + data['Path']);
@@ -296,9 +327,6 @@ var deleteItem = function(data){
 }
 
 
-
-
-
 /*---------------------------------------------------------
   Functions to Update the File Tree
 ---------------------------------------------------------*/
@@ -359,10 +387,12 @@ var removeNode = function(path){
                 $(this).remove();
         });
     }
-
-    if($('#preview')[0]) {
-        getFolderInfo($('#currentpath').val());
-    }
+    // remove fileinfo when item to remove is currently selected
+    if ($('#preview').length) {
+		$('#fileinfo').fadeOut('slow', function(){
+			$(this).empty().show();
+		});
+	}
 }
 
 
@@ -372,7 +402,6 @@ var removeNode = function(path){
 var addFolder = function(parent, name){
 	var newNode = '<li class="directory collapsed"><a rel="' + parent + name + '/" href="#">' + name + '</a><ul class="jqueryFileTree" style="display: block;"></ul></li>';
 	var parentNode = $('#filetree').find('a[rel="' + parent + '"]');
-
 	if(parent != fileRoot){
 		parentNode.next('ul').prepend(newNode).prev('a').click().click();
 	} else {
@@ -446,7 +475,7 @@ var getFileInfo = function(file){
 	// Include the template.
 	var template = '<div id="preview"><img /><h1></h1><dl></dl></div>';
 	template += '<form id="toolbar">';
-	template += '<button id="select" name="select" type="button" value="Select">' + lg.select + '</button>';
+	if(window.opener != null) template += '<button id="select" name="select" type="button" value="Select">' + lg.select + '</button>';
 	template += '<button id="download" name="download" type="button" value="Download">' + lg.download + '</button>';
 	template += '<button id="rename" name="rename" type="button" value="Rename">' + lg.rename + '</button>';
 	template += '<button id="delete" name="delete" type="button" value="Delete">' + lg.del + '</button>';
@@ -678,4 +707,10 @@ $(function(){
 
     // Initial folder view
     getFolderInfo($('#currentpath').val());
+
+	// Disable select function if no window.opener
+	if(window.opener == null) $('#itemOptions a[href$="#select"]').remove();
+	
+	//alert($('#filetree').find('li a.directory'));
+    getDetailView(fileRoot);
 });

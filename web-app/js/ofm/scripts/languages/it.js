@@ -3,6 +3,7 @@
     "INVALID_ACTION": "Azione non valida.",
     "MODE_ERROR": "Errore modalità.",
 	"DIRECTORY_ALREADY_EXISTS": "La cartella '%s' esiste già.",
+	"FILE_ALREADY_EXISTS": "Il file '%s' esiste già.",
 	"UNABLE_TO_CREATE_DIRECTORY": "Impossibile creare la cartella %s.",
 	"INVALID_VAR": "Variabile %s non valida.",
 	"DIRECTORY_NOT_EXIST": "La cartella %s non esiste.",
@@ -47,5 +48,9 @@
 	"grid_view": "Visualizzazione griglia",
 	"list_view": "Visualizzazione lista",
 	"current_folder": "Cartella corrente: ",
-    "gotoroot": "Cartella principale"
+    "gotoroot": "Cartella principale",
+	"bytes": " bytes",
+	"kb": "kb",
+	"mb": "mb",
+	"gb": "gb"
 }
