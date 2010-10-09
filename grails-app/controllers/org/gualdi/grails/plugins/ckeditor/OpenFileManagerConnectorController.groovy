@@ -26,6 +26,14 @@ class OpenFileManagerConnectorController {
     def messageSource
 
     /**
+     * Entry point
+     *
+     */
+    def index = {
+        render view: "/ofm"
+    }
+    
+    /**
      * JQueryFileTree connector
      *
      */

@@ -6,19 +6,21 @@
 
         <title>File Manager</title>
 
-		<link rel="stylesheet" type="text/css" href="styles/reset.css" />
-		<link rel="stylesheet" type="text/css" href="scripts/jquery.filetree/jqueryFileTree.css" />
-		<link rel="stylesheet" type="text/css" href="scripts/jquery.contextmenu/jquery.contextMenu.css" />
-		<link rel="stylesheet" type="text/css" href="styles/filemanager.css" />
+		<link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file:'reset.css', plugin: 'ckeditor')}" />
+		<link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/scripts/jquery.filetree', file:'jqueryFileTree.css', plugin: 'ckeditor')}" />
+		<link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/scripts/jquery.contextmenu', file:'jquery.contextMenu.css', plugin: 'ckeditor')}" />
+		<link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file:'filemanager.css', plugin: 'ckeditor')}" />
 		<!--[if IE]>
-		<link rel="stylesheet" type="text/css" href="styles/ie.css" />
+		<link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file:'ie.css', plugin: 'ckeditor')}" />
 		<![endif]-->
 
-        <script type="text/javascript" src="scripts/jquery-1.2.6.min.js"></script>
+        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file:'jquery-1.2.6.min.js', plugin: 'ckeditor')}"></script>
 
         <script type="text/javascript">
+            var ofmBase ="${resource(dir: 'js/ofm', plugin: 'ckeditor')}";
             var culture = '${ofm.currentLocale()}';
             var autoload = true;
+            var showFullPath = false;
             var fileRoot = '/';
             var treeConnector = '${params.treeConnector}';
             var fileConnector = '${params.fileConnector}';
@@ -57,12 +59,12 @@
             </ul>
         </div>
 
-        <script type="text/javascript" src="scripts/jquery.form.js"></script>
-        <script type="text/javascript" src="scripts/jquery.splitter/jquery.splitter.js"></script>
-        <script type="text/javascript" src="scripts/jquery.filetree/jqueryFileTree.js"></script>
-        <script type="text/javascript" src="scripts/jquery.contextmenu/jquery.contextMenu.js"></script>
-        <script type="text/javascript" src="scripts/jquery.impromptu-1.5.js"></script>
-        <script type="text/javascript" src="scripts/jquery.tablesorter.min.js"></script>
-        <script type="text/javascript" src="scripts/filemanager.js"></script>
+        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file:'jquery.form.js', plugin: 'ckeditor')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts/jquery.splitter', file:'jquery.splitter.js', plugin: 'ckeditor')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts/jquery.filetree', file:'jqueryFileTree.js', plugin: 'ckeditor')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts/jquery.contextmenu', file:'jquery.contextMenu.js', plugin: 'ckeditor')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file:'jquery.impromptu-1.5.js', plugin: 'ckeditor')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file:'jquery.tablesorter.min.js', plugin: 'ckeditor')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file:'filemanager.js', plugin: 'ckeditor')}"></script>
     </body>
 </html>

@@ -20,7 +20,6 @@ $.urlParam = function(name){
     }
 }
 
-
 /*---------------------------------------------------------
   Setup, Layout, and Status Functions
 ---------------------------------------------------------*/
@@ -30,14 +29,13 @@ $.urlParam = function(name){
 if($.urlParam('langCode') != 0) culture = $.urlParam('langCode');
 var lg = [];
 $.ajax({
-  url: 'scripts/languages/'  + culture + '.js',
+  url: ofmBase + '/scripts/languages/'  + culture + '.js',
   async: false,
   dataType: 'json',
   success: function (json) {
     lg = json;
   }
 });
-
 
 // we finalize the FileManager UI initialization 
 // with localized text if necessary
@@ -53,7 +51,6 @@ if(autoload == true) {
 	$('#itemOptions a[href$="#rename"]').append(lg.rename);
 	$('#itemOptions a[href$="#delete"]').append(lg.del);
 }
-
 
 // Options for alert, prompt, and confirm dialogues.
 $.SetImpromptuDefaults({
@@ -173,7 +170,6 @@ var formatBytes = function(bytes){
 		}
 	}
 }
-
 
 /*---------------------------------------------------------
   Item Actions
@@ -326,7 +322,6 @@ var deleteItem = function(data){
 	return isDeleted;
 }
 
-
 /*---------------------------------------------------------
   Functions to Update the File Tree
 ---------------------------------------------------------*/
@@ -395,7 +390,6 @@ var removeNode = function(path){
 	}
 }
 
-
 // Adds a new folder as the first item beneath the
 // specified parent node. Called after a new folder is
 // successfully created.
@@ -411,9 +405,6 @@ var addFolder = function(parent, name){
 	
 	$.prompt(lg.successful_added_folder);
 }
-
-
-
 
 /*---------------------------------------------------------
   Functions to Retrieve File and Folder Details
@@ -517,7 +508,7 @@ var getFolderInfo = function(path){
 	setUploader(path);
 
 	// Display an activity indicator.
-	$('#fileinfo').html('<img id="activity" src="images/wait30trans.gif" width="30" height="30" />');
+	$('#fileinfo').html('<img id="activity" src="' + ofmBase + '/images/wait30trans.gif" width="30" height="30" />');
 
 	// Retrieve the data and generate the markup.
 	$.getJSON(fileConnector + '?path=' + path + '&mode=getfolder&showThumbs=' + showThumbs + '&space=' + space + '&type=' + type, function(data){
@@ -622,10 +613,6 @@ var getFolderInfo = function(path){
 		}
 	});
 }
-
-
-
-
 
 /*---------------------------------------------------------
   Initialization
