@@ -51,7 +51,7 @@ class CkeditorConfig {
 
     static final OFM_IMAGE_EXTS = ['jpg', 'jpeg', 'gif', 'png']
 
-    static final OFM_LOCALES = ['ca', 'cs', 'da', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pl']
+    static final OFM_LOCALES = ['ca', 'cs', 'da', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pl', 'zh-cn']
 
     def contextPath
     def basePath
