@@ -486,6 +486,40 @@ class OpenFileManagerConnectorController {
         return null
     }
 
+    def show = {
+        def config = grailsApplication.config.ckeditor
+        def filename = PathUtils.checkSlashes(config?.upload?.basedir, "L+ R-") + PathUtils.checkSlashes(config?.upload?.baseurl, "L+ R+") + params.filepath // servletContext.getRealPath(config?.upload?.basedir + config?.upload?.baseurl + params.filepath)
+        def ext = PathUtils.splitFilename(params.filepath).ext
+        if (ext == "jpg") {
+            ext = "jpeg"
+        }
+
+        def file = new File(filename)
+
+        response.setHeader("Content-Type", "image/${ext}")
+        response.setHeader("Content-Length", "${file.size()}")
+
+        def os = response.outputStream
+
+        byte[] buff = null
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))
+        try
+        {
+            buff = new byte[2048]
+            int bytesRead = 0
+            while ((bytesRead = bis.read(buff, 0, buff.size())) != -1) {
+                os.write(buff, 0, bytesRead)
+            }
+        }
+        finally {
+            bis.close()
+            os.flush()
+            os.close()
+        }
+
+        return null
+    }
+
     private error(key, message, useTextarea = false) {
         def msg
         try {

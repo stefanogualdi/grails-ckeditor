@@ -213,6 +213,16 @@ class CkeditorConfig {
         return PathUtils.checkSlashes(prefix, "L- R-", true)
     }
 
+    static getUploadPrefix() {
+        def ckconfig = ConfigurationHolder.config.ckeditor
+        def prefix = null
+        if (ckconfig?.upload?.baseurl) {
+            prefix = ckconfig?.upload?.baseurl
+            prefix = PathUtils.checkSlashes(prefix, "L+ R-", true)
+        }
+        return prefix
+    }
+
     // See: http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html
     static final ALLOWED_CONFIG_ITEMS = [
         // Items not listed in main config file
