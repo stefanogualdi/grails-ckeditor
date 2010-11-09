@@ -163,8 +163,16 @@ class OpenFileManagerConnectorController {
     }
 
     private getBaseDir(baseUrl) {
-        def baseDir = servletContext.getRealPath(baseUrl)
-        baseDir = PathUtils.checkSlashes(baseDir, "R+")
+        def config = grailsApplication.config.ckeditor
+
+        def baseDir
+        if (config?.upload?.baseurl) {
+            baseDir = PathUtils.checkSlashes(config?.upload?.basedir, , "L+ R-") + PathUtils.checkSlashes(baseUrl, "L+ R+")
+        }
+        else {
+            baseDir = servletContext.getRealPath(baseUrl)
+            baseDir = PathUtils.checkSlashes(baseDir, "R+")
+        }
 
         def f = new File(baseDir)
         if (!f.exists()) {

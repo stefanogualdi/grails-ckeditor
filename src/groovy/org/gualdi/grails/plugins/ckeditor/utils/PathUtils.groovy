@@ -27,7 +27,15 @@ class PathUtils {
 
     static getBaseUrl(params) {
         def config = ConfigurationHolder.config.ckeditor
-        def baseUrl = config?.upload?.basedir ?: CkeditorConfig.DEFAULT_BASEDIR
+
+        def baseUrl
+        if (config?.upload?.baseurl) {
+            baseUrl = config?.upload?.baseurl
+        }
+        else {
+            baseUrl = config?.upload?.basedir ?: CkeditorConfig.DEFAULT_BASEDIR
+        }
+
         baseUrl = PathUtils.checkSlashes(baseUrl, "L- R-", true)
 
         def spaceDir = PathUtils.sanitizePath(params.space)
