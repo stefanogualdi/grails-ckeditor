@@ -167,7 +167,7 @@ class OpenFileManagerConnectorController {
 
         def baseDir
         if (config?.upload?.baseurl) {
-            baseDir = PathUtils.checkSlashes(config?.upload?.basedir, , "L+ R-") + PathUtils.checkSlashes(baseUrl, "L+ R+")
+            baseDir = PathUtils.checkSlashes(config?.upload?.basedir, "L+ R-") + PathUtils.checkSlashes(baseUrl, "L+ R+")
         }
         else {
             baseDir = servletContext.getRealPath(baseUrl)
