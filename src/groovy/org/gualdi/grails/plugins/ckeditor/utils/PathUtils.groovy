@@ -30,7 +30,7 @@ class PathUtils {
 
         def baseUrl
         if (config?.upload?.baseurl) {
-            baseUrl = config?.upload?.baseurl
+            baseUrl = ""
         }
         else {
             baseUrl = config?.upload?.basedir ?: CkeditorConfig.DEFAULT_BASEDIR

@@ -232,7 +232,13 @@ class OpenFileManagerConnectorController {
             preview = g.resource(dir: "js/ofm/images/fileicons", file: "${fileParts.ext.toLowerCase()}.png", plugin: "ckeditor")
             if (fileType in CkeditorConfig.OFM_IMAGE_EXTS) {
                 if (showThumbs) {
-                    preview = g.resource(file: baseUrl + path)
+                    def config = grailsApplication.config.ckeditor
+                    if (config?.upload?.baseurl) {
+                        preview = g.resource(file: PathUtils.checkSlashes(config?.upload?.baseurl, "L+ R-") + baseUrl + path)    
+                    }
+                    else {
+                        preview = g.resource(file: baseUrl + path)
+                    }
                 }
                 def imgDim = ImageUtils.calculateImageDimension(file, fileType)
                 if (imgDim) {
@@ -488,7 +494,7 @@ class OpenFileManagerConnectorController {
 
     def show = {
         def config = grailsApplication.config.ckeditor
-        def filename = PathUtils.checkSlashes(config?.upload?.basedir, "L+ R-") + PathUtils.checkSlashes(config?.upload?.baseurl, "L+ R+") + params.filepath // servletContext.getRealPath(config?.upload?.basedir + config?.upload?.baseurl + params.filepath)
+        def filename = PathUtils.checkSlashes(config?.upload?.basedir, "L+ R+") + params.filepath
         def ext = PathUtils.splitFilename(params.filepath).ext
         if (ext == "jpg") {
             ext = "jpeg"

@@ -24,7 +24,15 @@ class OpenFileManagerTagLib {
 
     def baseUrl = { attrs ->
         def bUrl = PathUtils.getBaseUrl([space: attrs.space, type: attrs.type])
-        bUrl = PathUtils.checkSlashes(bUrl, "R-")
+
+        def config = grailsApplication.config.ckeditor
+        if (config?.upload?.baseurl) {
+            bUrl = PathUtils.checkSlashes(config?.upload?.baseurl, "L- R-") + PathUtils.checkSlashes(bUrl, "R-")
+        }
+        else {
+            bUrl = PathUtils.checkSlashes(bUrl, "R-")
+        }
+
         out << "${request.contextPath}/${bUrl}"
     }
 
