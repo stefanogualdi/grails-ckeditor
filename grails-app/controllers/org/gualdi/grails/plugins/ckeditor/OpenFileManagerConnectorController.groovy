@@ -20,6 +20,7 @@ import grails.converters.JSON
 import org.gualdi.grails.plugins.ckeditor.utils.PathUtils
 import org.gualdi.grails.plugins.ckeditor.utils.ImageUtils
 import org.gualdi.grails.plugins.ckeditor.utils.FileUtils
+import org.gualdi.grails.plugins.ckeditor.utils.MimeUtils
 
 class OpenFileManagerConnectorController {
 
@@ -496,13 +497,11 @@ class OpenFileManagerConnectorController {
         def config = grailsApplication.config.ckeditor
         def filename = PathUtils.checkSlashes(config?.upload?.basedir, "L+ R+") + params.filepath
         def ext = PathUtils.splitFilename(params.filepath).ext
-        if (ext == "jpg") {
-            ext = "jpeg"
-        }
 
+        def contentType = MimeUtils.getMimeTypeByExt(ext)
         def file = new File(filename)
 
-        response.setHeader("Content-Type", "image/${ext}")
+        response.setHeader("Content-Type", contentType)
         response.setHeader("Content-Length", "${file.size()}")
 
         def os = response.outputStream
