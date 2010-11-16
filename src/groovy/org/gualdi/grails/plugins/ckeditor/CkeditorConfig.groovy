@@ -216,9 +216,8 @@ class CkeditorConfig {
     static getUploadPrefix() {
         def ckconfig = ConfigurationHolder.config.ckeditor
         def prefix = null
-        if (ckconfig?.upload?.baseurl) {
-            prefix = ckconfig?.upload?.baseurl
-            prefix = PathUtils.checkSlashes(prefix, "L+ R-", true)
+        if (ckconfig?.upload?.baseurl && ckconfig?.upload?.enableContentController) {
+            prefix = PathUtils.checkSlashes(ckconfig?.upload?.baseurl, "L+ R-", true)
         }
         return prefix
     }
