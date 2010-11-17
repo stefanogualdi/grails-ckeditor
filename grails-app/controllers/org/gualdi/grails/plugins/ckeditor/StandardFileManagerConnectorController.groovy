@@ -332,6 +332,9 @@ class StandardFileManagerConnectorController {
 				response.setHeader("Cache-Control", "no-cache")
 				render(contentType: "text/html", encoding: "UTF-8") {
 					if (uploadOnly) {
+						if (config?.upload?.baseurl) {
+							currentUrl = "${request.contextPath}${currentUrl}"
+						}
                         def fname = errorMsg ? "" : "${currentUrl}${newName}"
                         script(type: "text/javascript", "window.parent.CKEDITOR.tools.callFunction(${params.CKEditorFuncNum}, '${fname}', '${errorMsg}');")
 					}
