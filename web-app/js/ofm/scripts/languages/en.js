@@ -48,7 +48,6 @@
 	"grid_view": "Switch to grid view.",
 	"list_view": "Switch to list view.",
 	"current_folder": "Current folder: ",
-    "gotoroot": "Root folder",
 	"bytes": " bytes",
 	"kb": "kb",
 	"mb": "mb",

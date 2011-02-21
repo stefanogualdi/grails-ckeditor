@@ -48,7 +48,6 @@
 	"grid_view": "Visualizzazione griglia",
 	"list_view": "Visualizzazione lista",
 	"current_folder": "Cartella corrente: ",
-    "gotoroot": "Cartella principale",
 	"bytes": " bytes",
 	"kb": "kb",
 	"mb": "mb",

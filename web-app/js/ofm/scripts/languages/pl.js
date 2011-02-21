@@ -47,7 +47,6 @@
 	"grid_view": "Widok siatki.",
 	"list_view": "Widok listy.",
 	"current_folder": "Aktualny folder: ",
-    "gotoroot": "Root folder",
 	"bytes": " bytes",
 	"kb": "kb",
 	"mb": "mb",

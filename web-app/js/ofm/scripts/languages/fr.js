@@ -48,7 +48,6 @@
 	"grid_view": "Affichage en mode 'miniatures'",
 	"list_view": "Affichage en mode 'liste'",
 	"current_folder": "Dosssier courant : ",
-    "gotoroot": "Dossier parent",
 	"bytes": " octets",
 	"kb": "ko",
 	"mb": "mo",

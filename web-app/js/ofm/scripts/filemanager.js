@@ -7,7 +7,12 @@
  *	@author		Jason Huck - Core Five Labs
  *	@author		Simon Georget <simon (at) linea21 (dot) com>
  *	@copyright	Authors
+ *
+ *  WARNING: THIS VERSION IS CUSTOMIZED TO WORK WITH GRAILS PLUGIN
+ *  
  */
+
+(function($) {
  
 // function to retrieve GET params
 $.urlParam = function(name){
@@ -24,6 +29,8 @@ $.urlParam = function(name){
   Setup, Layout, and Status Functions
 ---------------------------------------------------------*/
 
+var capabilities = new Array('select', 'download', 'rename', 'delete');
+
 // Get localized messages from file 
 // through culture var or from URL
 if($.urlParam('langCode') != 0) culture = $.urlParam('langCode');
@@ -36,21 +43,6 @@ $.ajax({
     lg = json;
   }
 });
-
-// we finalize the FileManager UI initialization 
-// with localized text if necessary
-if(autoload == true) {
-	$('#upload').append(lg.upload);
-    $('#gotoroot').append(lg.gotoroot);
-	$('#newfolder').append(lg.new_folder);
-	$('#grid').attr('title', lg.grid_view);
-	$('#list').attr('title', lg.list_view);
-	$('#fileinfo h1').append(lg.select_from_left);
-	$('#itemOptions a[href$="#select"]').append(lg.select);
-	$('#itemOptions a[href$="#download"]').append(lg.download);
-	$('#itemOptions a[href$="#rename"]').append(lg.rename);
-	$('#itemOptions a[href$="#delete"]').append(lg.del);
-}
 
 // Options for alert, prompt, and confirm dialogues.
 $.SetImpromptuDefaults({
@@ -74,6 +66,63 @@ var displayRoot = function(path){
 		return path;
 }
 
+// preg_replace
+// Code from : http://xuxu.fr/2006/05/20/preg-replace-javascript/
+var preg_replace = function(array_pattern, array_pattern_replace, str)  {
+	var new_str = String (str);
+		for (i=0; i<array_pattern.length; i++) {
+			var reg_exp= RegExp(array_pattern[i], "g");
+			var val_to_replace = array_pattern_replace[i];
+			new_str = new_str.replace (reg_exp, val_to_replace);
+		}
+		return new_str;
+	}
+
+// cleanString (), on the same model as server side (connector)
+// cleanString
+var cleanString = function(str) {
+	var cleaned = "";
+	var p_search  = 	new Array("Š", "š", "Đ", "đ", "Ž", "ž", "Č", "č", "Ć", "ć", "À", 
+						"Á", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "Ê", "Ë", "Ì", "Í", "Î", "Ï", 
+						"Ñ", "Ò", "Ó", "Ô", "Õ", "Ö", "Ø", "Ù", "Ú", "Û", "Ü", "Ý", "Þ", "ß", 
+						"à", "á", "â", "ã", "ä", "å", "æ", "ç", "è", "é", "ê", "ë", "ì",  "í",  
+						"î", "ï", "ð", "ñ", "ò", "ó", "ô", "õ", "ö", "ø", "ù", "ú", "û", "ý", 
+						"ý", "þ", "ÿ", "Ŕ", "ŕ", " ", "'", "/"
+						);
+	var p_replace = 	new Array("S", "s", "Dj", "dj", "Z", "z", "C", "c", "C", "c", "A", 
+						"A", "A", "A", "A", "A", "A", "C", "E", "E", "E", "E", "I", "I", "I", "I", 
+						"N", "O", "O", "O", "O", "O", "O", "U", "U", "U", "U", "Y", "B", "Ss", 
+						"a", "a", "a", "a", "a", "a", "a", "c", "e", "e", "e", "e", "i", "i",
+						"i", "i", "o", "n", "o", "o", "o", "o", "o", "o", "u", "u", "u", "y", 
+						"y", "b", "y", "R", "r", "_", "_", ""
+					);
+
+	cleaned = preg_replace(p_search, p_replace, str);
+	cleaned = cleaned.replace(/[^_a-zA-Z0-9]/g, "");
+	cleaned = cleaned.replace(/[_]+/g, "_");
+	
+	return cleaned;
+}
+
+
+
+// Handle Error. Freeze interactive buttons and display
+// error message. Also called when auth() function return false (Code == "-1")
+var handleError = function(errMsg) {
+	$('#fileinfo').html('<h1>' + errMsg+ '</h1>');
+	$('#newfile').attr("disabled", "disabled");
+	$('#upload').attr("disabled", "disabled");
+	$('#newfolder').attr("disabled", "disabled");
+}
+
+// Test if Data structure has the 'cap' capability
+// 'cap' is one of 'select', 'rename', 'delete', 'download'
+function has_capability(data, cap) {
+	if (data['File Type'] == 'dir' && cap == 'download') return false;
+	if (typeof(data['Capabilities']) == "undefined") return true;
+	else return $.inArray(cap, data['Capabilities']) > -1;
+}
+
 // from http://phpjs.org/functions/basename:360
 var basename = function(path, suffix) {
     var b = path.replace(/^.*[\/\\]/g, '');
@@ -92,10 +141,6 @@ var setUploader = function(path){
 	$('#currentpath').val(path);
 	$('#uploader h1').text(lg.current_folder + displayRoot(path));
 
-    $('#gotoroot').unbind().click(function() {
-        getFolderInfo(fileRoot);
-    });
-
 	$('#newfolder').unbind().click(function(){
 		var foldername =  lg.default_foldername;
 		var msg = lg.prompt_foldername + ' : <input id="fname" name="fname" type="text" value="' + foldername + '" />';
@@ -107,7 +152,7 @@ var setUploader = function(path){
 			if(fname != ''){
 				foldername = fname;
 
-				$.getJSON(fileConnector + '?mode=addfolder&path=' + $('#currentpath').val() + '&name=' + foldername + '&space=' + space + '&type=' + type, function(result){
+				$.getJSON(fileConnector + '?mode=addfolder&path=' + $('#currentpath').val() + '&name=' + cleanString(foldername) + '&space=' + space + '&type=' + type, function(result){
 					if(result['Code'] == 0){
 						addFolder(result['Parent'], result['Name']);
 						getFolderInfo(result['Parent']);
@@ -135,22 +180,38 @@ var bindToolbar = function(data){
 	// this little bit is purely cosmetic
 	$('#fileinfo').find('button').wrapInner('<span></span>');
 
-	$('#fileinfo').find('button#select').click(function(){
-		selectItem(data);
-	});
+	if (!has_capability(data, 'select')) {
+		$('#fileinfo').find('button#select').hide();
+	} else {
+		$('#fileinfo').find('button#select').click(function(){
+			selectItem(data);
+		}).show();
+	}
 	
-	$('#fileinfo').find('button#rename').click(function(){
-		var newName = renameItem(data);
-		if(newName.length) $('#fileinfo > h1').text(newName);
-	});
+	if (!has_capability(data, 'rename')) {
+		$('#fileinfo').find('button#rename').hide();
+	} else {
+		$('#fileinfo').find('button#rename').click(function(){
+			var newName = renameItem(data);
+			if(newName.length) $('#fileinfo > h1').text(newName);
+		}).show();
+	}
 
-	$('#fileinfo').find('button#delete').click(function(){
-		if(deleteItem(data)) $('#fileinfo').html('<h1>' + lg.select_from_left + '</h1>');
-	});
-	
-	$('#fileinfo').find('button#download').click(function(){
-		window.location = fileConnector + '?mode=download&path=' + data['Path'] + '&space=' + space + '&type=' + type;
-	});
+	if (!has_capability(data, 'delete')) {
+		$('#fileinfo').find('button#delete').hide();
+	} else {
+		$('#fileinfo').find('button#delete').click(function(){
+			if(deleteItem(data)) $('#fileinfo').html('<h1>' + lg.select_from_left + '</h1>');
+		}).show();
+	}
+
+	if (!has_capability(data, 'download')) {
+		$('#fileinfo').find('button#download').hide();
+	} else {
+		$('#fileinfo').find('button#download').click(function(){
+			window.location = fileConnector + '?mode=download&path=' + data['Path'] + '&space=' + space + '&type=' + type;;
+		}).show();
+	}
 }
 
 // Converts bytes to kb, mb, or gb as needed for display.
@@ -338,10 +399,6 @@ var addNode = function(path, name){
 	parentNode.find('ul').prepend(newNode);
 	thisNode.click().click();
 
-    if (path == fileRoot) {
-        setupFileTree(); // ugly hack!!!
-    }
-
 	getFolderInfo(path);
 
 	$.prompt(lg.successful_added_file);
@@ -399,8 +456,18 @@ var addFolder = function(parent, name){
 	if(parent != fileRoot){
 		parentNode.next('ul').prepend(newNode).prev('a').click().click();
 	} else {
-		// $('#filetree > ul').append(newNode);
-        setupFileTree(); // ugly hack!!!
+		$('#filetree > ul').prepend(newNode); 
+		$('#filetree').find('li a[rel="' + parent + name + '/"]').click(function(){
+				getFolderInfo(parent + name + '/');
+			}).each(function() {
+				$(this).contextMenu(
+					{ menu: getContextMenuOptions($(this)) }, 
+					function(action, el, pos){
+						var path = $(el).attr('rel');
+						setMenus(action, path);
+					});
+				}
+			);
 	}
 	
 	$.prompt(lg.successful_added_folder);
@@ -419,6 +486,21 @@ var getDetailView = function(path){
 	} else {
 		getFileInfo(path);
 	}
+}
+
+function getContextMenuOptions(elem) {
+	var optionsID = elem.attr('class').replace(/ /g, '_');
+	if (optionsID == "") return 'itemOptions';
+	if (!($('#' + optionsID).length)) {
+		// Create a clone to itemOptions with menus specific to this element
+		var newOptions = $('#itemOptions').clone().attr('id', optionsID);
+		if (!elem.hasClass('cap_select')) $('.select', newOptions).remove();
+		if (!elem.hasClass('cap_download')) $('.download', newOptions).remove();
+		if (!elem.hasClass('cap_rename')) $('.rename', newOptions).remove();
+		if (!elem.hasClass('cap_delete')) $('.delete', newOptions).remove();
+		$('#itemOptions').after(newOptions);
+	}
+	return optionsID;
 }
 
 // Binds contextual menus to items in list and grid views.
@@ -468,8 +550,8 @@ var getFileInfo = function(file){
 	template += '<form id="toolbar">';
 	if(window.opener != null) template += '<button id="select" name="select" type="button" value="Select">' + lg.select + '</button>';
 	template += '<button id="download" name="download" type="button" value="Download">' + lg.download + '</button>';
-	template += '<button id="rename" name="rename" type="button" value="Rename">' + lg.rename + '</button>';
-	template += '<button id="delete" name="delete" type="button" value="Delete">' + lg.del + '</button>';
+	if(browseOnly != true) template += '<button id="rename" name="rename" type="button" value="Rename">' + lg.rename + '</button>';
+	if(browseOnly != true) template += '<button id="delete" name="delete" type="button" value="Delete">' + lg.del + '</button>';
 	template += '<button id="parentfolder">' + lg.parentfolder + '</button>';
 	template += '</form>';
 	
@@ -513,19 +595,31 @@ var getFolderInfo = function(path){
 	// Retrieve the data and generate the markup.
 	$.getJSON(fileConnector + '?path=' + path + '&mode=getfolder&showThumbs=' + showThumbs + '&space=' + space + '&type=' + type, function(data){
 		var result = '';
-	
-		if(data){		
+		
+		// Is there any error or user is unauthorized?
+		if(data.Code=='-1') {
+			handleError(data.Error);
+			return;
+		};
+		
+		if(data){
 			if($('#fileinfo').data('view') == 'grid'){
 				result += '<ul id="contents" class="grid">';
 				
 				for(key in data){
 					var props = data[key]['Properties'];
+					cap_classes = "";
+					for (cap in capabilities) {
+						if (has_capability(data[key], capabilities[cap])) {
+							cap_classes += " cap_" + capabilities[cap];
+						}
+					}
 				
 					var scaledWidth = 64;
 					var actualWidth = props['Width'];
 					if(actualWidth > 1 && actualWidth < scaledWidth) scaledWidth = actualWidth;
 				
-					result += '<li><div class="clip"><img src="' + data[key]['Preview'] + '" width="' + scaledWidth + '" alt="' + data[key]['Path'] + '" /></div><p>' + data[key]['Filename'] + '</p>';
+					result += '<li class="' + cap_classes + '"><div class="clip"><img src="' + data[key]['Preview'] + '" width="' + scaledWidth + '" alt="' + data[key]['Path'] + '" /></div><p>' + data[key]['Filename'] + '</p>';
 					if(props['Width'] && props['Width'] != '') result += '<span class="meta dimensions">' + props['Width'] + 'x' + props['Height'] + '</span>';
 					if(props['Size'] && props['Size'] != '') result += '<span class="meta size">' + props['Size'] + '</span>';
 					if(props['Date Created'] && props['Date Created'] != '') result += '<span class="meta created">' + props['Date Created'] + '</span>';
@@ -541,8 +635,13 @@ var getFolderInfo = function(path){
 				
 				for(key in data){
 					var path = data[key]['Path'];
-					var props = data[key]['Properties'];					
-					result += '<tr>';
+					var props = data[key]['Properties'];
+					for (cap in capabilities) {
+						if (has_capability(data[key], capabilities[cap])) {
+							cap_classes += " cap_" + capabilities[cap];
+						}
+					}
+					result += '<tr class="' + cap_classes + '">';
 					result += '<td title="' + path + '">' + data[key]['Filename'] + '</td>';
 
 					if(props['Width'] && props['Width'] != ''){
@@ -582,9 +681,14 @@ var getFolderInfo = function(path){
 			$('#fileinfo').find('#contents li').click(function(){
 				var path = $(this).find('img').attr('alt');
 				getDetailView(path);
-			}).contextMenu({ menu: 'itemOptions' }, function(action, el, pos){
-				var path = $(el).find('img').attr('alt');
-				setMenus(action, path);
+			}).each(function() {
+				$(this).contextMenu(
+					{ menu: getContextMenuOptions($(this)) },
+					function(action, el, pos){
+						var path = $(el).find('img').attr('alt');
+						setMenus(action, path);
+					}
+				);
 			});
 		} else {
 			$('#fileinfo').find('td:first-child').each(function(){
@@ -596,9 +700,14 @@ var getFolderInfo = function(path){
 			$('#fileinfo tbody tr').click(function(){
 				var path = $('td:first-child', this).attr('title');
 				getDetailView(path);		
-			}).contextMenu({ menu: 'itemOptions' }, function(action, el, pos){
-				var path = $('td:first-child', el).attr('title');
-				setMenus(action, path);
+			}).each(function() {
+				$(this).contextMenu(
+					{ menu: getContextMenuOptions($(this)) },
+					function(action, el, pos){
+						var path = $('td:first-child', el).attr('title');
+						setMenus(action, path);
+					}
+				);
 			});
 			
 			$('#fileinfo').find('table').tablesorter({
@@ -614,35 +723,67 @@ var getFolderInfo = function(path){
 	});
 }
 
+// Retrieve data (file/folder listing) for jqueryFileTree and pass the data back
+// to the callback function in jqueryFileTree
+var populateFileTree = function(path, callback){
+	var url = fileConnector + '?path=' + path + '&mode=getfolder&showThumbs=' + showThumbs;
+	if ($.urlParam('type')) url += '&type=' + $.urlParam('type');
+	$.getJSON(url, function(data) {
+		var result = '';
+		// Is there any error or user is unauthorized?
+		if(data.Code=='-1') {
+			handleError(data.Error);
+			return;
+		};
+		
+		if(data) {
+			result += "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
+			for(key in data) {
+				cap_classes = "";
+				for (cap in capabilities) {
+					if (has_capability(data[key], capabilities[cap])) {
+						cap_classes += " cap_" + capabilities[cap];
+					}
+				}
+				if (data[key]['File Type'] == 'dir') {
+					result += "<li class=\"directory collapsed\"><a href=\"#\" class=\"" + cap_classes + "\" rel=\"" + data[key]['Path'] + "\">" + data[key]['Filename'] + "</a></li>";
+				} else {
+					result += "<li class=\"file ext_" + data[key]['File Type'].toLowerCase() + "\"><a href=\"#\" class=\"" + cap_classes + "\" rel=\"" + data[key]['Path'] + "\">" + data[key]['Filename'] + "</a></li>";
+				}
+			}
+			result += "</ul>";
+		} else {
+			result += '<h1>' + lg.could_not_retrieve_folder + '</h1>';
+		}
+		callback(result);
+	});
+}
+
+
+
+
 /*---------------------------------------------------------
   Initialization
 ---------------------------------------------------------*/
-
-function setupFileTree() {
-	// Creates file tree.
-    $('#filetree').fileTree({
-		root: fileRoot,
-		script: treeConnector + '?space=' + space + '&type=' + type,
-		multiFolder: false,
-		folderCallback: function(path){ getFolderInfo(path); },
-		after: function(data){
-			$('#filetree').find('li a').contextMenu(
-				{ menu: 'itemOptions' },
-				function(action, el, pos){
-					var path = $(el).attr('rel');
-					setMenus(action, path);
-				}
-			);
-		}
-	}, function(file){
-		getFileInfo(file);
-	});
-}
 
 $(function(){
 	// Adjust layout.
 	setDimensions();
 	$(window).resize(setDimensions);
+
+	// we finalize the FileManager UI initialization 
+	// with localized text if necessary
+	if(autoload == true) {
+		$('#upload').append(lg.upload);
+		$('#newfolder').append(lg.new_folder);
+		$('#grid').attr('title', lg.grid_view);
+		$('#list').attr('title', lg.list_view);
+		$('#fileinfo h1').append(lg.select_from_left);
+		$('#itemOptions a[href$="#select"]').append(lg.select);
+		$('#itemOptions a[href$="#download"]').append(lg.download);
+		$('#itemOptions a[href$="#rename"]').append(lg.rename);
+		$('#itemOptions a[href$="#delete"]').append(lg.del);
+	}
 
 	// Provides support for adjustible columns.
 	$('#splitter').splitter({
@@ -654,6 +795,12 @@ $(function(){
 
 	// Set initial view state.
 	$('#fileinfo').data('view', 'grid');
+
+	$('#home').click(function(){
+		$('#fileinfo').data('view', 'grid');
+		$('#filetree>ul>li.expanded>a').trigger('click');
+		getFolderInfo(fileRoot);
+	});
 
 	// Set buttons to switch between grid and list views.
 	$('#grid').click(function(){
@@ -677,6 +824,19 @@ $(function(){
 
 	$('#uploader').ajaxForm({
 		target: '#uploadresponse',
+		beforeSubmit: function(arr, form, options) {
+			if ($.urlParam('type').toString().toLowerCase() == 'images') {
+				// Test if uploaded file extension is in valid image extensions
+				var newfileSplitted = $('#newfile', form).val().toLowerCase().split('.');
+				for (key in imagesExt) {
+					if (imagesExt[key] == newfileSplitted[newfileSplitted.length-1]) {
+						return true;
+					}
+				}
+				$.prompt(lg.UPLOAD_IMAGES_ONLY);
+				return false;
+			}
+		},
 		success: function(result){
 			eval('var data = ' + $('#uploadresponse').find('textarea').text());
 
@@ -690,14 +850,37 @@ $(function(){
 	});
 
 	// Creates file tree.
-    setupFileTree();
-
-    // Initial folder view
-    getFolderInfo($('#currentpath').val());
-
+    $('#filetree').fileTree({
+		root: fileRoot,
+		datafunc: populateFileTree,
+		multiFolder: false,
+		folderCallback: function(path){ getFolderInfo(path); },
+		after: function(data){
+			$('#filetree').find('li a').each(function() {
+				$(this).contextMenu(
+					{ menu: getContextMenuOptions($(this)) },
+					function(action, el, pos){
+						var path = $(el).attr('rel');
+						setMenus(action, path);
+					}
+				)
+			});
+		}
+	}, function(file){
+		getFileInfo(file);
+	});
 	// Disable select function if no window.opener
 	if(window.opener == null) $('#itemOptions a[href$="#select"]').remove();
-	
-	//alert($('#filetree').find('li a.directory'));
+	// Keep only browseOnly features if needed
+	if(browseOnly == true) {
+		$('#newfile').remove();
+		$('#upload').remove();
+		$('#newfolder').remove();
+		$('#toolbar').remove('#rename');
+		$('.contextMenu .rename').remove();
+		$('.contextMenu .delete').remove();
+	}
     getDetailView(fileRoot);
 });
+
+})(jQuery);

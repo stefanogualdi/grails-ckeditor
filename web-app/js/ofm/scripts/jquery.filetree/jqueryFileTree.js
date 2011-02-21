@@ -22,6 +22,7 @@
 //
 // History:
 //
+// 1.02 (patched by Filemanager) - add a datafunc option to get data through a function instead of a script
 // 1.01 - updated to work with foreign characters in directory/file names (12 April 2008)
 // 1.00 - released (24 March 2008)
 //
@@ -37,6 +38,7 @@ if(jQuery) (function($){
 			// Defaults
 			if( !o ) var o = {};
 			if( o.root == undefined ) o.root = '/';
+			if( o.datafunc == undefined ) o.datafunc = null;
 			if( o.script == undefined ) o.script = 'jqueryFileTree.php';
 			if( o.folderEvent == undefined ) o.folderEvent = 'click';
 			if( o.expandSpeed == undefined ) o.expandSpeed= 500;
@@ -51,15 +53,18 @@ if(jQuery) (function($){
 			$(this).each( function() {
 				
 				function showTree(c, t) {
-					$(c).addClass('wait');
-					$(".jqueryFileTree.start").remove();
-					$.post(o.script, { dir: t }, function(data) {
+					function showData(data) {
 						$(c).find('.start').html('');
 						$(c).removeClass('wait').append(data);
-						if( o.root == t ) $(c).find('UL:hidden').show(); else $(c).find('UL:hidden').slideDown({ duration: o.expandSpeed, easing: o.expandEasing });
+						if( o.root == t ) $(c).find('UL:hidden').show();
+						else $(c).find('UL:hidden').slideDown({ duration: o.expandSpeed, easing: o.expandEasing });
 						bindTree(c);
 						o.after(data);
-					});
+					}
+					$(c).addClass('wait');
+					$(".jqueryFileTree.start").remove();
+					if (o.datafunc) o.datafunc(t, showData);
+					else $.post(o.script, { dir: t }, showData);
 				}
 				
 				function bindTree(t) {
@@ -72,16 +77,16 @@ if(jQuery) (function($){
 									$(this).parent().parent().find('LI.directory').removeClass('expanded').addClass('collapsed');
 								}
 								$(this).parent().find('UL').remove(); // cleanup
-								// showTree( $(this).parent(), escape($(this).attr('rel').match( /.*\// )) );
-                                showTree( $(this).parent(), $(this).attr('rel').match( /.*\// ) );
+								showTree( $(this).parent(), escape($(this).attr('rel').match( /.*\// )) );
 								$(this).parent().removeClass('collapsed').addClass('expanded');
-								
-								o.folderCallback($(this).attr('rel'));
 							} else {
 								// Collapse
 								$(this).parent().find('UL').slideUp({ duration: o.collapseSpeed, easing: o.collapseEasing });
 								$(this).parent().removeClass('expanded').addClass('collapsed');
 							}
+								
+							o.folderCallback($(this).attr('rel'));
+						
 						} else {
 							h($(this).attr('rel'));
 						}
@@ -91,10 +96,9 @@ if(jQuery) (function($){
 					if( o.folderEvent.toLowerCase != 'click' ) $(t).find('LI A').bind('click', function() { return false; });
 				}
 				// Loading message
-				$(this).html('<ul class="jqueryFileTree start"><li class="wait">' + o.loadMessage + '</li></ul>');
+				$(this).html('<ul class="jqueryFileTree start"><li class="wait">' + o.loadMessage + '<li></ul>');
 				// Get the initial file list
-				// showTree( $(this), escape(o.root) );
-                showTree( $(this), o.root);
+				showTree( $(this), escape(o.root) );
 			});
 		}
 	});

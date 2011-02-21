@@ -48,7 +48,6 @@
 	"grid_view": "Schalte um zur Gitteransicht.",
 	"list_view": "Schalte um zur Listenansicht.",
 	"current_folder": "Momentaner Ordner: ",
-    "gotoroot": "Übersicht"
 	"bytes": " bytes",
 	"kb": "kb",
 	"mb": "mb",

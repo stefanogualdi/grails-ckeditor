@@ -21,8 +21,8 @@
             var culture = '${ofm.currentLocale()}';
             var autoload = true;
             var showFullPath = false;
+            var browseOnly = false;
             var fileRoot = '/';
-            var treeConnector = '${params.treeConnector}';
             var fileConnector = '${params.fileConnector}';
             var tmp = '${params.showThumbs}';
             var showThumbs = (tmp == '' ? false : eval(tmp));
@@ -35,8 +35,8 @@
     <body>
         <div>
             <form id="uploader" method="post">
+                <button id="home" name="home" type="button" value="Home">&nbsp;</button>
                 <h1></h1>
-                <button id="gotoroot" name="gotoroot" type="button" value="Go to root"></button>
                 <div id="uploadresponse"></div>
                 <input id="mode" name="mode" type="hidden" value="add" />
                 <input id="currentpath" name="currentpath" type="hidden" />

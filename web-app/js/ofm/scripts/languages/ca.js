@@ -48,7 +48,6 @@
 	"grid_view": "Canviar a vista de quadricular.",
 	"list_view": "Canviar a vista de llista.",
 	"current_folder": "Carpeta actual: ",
-    "gotoroot": "Directori pare",
 	"bytes": " bytes",
 	"kb": "kb",
 	"mb": "mb",

@@ -48,7 +48,6 @@
 	"grid_view": "Pictogrammen",
 	"list_view": "Lijst",
 	"current_folder": "Huidige map: ",
-    "gotoroot": "Terug naar bestanden",
 	"bytes": " bytes",
 	"kb": "kb",
 	"mb": "mb",

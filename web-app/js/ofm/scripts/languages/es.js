@@ -48,7 +48,6 @@
 	"grid_view": "Cambiar a vista de cuadrícula.",
 	"list_view": "Cambiar a vista de lista.",
 	"current_folder": "Carpeta actual: ",
-    "gotoroot": "Directorio padre",
 	"bytes": " bytes",
 	"kb": "kb",
 	"mb": "mb",

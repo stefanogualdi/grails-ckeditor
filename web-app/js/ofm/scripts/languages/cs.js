@@ -48,7 +48,6 @@
 	"grid_view": "Zobrazit v mřížce.",
 	"list_view": "Zobrazit jako seznam.",
 	"current_folder": "Aktivní adresář: ",
-    "gotoroot": "Nadřazený adresář",
 	"bytes": " bytes",
 	"kb": "kb",
 	"mb": "mb",
