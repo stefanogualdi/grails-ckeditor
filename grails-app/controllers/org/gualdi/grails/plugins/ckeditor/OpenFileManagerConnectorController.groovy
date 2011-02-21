@@ -33,69 +33,6 @@ class OpenFileManagerConnectorController {
     def index = {
         render view: "/ofm"
     }
-    
-    /**
-     * JQueryFileTree connector
-     *
-     */
-    def fileTree = {
-        log.debug "begin fileTree()"
-
-        def config = grailsApplication.config.ckeditor
-
-        def dir = params.dir
-        def type = params.type
-        def space = params.space
-
-        def baseUrl = PathUtils.getBaseUrl(params)
-        def baseDir = getBaseDir(baseUrl)
-
-        def currentDir = baseDir
-        if (dir != '/') {
-            currentDir += PathUtils.checkSlashes(dir, "L- R+")
-        }
-
-        if (log.isDebugEnabled()) {
-            log.debug "=============================================="
-            log.debug "dir = ${dir}"
-            log.debug "baseDir = ${baseDir}"
-            log.debug "baseUrl = ${baseUrl}"
-            log.debug "currentDir = ${currentDir}"
-            log.debug "type = ${type}"
-            log.debug "space = ${space}"
-            log.debug "=============================================="
-        }
-
-        def fDir = new File(currentDir)
-        if(fDir.exists()) {
-            def dirs = []
-            def files = []
-            fDir.eachFile { file ->
-                if (file.isDirectory()) {
-                    dirs << "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" + dir + file.name + "/\">" + file.name + "</a></li>"
-                }
-                else {
-                    if (!file.name.startsWith('.')) {
-                        def f = PathUtils.splitFilename(file.name)
-                        files << "<li class=\"file ext_" + f.ext + "\"><a href=\"#\" rel=\"" + dir + file.name + "\">" + file.name + "</a></li>"
-                    }
-                }
-            }
-
-            def resp = "" << ""
-            resp << "<ul class=\"jqueryFileTree\" style=\"display: none;\">"
-            resp << dirs.join('\n')
-            resp << files.join('\n')
-            resp << "</ul>"
-
-            render resp
-        }
-        else {
-            render ""
-        }
-        
-        log.debug "end fileTree()"
-    }
 
     /**
      * Filemanager connector
