@@ -54,7 +54,7 @@ $.prompt.setDefaults({
 // Forces columns to fill the layout vertically.
 // Called on initial page load and on resize.
 var setDimensions = function(){
-	var newH = $(window).height() - $('#uploader').height();	
+	var newH = $(window).height() - $('#uploader').height() - 30;
 	$('#splitter, #filetree, #fileinfo, .vsplitbar').height(newH);
 }
 
