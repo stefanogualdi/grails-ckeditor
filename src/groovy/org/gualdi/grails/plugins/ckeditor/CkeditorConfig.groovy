@@ -282,6 +282,8 @@ class CkeditorConfig {
         'dialog_backgroundCoverOpacity',
         'dialog_startupFocusTab',
         'dialog_magnetDistance',
+        'dialog_buttonsOrder',
+        'removeDialogTabs',
 
         // plugins/editingblock/plugin.js
         'startupMode',
@@ -303,7 +305,7 @@ class CkeditorConfig {
         'filebrowserImageUploadUrl',
         'filebrowserFlashUploadUrl',
         'filebrowserImageBrowseLinkUrl',
-        'filebrowserWindowFeatures',    
+        'filebrowserWindowFeatures',
 
         // plugins/find/plugin.js
         'find_highlight',
@@ -331,6 +333,7 @@ class CkeditorConfig {
 
         // plugins/htmldataprocessor/plugin.js
         'forceSimpleAmpersand',
+        'fillEmptyBlocks',
 
         // plugins/image/plugin.js
         'image_removeLinkByEmptyURL',
@@ -382,7 +385,6 @@ class CkeditorConfig {
         'scayt_srcUrl',
         'scayt_customDictionaryIds',
         'scayt_userDictionaryName',
-        'scayt_contextMenuOntop',
         'scayt_contextMenuItemsOrder',
 
         // plugins/showblocks/plugin.js
@@ -397,7 +399,11 @@ class CkeditorConfig {
         'smiley_descriptions',
         'smiley_columns',
 
+        // plugins/specialchar/plugin.js
+        'specialChars',
+
         // plugins/styles/plugin.js
+        'disableReadonlyStyling',
         'stylesSet',
 
         // plugins/tab/plugin.js
