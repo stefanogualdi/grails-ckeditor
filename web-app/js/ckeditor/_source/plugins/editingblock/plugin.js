@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -71,7 +71,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					if ( !isHandlingData && editor.mode )
 					{
 						isHandlingData = true;
-						editor.setData( getMode( editor ).getData() );
+						editor.setData( getMode( editor ).getData(), null, 1 );
 						isHandlingData = false;
 					}
 				});
@@ -112,6 +112,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						CKEDITOR.fire( 'instanceReady', null, editor );
 					}, 0 );
 				});
+
+			editor.on( 'destroy', function ()
+			{
+				// ->		currentMode.unload( holderElement );
+				if ( this.mode )
+					this._.modes[ this.mode ].unload( this.getThemeSpace( 'contents' ) );
+			});
 		}
 	});
 
@@ -226,4 +233,16 @@ CKEDITOR.config.editingBlock = true;
  * @name CKEDITOR#instanceReady
  * @event
  * @param {CKEDITOR.editor} editor The editor instance that has been created.
+ */
+
+/**
+ * Fired when the CKEDITOR instance is created, fully initialized and ready for interaction.
+ * @name CKEDITOR.editor#instanceReady
+ * @event
+ */
+
+/**
+ * Fired before changing the editing mode
+ * @name CKEDITOR.editor#beforeModeUnload
+ * @event
  */
