@@ -46,7 +46,7 @@ class Ckeditor {
         StringBuffer outb = new StringBuffer()
 
 		if (!this.config.append) {
-        	outb << """<textarea name="${this.config.instanceName}">${this.initialValue?.encodeAsHTML()}</textarea>\n"""
+        	outb << """<textarea id="${this.config.instanceId}" name="${this.config.instanceName}">${this.initialValue?.encodeAsHTML()}</textarea>\n"""
 		}
         outb << """<script type="text/javascript">\n"""
         outb << """CKEDITOR."""
@@ -56,7 +56,7 @@ class Ckeditor {
 		else {
 			outb << """replace"""
 		}
-		outb << """('${this.config.instanceName}'"""
+		outb << """('${this.config.instanceId}'"""
 		outb << this.config.configuration
         outb << """);\n"""
         outb << """</script>\n"""

@@ -60,6 +60,7 @@ class CkeditorConfig {
 
     def skipAllowedItemsCheck
 
+    def instanceId
     def instanceName
     def userSpace
 	def append
@@ -93,6 +94,7 @@ class CkeditorConfig {
 		if (attrs) {
 	        this.instanceName = attrs.remove("name") ?: this.DEFAULT_INSTANCENAME
 			this.userSpace = attrs.remove("userSpace") ?: this.DEFAULT_USERSPACE  
+            this.instanceId = attrs.remove("id") ?: this.instanceName
 			this.append = (attrs.remove("append") == "true")
 
             this.fileBrowser = attrs.remove("fileBrowser") ?: this.defaultFileBrowser
