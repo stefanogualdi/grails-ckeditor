@@ -71,7 +71,9 @@ class CkeditorConfig {
 
 	def type
 	def target
-	
+
+    def removeInstance
+
 	def config
 	def localConfig
 
@@ -93,8 +95,8 @@ class CkeditorConfig {
 		
 		if (attrs) {
 	        this.instanceName = attrs.remove("name") ?: this.DEFAULT_INSTANCENAME
-			this.userSpace = attrs.remove("userSpace") ?: this.DEFAULT_USERSPACE  
             this.instanceId = attrs.remove("id") ?: this.instanceName
+			this.userSpace = attrs.remove("userSpace") ?: this.DEFAULT_USERSPACE
 			this.append = (attrs.remove("append") == "true")
 
             this.fileBrowser = attrs.remove("fileBrowser") ?: this.defaultFileBrowser
@@ -102,6 +104,8 @@ class CkeditorConfig {
 
 			this.type = attrs.remove("type")
 			this.target = attrs.remove("target")
+
+            this.removeInstance = (attrs.remove("removeInstance") == "true")
 
 			addConfigItem(attrs, true)			
 		}

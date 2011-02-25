@@ -49,6 +49,11 @@ class Ckeditor {
         	outb << """<textarea id="${this.config.instanceId}" name="${this.config.instanceName}">${this.initialValue?.encodeAsHTML()}</textarea>\n"""
 		}
         outb << """<script type="text/javascript">\n"""
+
+        if (this.config.removeInstance) {
+            outb << """if (CKEDITOR.instances['${this.config.instanceId}']){CKEDITOR.remove(CKEDITOR.instances['${this.config.instanceId}']);}\n"""
+        }
+
         outb << """CKEDITOR."""
 		if (this.config.append) {
 			outb << """appendTo"""
