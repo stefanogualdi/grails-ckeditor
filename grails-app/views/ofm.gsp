@@ -14,7 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file:'ie.css', plugin: 'ckeditor')}" />
 		<![endif]-->
 
-        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file:'jquery-1.5.min.js', plugin: 'ckeditor')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file:'jquery-1.5.2.min.js', plugin: 'ckeditor')}"></script>
 
         <script type="text/javascript">
             var ofmBase ="${resource(dir: 'js/ofm', plugin: 'ckeditor')}";
