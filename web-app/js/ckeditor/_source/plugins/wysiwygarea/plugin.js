@@ -313,9 +313,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var win = editor.window,
 			doc = editor.document,
 			body = editor.document.getBody(),
+			bodyFirstChild = body.getFirst(),
 			bodyChildsNum = body.getChildren().count();
 
-		if ( !bodyChildsNum || ( bodyChildsNum == 1&& body.getFirst().hasAttribute( '_moz_editor_bogus_node' ) ) )
+		if ( !bodyChildsNum
+			|| bodyChildsNum == 1
+				&& bodyFirstChild.type == CKEDITOR.NODE_ELEMENT
+				&& bodyFirstChild.hasAttribute( '_moz_editor_bogus_node' ) )
 		{
 			restoreDirty( editor );
 
@@ -362,8 +366,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			activateEditing( editor );
 
 			// Ensure bogus br could help to move cursor (out of styles) to the end of block. (#7041)
-			var pathBlock = path.block || path.blockLimit;
-			if ( pathBlock && !pathBlock.getBogus() )
+			var pathBlock = path.block || path.blockLimit,
+				lastNode = pathBlock && pathBlock.getLast( isNotEmpty );
+
+			// In case it's not ended with block element and doesn't have bogus yet. (#7467)
+			if ( pathBlock
+					&& !( lastNode && lastNode.type == CKEDITOR.NODE_ELEMENT && lastNode.isBlockBoundary() )
+					&& !pathBlock.is( 'pre' )
+					&& !pathBlock.getBogus() )
 			{
 				editor.fire( 'updateSnapshot' );
 				restoreDirty( editor );
@@ -418,13 +428,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 
 			range.select();
-			// Notify non-IE that selection has changed.
-			if ( !CKEDITOR.env.ie )
-			{
-				// Make sure next selection change is correct.  (#6811)
-				editor.forceNextSelectionCheck();
-				editor.selectionChange();
-			}
+			// Cancel this selection change in favor of the next (correct).  (#6811)
+			evt.cancel();
 		}
 
 		// All browsers are incapable to moving cursor out of certain non-exitable
@@ -687,6 +692,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						// Webkit: avoid from editing form control elements content.
 						if ( CKEDITOR.env.webkit )
 						{
+							// Mark that cursor will right blinking (#7113).
+							domDocument.on( 'mousedown', function() { wasFocused = 1; } );
 							// Prevent from tick checkbox/radiobox/select
 							domDocument.on( 'click', function( ev )
 							{
@@ -807,6 +814,30 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									}
 								} );
 							}
+
+							// Prevent IE from leaving new paragraph after deleting all contents in body. (#6966)
+							editor.config.enterMode != CKEDITOR.ENTER_P
+								&& domDocument.on( 'selectionchange', function()
+								{
+									var body = domDocument.getBody(),
+										range = editor.getSelection().getRanges()[ 0 ];
+
+									if ( body.getHtml().match( /^<p>&nbsp;<\/p>$/i )
+										&& range.startContainer.equals( body ) )
+									{
+										// Avoid the ambiguity from a real user cursor position.
+										setTimeout( function ()
+										{
+											range = editor.getSelection().getRanges()[ 0 ];
+											if ( !range.startContainer.equals ( 'body' ) )
+											{
+												body.getFirst().remove( 1 );
+												range.moveToElementEditEnd( body );
+												range.select( 1 );
+											}
+										}, 0 );
+									}
+								});
 						}
 
 						// Adds the document body as a context menu target.
@@ -902,6 +933,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							loadData : function( data )
 							{
 								isLoadingData = true;
+								editor._.dataStore = { id : 1 };
 
 								var config = editor.config,
 									fullPage = config.fullPage,
@@ -981,6 +1013,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										'</html>';
 								}
 
+								// Distinguish bogus to normal BR at the end of document for Mozilla. (#5293).
+								if ( CKEDITOR.env.gecko )
+									data = data.replace( /<br \/>(?=\s*<\/(:?html|body)>)/, '$&<br type="_moz" />' );
+
 								data += activationScript;
 
 
@@ -999,6 +1035,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								var data = fullPage
 									? doc.getDocumentElement().getOuterHtml()
 									: doc.getBody().getHtml();
+
+								// BR at the end of document is bogus node for Mozilla. (#5293).
+								if ( CKEDITOR.env.gecko )
+									data = data.replace( /<br>(?=\s*(:?$|<\/body>))/, '' );
 
 								if ( editor.dataProcessor )
 									data = editor.dataProcessor.toDataFormat( data, fixForBody );
@@ -1236,14 +1276,12 @@ CKEDITOR.config.disableObjectResizing = false;
 CKEDITOR.config.disableNativeTableHandles = true;
 
 /**
- * Disables the built-in spell checker while typing natively available in the
- * browser (currently Firefox and Safari only).<br /><br />
+ * Disables the built-in words spell checker if browser provides one.<br /><br />
  *
- * Even if word suggestions will not appear in the CKEditor context menu, this
- * feature is useful to help quickly identifying misspelled words.<br /><br />
+ * <strong>Note:</strong> Although word suggestions provided by browsers (natively) will not appear in CKEditor's default context menu,
+ * users can always reach the native context menu by holding the <em>Ctrl</em> key when right-clicking if {@link CKEDITOR.config.browserContextMenuOnCtrl}
+ * is enabled or you're simply not using the context menu plugin.
  *
- * This setting is currently compatible with Firefox only due to limitations in
- * other browsers.
  * @type Boolean
  * @default true
  * @example

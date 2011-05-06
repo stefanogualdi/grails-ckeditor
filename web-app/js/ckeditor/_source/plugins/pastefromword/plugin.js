@@ -12,9 +12,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Flag indicate this command is actually been asked instead of a generic
 			// pasting.
 			var forceFromWord = 0;
-			var resetFromWord = function()
+			var resetFromWord = function( evt )
 				{
-					setTimeout( function() { forceFromWord = 0; }, 0 );
+					evt && evt.removeListener();
+					forceFromWord && setTimeout( function() { forceFromWord = 0; }, 0 );
 				};
 
 			// Features bring by this command beside the normal process:
@@ -29,14 +30,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					forceFromWord = 1;
 					if ( editor.execCommand( 'paste' ) === false )
 					{
-						editor.on( 'dialogHide', function ( evt )
-							{
-								evt.removeListener();
-								resetFromWord();
-							});
+						editor.on( 'dialogShow', function ( evt )
+						{
+							evt.removeListener();
+							evt.data.on( 'cancel', resetFromWord );
+						});
+
+						editor.on( 'dialogHide', function( evt )
+						{
+							evt.data.removeListener( 'cancel', resetFromWord );
+						} );
 					}
-					else
-						resetFromWord();
+
+					editor.on( 'afterPaste', resetFromWord );
 				}
 			});
 

@@ -79,7 +79,11 @@ CKEDITOR.plugins.load = CKEDITOR.tools.override( CKEDITOR.plugins.load, function
 CKEDITOR.plugins.setLang = function( pluginName, languageCode, languageEntries )
 {
 	var plugin = this.get( pluginName ),
-		pluginLang = plugin.lang || ( plugin.lang = {} );
+		pluginLangEntries = plugin.langEntries || ( plugin.langEntries = {} ),
+		pluginLang = plugin.lang || ( plugin.lang = [] );
 
-	pluginLang[ languageCode ] = languageEntries;
+	if ( CKEDITOR.tools.indexOf( pluginLang, languageCode ) == -1 )
+		pluginLang.push( languageCode );
+
+	pluginLangEntries[ languageCode ] = languageEntries;
 };

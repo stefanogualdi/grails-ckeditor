@@ -15,10 +15,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	function onSelectionChange( evt )
 	{
-		var editor = evt.editor;
-
-		var elementPath = evt.data.path,
-				list = elementPath && elementPath.contains( listNodeNames );
+		var editor = evt.editor,
+			elementPath = evt.data.path,
+			list = elementPath && elementPath.contains( listNodeNames ),
+			firstBlock = elementPath.block || elementPath.blockLimit;
 
 		if ( list )
 				return this.setState( CKEDITOR.TRISTATE_OFF );
@@ -26,8 +26,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		if ( !this.useIndentClasses && this.name == 'indent' )
 			return this.setState( CKEDITOR.TRISTATE_OFF );
 
-		var path = evt.data.path,
-			firstBlock = path.block || path.blockLimit;
 		if ( !firstBlock )
 			return this.setState( CKEDITOR.TRISTATE_DISABLED );
 

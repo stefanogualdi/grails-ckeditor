@@ -14,6 +14,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		toolbarFocus :
 		{
+			editorFocus : false,
 			exec : function( editor )
 			{
 				var idBase = editor._.elementsPath.idBase;

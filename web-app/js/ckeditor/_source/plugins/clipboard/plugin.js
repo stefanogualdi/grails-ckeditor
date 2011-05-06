@@ -158,6 +158,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 	};
 
+	function cancel( evt ) { evt.cancel(); }
+
 	// Allow to peek clipboard content by redirecting the
 	// pasting content into a temporary bin and grab the content of it.
 	function getClipboardData( evt, mode, callback )
@@ -208,6 +210,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		var bms = sel.createBookmarks();
 
+		this.on( 'selectionChange', cancel, null, null, 0 );
+
 		// Turn off design mode temporarily before give focus to the paste bin.
 		if ( mode == 'text' )
 		{
@@ -234,6 +238,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			mode == 'text' && CKEDITOR.env.gecko && editor.focusGrabber.focus();
 			pastebin.remove();
+			editor.removeListener( 'selectionChange', cancel );
 
 			// Grab the HTML contents.
 			// We need to look for a apple style wrapper on webkit it also adds
@@ -322,6 +327,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						else if ( data[ 'text' ] )
 							editor.insertText( data[ 'text' ] );
 
+						setTimeout( function () { editor.fire( 'afterPaste' ); }, 0 );
+
 					}, null, null, 1000 );
 
 				editor.on( 'pasteDialog', function( evt )
@@ -388,7 +395,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							{
 								// The very last guard to make sure the
 								// paste has successfully happened.
-								if ( !data )
+								if ( !CKEDITOR.tools.trim( data.toLowerCase().replace( /<span[^>]+data-cke-bookmark[^<]*?<\/span>/g,'' ) ) )
 									return;
 
 								var dataTransfer = {};

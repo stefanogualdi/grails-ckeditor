@@ -34,7 +34,7 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 	 */
 	this.children = [];
 
-	var tagName = attributes[ 'data-cke-real-element-type' ] || name;
+	var tagName = attributes[ 'data-cke-real-element-type' ] || name || '';
 
 	// Reveal the real semantic of our internal custom tag name (#6639).
 	var internalTag = tagName.match( /^cke:(.*)/ );
@@ -127,7 +127,7 @@ CKEDITOR.htmlParser.element = function( name, attributes )
 				{
 					var writer = new CKEDITOR.htmlParser.basicWriter();
 					CKEDITOR.htmlParser.fragment.prototype.writeChildrenHtml.call( element, writer, filter );
-					element.children = new CKEDITOR.htmlParser.fragment.fromHtml( writer.getHtml() ).children;
+					element.children = new CKEDITOR.htmlParser.fragment.fromHtml( writer.getHtml(), 0, element.clone() ).children;
 					isChildrenFiltered = 1;
 				}
 			};

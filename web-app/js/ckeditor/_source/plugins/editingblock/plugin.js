@@ -153,6 +153,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	 */
 	CKEDITOR.editor.prototype.setMode = function( mode )
 	{
+		this.fire( 'beforeSetMode', { newMode : mode } );
+
 		var data,
 			holderElement = this.getThemeSpace( 'contents' ),
 			isDirty = this.checkDirty();
@@ -195,6 +197,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	 */
 	CKEDITOR.editor.prototype.focus = function()
 	{
+		this.forceNextSelectionCheck();
 		var mode = getMode( this );
 		if ( mode )
 			mode.focus();
@@ -213,6 +216,7 @@ CKEDITOR.config.startupMode = 'wysiwyg';
 
 /**
  * Sets whether the editor should have the focus when the page loads.
+ * @name CKEDITOR.config.startupFocus
  * @type Boolean
  * @default false
  * @example
@@ -242,7 +246,15 @@ CKEDITOR.config.editingBlock = true;
  */
 
 /**
- * Fired before changing the editing mode
+ * Fired before changing the editing mode.
  * @name CKEDITOR.editor#beforeModeUnload
  * @event
+ */
+
+ /**
+ * Fired before the editor mode is set.
+ * @name CKEDITOR.editor#beforeSetMode
+ * @event
+ * @since 3.5.3
+ * @param {String} newMode The name of the mode which is about to be set.
  */

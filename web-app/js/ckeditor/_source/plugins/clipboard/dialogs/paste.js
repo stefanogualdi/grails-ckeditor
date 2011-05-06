@@ -164,7 +164,12 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 			var container = this.getContentElement( 'general', 'editing_area' ).getElement(),
 				iframe = container.getElementsByTag( 'iframe' ).getItem( 0 ),
 				editor = this.getParentEditor(),
-				html = iframe.$.contentWindow.document.body.innerHTML;
+				body = iframe.getFrameDocument().getBody(),
+				bogus = body.getBogus(),
+				html;
+			bogus && bogus.remove();
+			// Saving the contents in variable so changes until paste is complete will not take place (#7500)
+			html = body.getHtml();
 
 			setTimeout( function(){
 				editor.fire( 'paste', { 'html' : html } );
