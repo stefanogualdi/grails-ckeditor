@@ -815,7 +815,7 @@ CKEDITOR.STYLE_OBJECT = 3;
 	{
 		var root = range.getCommonAncestor( true, true ),
 			element = root.getAscendant( this.element, true );
-		element && setupElement( element, this );
+		element && !element.isReadOnly() && setupElement( element, this );
 	}
 
 	function removeObjectStyle( range )
@@ -872,8 +872,11 @@ CKEDITOR.STYLE_OBJECT = 3;
 
 		while ( ( block = iterator.getNextParagraph() ) )		// Only one =
 		{
-			var newBlock = getElement( this, doc, block );
-			replaceBlock( block, newBlock );
+			if ( !block.isReadOnly() )
+			{
+				var newBlock = getElement( this, doc, block );
+				replaceBlock( block, newBlock );
+			}
 		}
 
 		range.moveToBookmark( bookmark );
@@ -1445,6 +1448,16 @@ CKEDITOR.STYLE_OBJECT = 3;
 		}
 		else
 			styleText = unparsedCssText;
+
+		// Normalize font-family property, ignore quotes and being case insensitive. (#7322)
+		// http://www.w3.org/TR/css3-fonts/#font-family-the-font-family-property
+		styleText = styleText.replace( /(font-family:)(.*?)(?=;|$)/, function ( match, prop, val )
+		{
+			var names = val.split( ',' );
+			for ( var i = 0; i < names.length; i++ )
+				names[ i ] = CKEDITOR.tools.trim( names[ i ].replace( /["']/g, '' ) );
+			return prop + names.join( ',' );
+		});
 
 		// Shrinking white-spaces around colon and semi-colon (#4147).
 		// Compensate tail semi-colon.

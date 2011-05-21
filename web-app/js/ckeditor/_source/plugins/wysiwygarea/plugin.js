@@ -10,19 +10,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 (function()
 {
-	// List of elements in which has no way to move editing focus outside.
-	var nonExitableElementNames = { table:1,pre:1 };
-
 	// Matching an empty paragraph at the end of document.
-	var emptyParagraphRegexp = /(^|<body\b[^>]*>)\s*<(p|div|address|h\d|center)[^>]*>\s*(?:<br[^>]*>|&nbsp;|\u00A0|&#160;)?\s*(:?<\/\2>)?\s*(?=$|<\/body>)/gi;
+	var emptyParagraphRegexp = /(^|<body\b[^>]*>)\s*<(p|div|address|h\d|center|pre)[^>]*>\s*(?:<br[^>]*>|&nbsp;|\u00A0|&#160;)?\s*(:?<\/\2>)?\s*(?=$|<\/body>)/gi;
 
 	var notWhitespaceEval = CKEDITOR.dom.walker.whitespaces( true );
 
-	// Elements that could have empty new line around, including table, pre-formatted block, hr, page-break. (#6554)
-	function nonExitable( element )
+	// Elements that could blink the cursor anchoring beside it, like hr, page-break. (#6554)
+	function nonEditable( element )
 	{
-		return ( element.getName() in nonExitableElementNames )
-				|| element.isBlockBoundary() && CKEDITOR.dtd.$empty[ element.getName() ];
+		return element.isBlockBoundary() && CKEDITOR.dtd.$empty[ element.getName() ];
 	}
 
 
@@ -369,8 +365,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var pathBlock = path.block || path.blockLimit,
 				lastNode = pathBlock && pathBlock.getLast( isNotEmpty );
 
-			// In case it's not ended with block element and doesn't have bogus yet. (#7467)
+			// Check some specialities of the current path block:
+			// 1. It is really displayed as block; (#7221)
+			// 2. It doesn't end with one inner block; (#7467)
+			// 3. It doesn't have bogus br yet.
 			if ( pathBlock
+					&& pathBlock.isBlockBoundary()
 					&& !( lastNode && lastNode.type == CKEDITOR.NODE_ELEMENT && lastNode.isBlockBoundary() )
 					&& !pathBlock.is( 'pre' )
 					&& !pathBlock.getBogus() )
@@ -409,7 +409,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var element = fixedBlock.getNext( isNotWhitespace );
 				if ( element &&
 					 element.type == CKEDITOR.NODE_ELEMENT &&
-					 !nonExitable( element ) )
+					 !nonEditable( element ) )
 				{
 					range.moveToElementEditStart( element );
 					fixedBlock.remove();
@@ -419,7 +419,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					element = fixedBlock.getPrevious( isNotWhitespace );
 					if ( element &&
 						 element.type == CKEDITOR.NODE_ELEMENT &&
-						 !nonExitable( element ) )
+						 !nonEditable( element ) )
 					{
 						range.moveToElementEditEnd( element );
 						fixedBlock.remove();
@@ -432,22 +432,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			evt.cancel();
 		}
 
-		// All browsers are incapable to moving cursor out of certain non-exitable
-		// blocks (e.g. table, list, pre) at the end of document, make this happen by
-		// place a bogus node there, which would be later removed by dataprocessor.
-		var walkerRange = new CKEDITOR.dom.range( editor.document ),
-			walker = new CKEDITOR.dom.walker( walkerRange );
-		walkerRange.selectNodeContents( body );
-		walker.evaluator = function( node )
-		{
-			return node.type == CKEDITOR.NODE_ELEMENT && ( node.getName() in nonExitableElementNames );
-		};
-		walker.guard = function( node, isMoveout )
-		{
-			return !( ( node.type == CKEDITOR.NODE_TEXT && isNotWhitespace( node ) ) || isMoveout );
-		};
-
-		if ( walker.previous() )
+		// Browsers are incapable of moving cursor out of certain block elements (e.g. table, div, pre)
+		// at the end of document, makes it unable to continue adding content, we have to make this
+		// easier by opening an new empty paragraph.
+		var testRange = new CKEDITOR.dom.range( editor.document );
+		testRange.moveToElementEditEnd( editor.document.getBody() );
+		var testPath = new CKEDITOR.dom.elementPath( testRange.startContainer );
+		if ( !testPath.blockLimit.is( 'body') )
 		{
 			editor.fire( 'updateSnapshot' );
 			restoreDirty( editor );
@@ -455,7 +446,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			var paddingBlock;
 			if ( enterMode != CKEDITOR.ENTER_BR )
-				paddingBlock = body.append( new CKEDITOR.dom.element( enterMode == CKEDITOR.ENTER_P ? 'p' : 'div' ) );
+				paddingBlock = body.append( editor.document.createElement( enterMode == CKEDITOR.ENTER_P ? 'p' : 'div' ) );
 			else
 				paddingBlock = body;
 
