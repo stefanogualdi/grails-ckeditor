@@ -33,7 +33,7 @@ var capabilities = new Array('select', 'download', 'rename', 'delete');
 
 // Get localized messages from file 
 // through culture var or from URL
-if($.urlParam('langCode') != 0 && file_exists ('scripts/languages/'  + $.urlParam('langCode') + '.js')) culture = $.urlParam('langCode');
+if($.urlParam('langCode') != 0 && file_exists (ofmBase + '/scripts/languages/'  + $.urlParam('langCode') + '.js')) culture = $.urlParam('langCode');
 var lg = [];
 $.ajax({
   url: ofmBase + '/scripts/languages/'  + culture + '.js',
