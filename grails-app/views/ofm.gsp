@@ -14,7 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file:'ie.css', plugin: 'ckeditor')}" />
 		<![endif]-->
 
-        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file:'jquery-1.6.min.js', plugin: 'ckeditor')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file:'jquery-1.6.1.min.js', plugin: 'ckeditor')}"></script>
 
         <script type="text/javascript">
             var ofmBase ="${resource(dir: 'js/ofm', plugin: 'ckeditor')}";
@@ -22,6 +22,7 @@
             var autoload = true;
             var showFullPath = false;
             var browseOnly = false;
+            var defaultViewMode = 'grid';
             var fileRoot = '/';
             var fileConnector = '${params.fileConnector}';
             var tmp = '${params.showThumbs}';

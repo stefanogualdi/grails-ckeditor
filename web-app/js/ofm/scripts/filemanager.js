@@ -59,7 +59,7 @@ var setDimensions = function(){
 }
 
 // Display Min Path
-var displayRoot = function(path){
+var displayPath = function(path) {
 	if(showFullPath == false)
 		return path.replace(fileRoot, "/");
 	else 
@@ -176,7 +176,7 @@ var basename = function(path, suffix) {
 // whenever a new directory is selected.
 var setUploader = function(path){
 	$('#currentpath').val(path);
-	$('#uploader h1').text(lg.current_folder + displayRoot(path));
+	$('#uploader h1').text(lg.current_folder + displayPath(path));
 
 	$('#newfolder').unbind().click(function(){
 		var foldername =  lg.default_foldername;
@@ -188,8 +188,8 @@ var setUploader = function(path){
 
 			if(fname != ''){
 				foldername = cleanString(fname);
-
-				$.getJSON(fileConnector + '?mode=addfolder&path=' + $('#currentpath').val() + '&name=' + foldername + '&space=' + space + '&type=' + type, function(result){
+				var d = new Date(); // to prevent IE cache issues
+				$.getJSON(fileConnector + '?mode=addfolder&path=' + $('#currentpath').val() + '&name=' + foldername + '&space=' + space + '&type=' + type + '&time=' + d.getMilliseconds(), function(result){
 					if(result['Code'] == 0){
 						addFolder(result['Parent'], result['Name']);
 						getFolderInfo(result['Parent']);
@@ -246,7 +246,7 @@ var bindToolbar = function(data){
 		$('#fileinfo').find('button#download').hide();
 	} else {
 		$('#fileinfo').find('button#download').click(function(){
-			window.location = fileConnector + '?mode=download&path=' + data['Path'] + '&space=' + space + '&type=' + type;;
+			window.location = fileConnector + '?mode=download&path=' + data['Path'] + '&space=' + space + '&type=' + type;
 		}).show();
 	}
 }
@@ -400,6 +400,9 @@ var deleteItem = function(data){
 			success: function(result){
 				if(result['Code'] == 0){
 					removeNode(result['Path']);
+					var rootpath = result['Path'].substring(0, result['Path'].length-1); // removing the last slash
+					rootpath = rootpath.substr(0, rootpath.lastIndexOf('/') + 1);
+					$('#uploader h1').text(lg.current_folder + displayPath(rootpath));
 					isDeleted = true;
 					$.prompt(lg.successful_delete);
 				} else {
@@ -478,9 +481,7 @@ var removeNode = function(path){
     }
     // remove fileinfo when item to remove is currently selected
     if ($('#preview').length) {
-		$('#fileinfo').fadeOut('slow', function(){
-			$(this).empty().show();
-		});
+    	getFolderInfo(path.substr(0, path.lastIndexOf('/') + 1));
 	}
 }
 
@@ -542,7 +543,8 @@ function getContextMenuOptions(elem) {
 
 // Binds contextual menus to items in list and grid views.
 var setMenus = function(action, path){
-	$.getJSON(fileConnector + '?mode=getinfo&path=' + path + '&space=' + space + '&type=' + type, function(data){
+	var d = new Date(); // to prevent IE cache issues
+	$.getJSON(fileConnector + '?mode=getinfo&path=' + path + '&space=' + space + '&type=' + type + '&time=' + d.getMilliseconds(), function(data){
         var item;
 		if($('#fileinfo').data('view') == 'grid'){
 			item = $('#fileinfo').find('img[alt="' + data['Path'] + '"]').parent();
@@ -564,9 +566,7 @@ var setMenus = function(action, path){
 				break;
 				
 			case 'delete':
-				// TODO: When selected, the file is deleted and the
-				// file tree is updated, but the grid/list view is not.
-				if(deleteItem(data)) item.fadeOut('slow', function(){ $(this).remove(); });
+				deleteItem(data);
 				break;
 		}
 	});
@@ -596,7 +596,8 @@ var getFileInfo = function(file){
 	$('#parentfolder').click(function() {getFolderInfo(currentpath);});
 	
 	// Retrieve the data & populate the template.
-	$.getJSON(fileConnector + '?mode=getinfo&path=' + file + '&space=' + space + '&type=' + type, function(data){
+	var d = new Date(); // to prevent IE cache issues
+	$.getJSON(fileConnector + '?mode=getinfo&path=' + file + '&space=' + space + '&type=' + type + '&time=' + d.getMilliseconds(), function(data){
 		if(data['Code'] == 0){
 			$('#fileinfo').find('h1').text(data['Filename']).attr('title', file);
 			$('#fileinfo').find('img').attr('src',data['Preview']);
@@ -630,7 +631,10 @@ var getFolderInfo = function(path){
 	$('#fileinfo').html('<img id="activity" src="' + ofmBase + '/images/wait30trans.gif" width="30" height="30" />');
 
 	// Retrieve the data and generate the markup.
-	$.getJSON(fileConnector + '?path=' + path + '&mode=getfolder&showThumbs=' + showThumbs + '&space=' + space + '&type=' + type, function(data){
+	var d = new Date(); // to prevent IE cache issues
+	var url = fileConnector + '?path=' + path + '&mode=getfolder&showThumbs=' + showThumbs + '&space=' + space + '&type=' + type + '&time=' + d.getMilliseconds();
+	if ($.urlParam('type')) url += '&type=' + $.urlParam('type');
+	$.getJSON(url, function(data){
 		var result = '';
 		
 		// Is there any error or user is unauthorized?
@@ -763,7 +767,8 @@ var getFolderInfo = function(path){
 // Retrieve data (file/folder listing) for jqueryFileTree and pass the data back
 // to the callback function in jqueryFileTree
 var populateFileTree = function(path, callback){
-	var url = fileConnector + '?path=' + path + '&mode=getfolder&showThumbs=' + showThumbs;
+	var d = new Date(); // to prevent IE cache issues
+	var url = fileConnector + '?path=' + path + '&mode=getfolder&showThumbs=' + showThumbs + '&time=' + d.getMilliseconds();
 	if ($.urlParam('type')) url += '&type=' + $.urlParam('type');
 	$.getJSON(url, function(data) {
 		var result = '';
@@ -831,7 +836,7 @@ $(function(){
 	$('button').wrapInner('<span></span>');
 
 	// Set initial view state.
-	$('#fileinfo').data('view', 'grid');
+	$('#fileinfo').data('view', defaultViewMode);
 
 	$('#home').click(function(){
 		$('#fileinfo').data('view', 'grid');
@@ -862,6 +867,8 @@ $(function(){
 	$('#uploader').ajaxForm({
 		target: '#uploadresponse',
 		beforeSubmit: function(arr, form, options) {
+			$('#upload').attr('disabled', true);
+			$('#upload span').addClass('loading').text(lg.loading_data);
 			if ($.urlParam('type').toString().toLowerCase() == 'images') {
 				// Test if uploaded file extension is in valid image extensions
 				var newfileSplitted = $('#newfile', form).val().toLowerCase().split('.');
@@ -875,7 +882,7 @@ $(function(){
 			}
 		},
 		success: function(result){
-			eval('var data = ' + $('#uploadresponse').find('textarea').text());
+			var data = jQuery.parseJSON($('#uploadresponse').find('textarea').text());
 
 			if(data['Code'] == 0){
 				addNode(data['Path'], data['Name']);
@@ -883,6 +890,8 @@ $(function(){
 			} else {
 				$.prompt(data['Error']);
 			}
+			$('#upload').removeAttr('disabled');
+			$('#upload span').removeClass('loading').text(lg.upload);
 		}
 	});
 
