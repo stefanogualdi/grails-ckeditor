@@ -633,7 +633,6 @@ var getFolderInfo = function(path){
 	// Retrieve the data and generate the markup.
 	var d = new Date(); // to prevent IE cache issues
 	var url = fileConnector + '?path=' + path + '&mode=getfolder&showThumbs=' + showThumbs + '&space=' + space + '&type=' + type + '&time=' + d.getMilliseconds();
-	if ($.urlParam('type')) url += '&type=' + $.urlParam('type');
 	$.getJSON(url, function(data){
 		var result = '';
 		
