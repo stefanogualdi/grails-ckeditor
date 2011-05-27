@@ -92,6 +92,6 @@ class Ckeditor {
     }
 
     def renderFileBrowserLink() {
-		return this.config.getBrowseUrl(this.config.type, this.config.userSpace, this.config.fileBrowser, this.config.showThumbs)
+		return this.config.getBrowseUrl(this.config.type, this.config.userSpace, this.config.fileBrowser, this.config.showThumbs, this.config.viewMode)
     }
 }
