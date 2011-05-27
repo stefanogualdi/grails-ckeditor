@@ -232,7 +232,7 @@ class CkeditorConfig {
     static final ALLOWED_CONFIG_ITEMS = [
         // Items not listed in main config file
         'uiColor',
-            
+
 		// Main config
 		'customConfig',
 		'autoUpdateElement',
@@ -283,6 +283,10 @@ class CkeditorConfig {
         // plugins/contextmenu/plugin.js
         'browserContextMenuOnCtrl',
 
+        // plugins/devtools/plugin.js
+        'devtools_textCallback',
+        'devtools_styles',
+
         // plugins/dialog/plugin.js
         'dialog_backgroundCoverColor',
         'dialog_backgroundCoverOpacity',
@@ -297,6 +301,7 @@ class CkeditorConfig {
         'editingBlock',
 
         // plugins/entities/plugin.js
+        'basicEntities',
         'entities',
         'entities_latin',
         'entities_greek',
@@ -312,6 +317,8 @@ class CkeditorConfig {
         'filebrowserFlashUploadUrl',
         'filebrowserImageBrowseLinkUrl',
         'filebrowserWindowFeatures',
+        'filebrowserWindowWidth',
+        'filebrowserWindowHeight',
 
         // plugins/find/plugin.js
         'find_highlight',
@@ -349,6 +356,9 @@ class CkeditorConfig {
         'indentOffset',
         'indentUnit',
         'indentClasses',
+
+        // plugins/justify/plugin.js
+        'justifyClasses',
 
         // plugins/keystrokes/plugin.js
         'blockedKeystrokes',
@@ -412,6 +422,10 @@ class CkeditorConfig {
         'disableReadonlyStyling',
         'stylesSet',
 
+        // plugins/stylesheetparser/plugin.js
+        'stylesheetParser_skipSelectors',
+        'stylesheetParser_validSelectors',
+
         // plugins/tab/plugin.js
         'tabSpaces',
         'enableTabKeyTools',
@@ -428,6 +442,7 @@ class CkeditorConfig {
         'toolbar_Full',
         'toolbarCanCollapse',
         'toolbarStartupExpanded',
+        'toolbarGroupCycling',
 
         // plugins/undo/plugin.js
         'undoStackSize',
@@ -440,6 +455,7 @@ class CkeditorConfig {
         'disableObjectResizing',
         'disableNativeTableHandles',
         'disableNativeSpellChecker',
-        'ignoreEmptyParagraph'
+        'ignoreEmptyParagraph',
+        'autoParagraph'
     ]
 }
