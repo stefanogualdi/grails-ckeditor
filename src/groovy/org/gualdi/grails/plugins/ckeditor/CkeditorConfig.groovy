@@ -158,7 +158,7 @@ class CkeditorConfig {
         def browserUrl
         def prefix = getConnectorsPrefix()
         if (fileBrowser == 'ofm') {
-            browserUrl = "${this.contextPath}/${prefix}/ofm?fileConnector=${this.contextPath}/${prefix}/ofm/filemanager&treeConnector=${this.contextPath}/${prefix}/ofm/filetree&type=${type}${userSpace ? '&space='+ userSpace : ''}${showThumbs ? '&showThumbs='+ showThumbs : ''}${'&viewMode='+ viewMode}"
+            browserUrl = "${this.contextPath}/${prefix}/ofm?fileConnector=${this.contextPath}/${prefix}/ofm/filemanager&type=${type}${userSpace ? '&space='+ userSpace : ''}${showThumbs ? '&showThumbs='+ showThumbs : ''}${'&viewMode='+ viewMode}"
         }
         else {
             browserUrl = "${this.basePath}/js/filebrowser/browser.html?Connector=${this.contextPath}/${prefix}/standard/filemanager?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}"
