@@ -43,15 +43,17 @@ class CkeditorConfig {
     
 	static final DEFAULT_INSTANCENAME = "editor"
 
-	static final DEFAULT_FILEBROWSER = "standard" // standard | ofm
+	static final DEFAULT_FILEBROWSER = "ofm" // standard | ofm
 
     static final DEFAULT_SHOWTHUMBS = false
+
+    static final DEFAULT_VIEWMODE = "grid"
 
 	static final RESOURCE_TYPES = ['link', 'image', 'flash']
 
     static final OFM_IMAGE_EXTS = ['jpg', 'jpeg', 'gif', 'png']
 
-    static final OFM_LOCALES = ['ca', 'cs', 'da', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pl', 'zh-cn']
+    static final OFM_LOCALES = ['ca', 'cs', 'da', 'de', 'en', 'es', 'fi', 'fr', 'he', 'hu', 'it', 'ja', 'nl', 'pl', 'pt', 'ru', 'sv', 'vn', 'zh-cn']
 
     def contextPath
     def basePath
@@ -68,6 +70,7 @@ class CkeditorConfig {
     def fileBrowser
     def defaultFileBrowser
     def showThumbs
+    def viewMode
 
 	def type
 	def target
@@ -101,6 +104,7 @@ class CkeditorConfig {
 
             this.fileBrowser = attrs.remove("fileBrowser") ?: this.defaultFileBrowser
             this.showThumbs = (attrs.remove("showThumbs") == "true")
+            this.viewMode = attrs.remove("viewMode") ?: this.DEFAULT_VIEWMODE
 
 			this.type = attrs.remove("type")
 			this.target = attrs.remove("target")
@@ -150,11 +154,11 @@ class CkeditorConfig {
         }
     }
 
-	def getBrowseUrl(type, userSpace, fileBrowser, showThumbs) {
+	def getBrowseUrl(type, userSpace, fileBrowser, showThumbs, viewMode) {
         def browserUrl
         def prefix = getConnectorsPrefix()
         if (fileBrowser == 'ofm') {
-            browserUrl = "${this.contextPath}/${prefix}/ofm?fileConnector=${this.contextPath}/${prefix}/ofm/filemanager&treeConnector=${this.contextPath}/${prefix}/ofm/filetree&type=${type}${userSpace ? '&space='+ userSpace : ''}${showThumbs ? '&showThumbs='+ showThumbs : ''}"
+            browserUrl = "${this.contextPath}/${prefix}/ofm?fileConnector=${this.contextPath}/${prefix}/ofm/filemanager&treeConnector=${this.contextPath}/${prefix}/ofm/filetree&type=${type}${userSpace ? '&space='+ userSpace : ''}${showThumbs ? '&showThumbs='+ showThumbs : ''}${'&viewMode='+ viewMode}"
         }
         else {
             browserUrl = "${this.basePath}/js/filebrowser/browser.html?Connector=${this.contextPath}/${prefix}/standard/filemanager?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}"
@@ -182,7 +186,7 @@ class CkeditorConfig {
 			def typeForConnector = "${type == 'Link' ? 'File' : type}"
 			
             if (ckconfig?.upload?."${t}"?.browser) {
-				this.config["filebrowser${type}BrowseUrl"] = "'${getBrowseUrl(typeForConnector, this.userSpace, this.fileBrowser, this.showThumbs)}'" 
+				this.config["filebrowser${type}BrowseUrl"] = "'${getBrowseUrl(typeForConnector, this.userSpace, this.fileBrowser, this.showThumbs, this.viewMode)}'"
             }
             if (ckconfig?.upload?."${t}"?.upload) {
 				this.config["filebrowser${type}UploadUrl"] = "'${getUploadUrl(typeForConnector, this.userSpace)}'" 

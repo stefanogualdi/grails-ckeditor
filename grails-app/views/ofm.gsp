@@ -22,7 +22,7 @@
             var autoload = true;
             var showFullPath = false;
             var browseOnly = false;
-            var defaultViewMode = 'grid';
+            var defaultViewMode = '${params.viewMode}';
             var fileRoot = '/';
             var fileConnector = '${params.fileConnector}';
             var tmp = '${params.showThumbs}';
