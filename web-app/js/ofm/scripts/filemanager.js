@@ -66,6 +66,18 @@ var displayPath = function(path) {
 		return path;
 }
 
+// Set the view buttons state
+var setViewButtonsFor = function(viewMode) {
+    if (viewMode == 'grid') {
+        $('#grid').addClass('ON');
+        $('#list').removeClass('ON');
+    }
+    else {
+        $('#list').addClass('ON');
+        $('#grid').removeClass('ON');
+    }
+}
+
 // Test if a given url exists
 function file_exists (url) {
     // http://kevin.vanzonneveld.net
@@ -836,24 +848,24 @@ $(function(){
 
 	// Set initial view state.
 	$('#fileinfo').data('view', defaultViewMode);
+    setViewButtonsFor(defaultViewMode);
 
 	$('#home').click(function(){
-		$('#fileinfo').data('view', 'grid');
+        var currentViewMode = $('#fileinfo').data('view');
+		$('#fileinfo').data('view', currentViewMode);
 		$('#filetree>ul>li.expanded>a').trigger('click');
 		getFolderInfo(fileRoot);
 	});
 
 	// Set buttons to switch between grid and list views.
 	$('#grid').click(function(){
-		$(this).addClass('ON');
-		$('#list').removeClass('ON');
+        setViewButtonsFor('grid');
 		$('#fileinfo').data('view', 'grid');
 		getFolderInfo($('#currentpath').val());
 	});
 	
 	$('#list').click(function(){
-		$(this).addClass('ON');
-		$('#grid').removeClass('ON');
+        setViewButtonsFor('list');
 		$('#fileinfo').data('view', 'list');
 		getFolderInfo($('#currentpath').val());
 	});
