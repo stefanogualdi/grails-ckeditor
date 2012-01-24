@@ -14,12 +14,9 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$USER_HOME$/.grails/1.3.7/projects/grails-ckeditor/plugins/release-1.0.0.M2">
-      <sourceFolder url="file://$USER_HOME$/.grails/1.3.7/projects/grails-ckeditor/plugins/release-1.0.0.M2/src/java" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/1.3.7/projects/grails-ckeditor/plugins/release-1.0.0.M2/src/groovy" isTestSource="false" />
-      <excludeFolder url="file://$USER_HOME$/.grails/1.3.7/projects/grails-ckeditor/plugins/release-1.0.0.M2/target/classes" />
-      <excludeFolder url="file://$USER_HOME$/.grails/1.3.7/projects/grails-ckeditor/plugins/release-1.0.0.M2/target/test-classes" />
-      <excludeFolder url="file://$USER_HOME$/.grails/1.3.7/projects/grails-ckeditor/plugins/release-1.0.0.M2/web-app/plugins" />
+    <content url="file://$USER_HOME$/.grails/1.3.7/projects/grails-ckeditor/plugins/release-1.0.1">
+      <sourceFolder url="file://$USER_HOME$/.grails/1.3.7/projects/grails-ckeditor/plugins/release-1.0.1/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/1.3.7/projects/grails-ckeditor/plugins/release-1.0.1/src/groovy" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.grails/1.3.7/projects/grails-ckeditor/plugins/svn-1.0.0.M1">
       <sourceFolder url="file://$USER_HOME$/.grails/1.3.7/projects/grails-ckeditor/plugins/svn-1.0.0.M1/src/groovy" isTestSource="false" />
