@@ -236,6 +236,7 @@ class CkeditorConfig {
     static final ALLOWED_CONFIG_ITEMS = [
         // Items not listed in main config file
         'uiColor',
+        'readOnly',
 
 		// Main config
 		'customConfig',
