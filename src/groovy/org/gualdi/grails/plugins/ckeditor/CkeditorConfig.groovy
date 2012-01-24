@@ -269,6 +269,8 @@ class CkeditorConfig {
         // plugins/autogrow/plugin.js
         'autoGrow_minHeight',
         'autoGrow_maxHeight',
+        'autoGrow_onStartup',
+        'autoGrow_bottomSpace',
 
         // plugins/basicstyles/plugin.js
         'coreStyles_bold',
