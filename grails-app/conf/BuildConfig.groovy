@@ -9,13 +9,16 @@ grails.project.dependency.resolution = {
     inherits "global" // inherit Grails' default dependencies
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
+        grailsPlugins()
         grailsHome()
+        grailsCentral()
 
         mavenLocal()
         mavenCentral()
     }
 
     plugins {
+        build ":tomcat:$grailsVersion"
         build (":release:1.0.1") {
 			export = false
 		}
