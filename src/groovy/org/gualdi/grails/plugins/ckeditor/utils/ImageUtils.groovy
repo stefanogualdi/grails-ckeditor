@@ -31,8 +31,9 @@ class ImageUtils {
         Iterator<ImageReader> iter = ImageIO.getImageReadersBySuffix(ext)
         if (iter.hasNext()) {
             ImageReader reader = iter.next()
+            ImageInputStream stream
             try {
-                ImageInputStream stream = new FileImageInputStream(file)
+                stream = new FileImageInputStream(file)
                 reader.setInput(stream)
                 result.width = reader.getWidth(reader.getMinIndex())
                 result.height = reader.getHeight(reader.getMinIndex())
@@ -41,7 +42,10 @@ class ImageUtils {
                 // not supported extension
             }
             finally {
-                reader.dispose()
+                if (stream != null) { 
+                    stream.close()
+                }
+                reader.dispose() 
             }
         }
 
