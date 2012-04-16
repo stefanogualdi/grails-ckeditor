@@ -17,6 +17,7 @@
 package org.gualdi.grails.plugins.ckeditor
 
 import grails.converters.JSON
+import groovy.json.StreamingJsonBuilder
 import org.gualdi.grails.plugins.ckeditor.utils.PathUtils
 import org.gualdi.grails.plugins.ckeditor.utils.ImageUtils
 import org.gualdi.grails.plugins.ckeditor.utils.FileUtils
@@ -66,8 +67,9 @@ class OpenFileManagerConnectorController {
                 break
 
             case 'getfolder':
-                resp = getFolder(baseDir, baseUrl, params.path, showThumbs)
-                break
+                streamFolder(response.outputStream, baseDir, baseUrl, params.path, showThumbs)
+                log.debug "return fileManager()"
+                return
 
             case 'rename':
                 resp = rename(baseDir, params.old, params.'new', type)
@@ -125,19 +127,24 @@ class OpenFileManagerConnectorController {
         return (resp as JSON).toString()
     }
 
-    private getFolder(baseDir, baseUrl, path, showThumbs) {
-        def resp = [:]
-        def currentDir = new File(baseDir + PathUtils.checkSlashes(path, "L- R+"))
-        if (currentDir.exists()) {
-            currentDir.eachFile { file ->
-                if (!file.name.startsWith('.')) {
-                    def fname = path + file.name
-                    resp["\"${fname}\""] = getFileInfo(baseDir, baseUrl, fname, showThumbs)
+    private streamFolder(outputStream, baseDir, baseUrl, path, showThumbs) {
+        def writer = new PrintWriter(outputStream)
+        def builder = new StreamingJsonBuilder(writer)
+        builder {
+            def currentDir = new File(baseDir + PathUtils.checkSlashes(path, "L- R+"))
+            if (currentDir.exists()) {
+                currentDir.eachFile { file ->
+                    if (!file.name.startsWith('.')) {
+                        def fname = path + file.name
+                        "\"${fname}\""(
+                                getFileInfo(baseDir, baseUrl, fname, showThumbs)
+                        )
+                    }
                 }
+
             }
         }
-
-        return (resp as JSON).toString() 
+        writer.close()
     }
 
     private getFileInfo(baseDir, baseUrl, path, showThumbs = true) {
@@ -198,7 +205,7 @@ class OpenFileManagerConnectorController {
             'Path': path,
             'Filename': file.name,
             'File Type': fileType,
-            'Preview': preview,
+            'Preview': "${preview}",
             'Properties': properties,
             'Error': '',
             'Code': 0
