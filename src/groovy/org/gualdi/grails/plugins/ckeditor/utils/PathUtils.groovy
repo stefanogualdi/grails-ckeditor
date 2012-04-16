@@ -58,7 +58,9 @@ class PathUtils {
         def ext = ""
         if (idx > 0) {
             name = fileName[0..idx - 1]
-            ext = fileName[idx + 1..-1]
+            if(fileName.length() > idx + 1) { 
+        		ext = fileName[idx + 1..-1]
+	        }
         }
         return [name: name, ext: ext]
     }
