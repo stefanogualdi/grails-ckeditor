@@ -179,7 +179,7 @@ class OpenFileManagerConnectorController {
                 if (showThumbs) {
                     def config = grailsApplication.config.ckeditor
                     if (config?.upload?.baseurl) {
-                        preview = g.resource(file: PathUtils.checkSlashes(config?.upload?.baseurl, "L+ R-") + baseUrl + path)    
+                        preview = g.resource(file: PathUtils.checkSlashes(config?.upload?.baseurl, "L+ R-") + baseUrl + path)
                     }
                     else {
                         preview = g.resource(file: baseUrl + path)
@@ -411,8 +411,25 @@ class OpenFileManagerConnectorController {
     private download(baseDir, path) {
         def file = new File(baseDir + PathUtils.checkSlashes(path, "L-"))
 
-        response.setHeader("Content-Type", "application/force-download")
-        response.setHeader("Content-Disposition", "attachment; filename=\"${file.name}\"")
+        def encodedFilename = URLEncoder.encode(file.name, "UTF-8")
+        def filename = ""
+        if (encodedFilename.indexOf('%') == -1) {
+            filename = "filename=\"${file.name}\""
+        }
+        else {
+            def userAgent = request.getHeader("User-Agent")
+            if (userAgent =~ /MSIE [4-8]/) {
+                // IE < 9 do not support RFC 6266 (RFC 2231/RFC 5987)
+                filename = "filename=\"${encodedFilename}\""
+            }
+            else {
+                // Use RFC 6266 (RFC 2231/RFC 5987)
+                filename = "filename*=UTF-8''${encodedFilename}"
+            }
+        }
+
+        response.setHeader("Content-Type", "application/octet-stream")
+        response.setHeader("Content-Disposition", "attachment; ${filename}")
         response.setHeader("Content-Length", "${file.size()}")
         response.setHeader("Content-Transfer-Encoding", "Binary");
 

@@ -123,6 +123,8 @@ var preg_replace = function(array_pattern, array_pattern_replace, str)  {
 // cleanString (), on the same model as server side (connector)
 // cleanString
 var cleanString = function(str) {
+    // This break internationalization
+    /*
 	var cleaned = "";
 	var p_search  = 	new Array("Š", "š", "Đ", "đ", "Ž", "ž", "Č", "č", "Ć", "ć", "À", 
 						"Á", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "Ê", "Ë", "Ì", "Í", "Î", "Ï", 
@@ -142,8 +144,10 @@ var cleanString = function(str) {
 	cleaned = preg_replace(p_search, p_replace, str);
 	cleaned = cleaned.replace(/[^_a-zA-Z0-9]/g, "");
 	cleaned = cleaned.replace(/[_]+/g, "_");
-	
 	return cleaned;
+	*/
+
+    return str;
 }
 
 // nameFormat (), separate filename from extension before calling cleanString()
