@@ -59,11 +59,16 @@ var setDimensions = function(){
 }
 
 // Display Min Path
-var displayPath = function(path) {
-	if(showFullPath == false)
-		return path.replace(fileRoot, "/");
-	else 
-		return path;
+var displayPath = function (path) {
+    if (showFullPath == false) {
+        // if a "displayPathDecorator" function is defined, use it to decorate path
+        return 'function' === (typeof displayPathDecorator)
+                ? displayPathDecorator(path)
+                : path.replace(fileRoot, "/");
+    }
+    else {
+        return path;
+    }
 }
 
 // Set the view buttons state
@@ -258,7 +263,7 @@ var bindToolbar = function(data){
 		$('#fileinfo').find('button#download').hide();
 	} else {
 		$('#fileinfo').find('button#download').click(function(){
-			window.location = fileConnector + '?mode=download&path=' + data['Path'] + '&space=' + space + '&type=' + type;
+			window.location = fileConnector + '?mode=download&path=' + encodeURIComponent(data['Path']) + '&space=' + space + '&type=' + type;
 		}).show();
 	}
 }
@@ -343,8 +348,9 @@ var renameItem = function(data){
 		
 		if(rname != ''){
 			var givenName = nameFormat(rname);
-			var oldPath = data['Path'];	
-			var connectString = fileConnector + '?mode=rename&old=' + data['Path'] + '&new=' + givenName + '&space=' + space + '&type=' + type;
+			var oldPath = data['Path'];
+
+			var connectString = fileConnector + '?mode=rename&old=' + data['Path'] + '&new=' + encodeURIComponent(givenName) + '&space=' + space + '&type=' + type;
 		
 			$.ajax({
 				type: 'GET',
@@ -402,7 +408,7 @@ var deleteItem = function(data){
 	
 	var doDelete = function(v, m){
 		if(v != 1) return false;	
-		var connectString = fileConnector + '?mode=delete&path=' + data['Path'] + '&space=' + space + '&type=' + type;
+		var connectString = fileConnector + '?mode=delete&path=' + encodeURIComponent(data['Path']) + '&space=' + space + '&type=' + type;
 	
 		$.ajax({
 			type: 'GET',
@@ -609,7 +615,7 @@ var getFileInfo = function(file){
 	
 	// Retrieve the data & populate the template.
 	var d = new Date(); // to prevent IE cache issues
-	$.getJSON(fileConnector + '?mode=getinfo&path=' + file + '&space=' + space + '&type=' + type + '&time=' + d.getMilliseconds(), function(data){
+	$.getJSON(fileConnector + '?mode=getinfo&path=' + encodeURIComponent(file) + '&space=' + space + '&type=' + type + '&time=' + d.getMilliseconds(), function(data){
 		if(data['Code'] == 0){
 			$('#fileinfo').find('h1').text(data['Filename']).attr('title', file);
 			$('#fileinfo').find('img').attr('src',data['Preview']);
@@ -619,7 +625,7 @@ var getFileInfo = function(file){
 			if(data['Properties']['Width'] && data['Properties']['Width'] != '') properties += '<dt>' + lg.dimensions + '</dt><dd>' + data['Properties']['Width'] + 'x' + data['Properties']['Height'] + '</dd>';
 			if(data['Properties']['Date Created'] && data['Properties']['Date Created'] != '') properties += '<dt>' + lg.created + '</dt><dd>' + data['Properties']['Date Created'] + '</dd>';
 			if(data['Properties']['Date Modified'] && data['Properties']['Date Modified'] != '') properties += '<dt>' + lg.modified + '</dt><dd>' + data['Properties']['Date Modified'] + '</dd>';
-			if(data['Properties']['Size'] && data['Properties']['Size'] != '') properties += '<dt>' + lg.size + '</dt><dd>' + formatBytes(data['Properties']['Size']) + '</dd>';
+			if(data['Properties']['Size'] || parseInt(data['Properties']['Size'])==0) properties += '<dt>' + lg.size + '</dt><dd>' + formatBytes(data['Properties']['Size']) + '</dd>';
 			
 			$('#fileinfo').find('dl').html(properties);
 			
@@ -644,7 +650,7 @@ var getFolderInfo = function(path){
 
 	// Retrieve the data and generate the markup.
 	var d = new Date(); // to prevent IE cache issues
-	var url = fileConnector + '?path=' + path + '&mode=getfolder&showThumbs=' + showThumbs + '&space=' + space + '&type=' + type + '&time=' + d.getMilliseconds();
+	var url = fileConnector + '?path=' + encodeURIComponent(path) + '&mode=getfolder&showThumbs=' + showThumbs + '&space=' + space + '&type=' + type + '&time=' + d.getMilliseconds();
 	$.getJSON(url, function(data){
 		var result = '';
 		
@@ -780,8 +786,7 @@ var getFolderInfo = function(path){
 // to the callback function in jqueryFileTree
 var populateFileTree = function(path, callback){
 	var d = new Date(); // to prevent IE cache issues
-	var url = fileConnector + '?path=' + path + '&mode=getfolder&showThumbs=' + showThumbs + '&time=' + d.getMilliseconds();
-	if ($.urlParam('type')) url += '&type=' + $.urlParam('type');
+    var url = fileConnector + '?path=' + encodeURIComponent(path) + '&mode=getfolder&showThumbs=' + showThumbs + '&space=' + space + '&type=' + type + '&time=' + d.getMilliseconds();
 	$.getJSON(url, function(data) {
 		var result = '';
 		// Is there any error or user is unauthorized?
@@ -821,6 +826,13 @@ var populateFileTree = function(path, callback){
 ---------------------------------------------------------*/
 
 $(function(){
+	if($.urlParam('expandedFolder') != 0) {
+		expandedFolder = $.urlParam('expandedFolder');
+		fullexpandedFolder = fileRoot + expandedFolder;
+	} else {
+		expandedFolder = '';
+		fullexpandedFolder = null;
+	}
 	// Adjust layout.
 	setDimensions();
 	$(window).resize(setDimensions);
@@ -898,12 +910,14 @@ $(function(){
 
 			if(data['Code'] == 0){
 				addNode(data['Path'], data['Name']);
-                $('#newfile').val('');
 			} else {
 				$.prompt(data['Error']);
 			}
 			$('#upload').removeAttr('disabled');
 			$('#upload span').removeClass('loading').text(lg.upload);
+
+			// clear data in browse input
+      $("#newfile").replaceWith('<input id="newfile" type="file" name="newfile">');
 		}
 	});
 
@@ -913,6 +927,7 @@ $(function(){
 		datafunc: populateFileTree,
 		multiFolder: false,
 		folderCallback: function(path){ getFolderInfo(path); },
+		expandedFolder: fullexpandedFolder,
 		after: function(data){
 			$('#filetree').find('li a').each(function() {
 				$(this).contextMenu(
@@ -938,7 +953,7 @@ $(function(){
 		$('.contextMenu .rename').remove();
 		$('.contextMenu .delete').remove();
 	}
-    getDetailView(fileRoot);
+    getDetailView(fileRoot + expandedFolder);
 });
 
 })(jQuery);
