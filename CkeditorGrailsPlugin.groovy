@@ -1,6 +1,6 @@
 /*
 *
-* Copyright 2009-2011 Stefano Gualdi
+* Copyright 2009-2012 Stefano Gualdi
 *
 *   Licensed under the Apache License, Version 2.0 (the "License");
 *   you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 */
 
 class CkeditorGrailsPlugin {
-    def version = "3.6.2.1"
+    def version = "3.6.2.2-SNAPSHOT"
     def grailsVersion = "1.3 > *"
     def dependsOn = [:]
 
