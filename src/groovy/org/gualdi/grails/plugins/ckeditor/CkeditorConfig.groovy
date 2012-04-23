@@ -43,7 +43,7 @@ class CkeditorConfig {
     
 	static final DEFAULT_INSTANCENAME = "editor"
 
-	static final DEFAULT_FILEBROWSER = "ofm" // standard | ofm
+	static final DEFAULT_FILEBROWSER = "ofm" // ofm
 
     static final DEFAULT_SHOWTHUMBS = false
 
@@ -157,18 +157,12 @@ class CkeditorConfig {
 	def getBrowseUrl(type, userSpace, fileBrowser, showThumbs, viewMode) {
         def browserUrl
         def prefix = getConnectorsPrefix()
-        if (fileBrowser == 'ofm') {
-            browserUrl = "${this.contextPath}/${prefix}/ofm?fileConnector=${this.contextPath}/${prefix}/ofm/filemanager&type=${type}${userSpace ? '&space='+ userSpace : ''}${showThumbs ? '&showThumbs='+ showThumbs : ''}${'&viewMode='+ viewMode}"
-        }
-        else {
-            browserUrl = "${this.basePath}/js/filebrowser/browser.html?Connector=${this.contextPath}/${prefix}/standard/filemanager?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}"
-        }
+        browserUrl = "${this.contextPath}/${prefix}/ofm?fileConnector=${this.contextPath}/${prefix}/ofm/filemanager&type=${type}${userSpace ? '&space='+ userSpace : ''}${showThumbs ? '&showThumbs='+ showThumbs : ''}${'&viewMode='+ viewMode}"
 
         return browserUrl
 	}
 	
 	def getUploadUrl(type, userSpace) {
-		//return "${this.contextPath}/${getConnectorsPrefix()}/standard/uploader?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}"
         return "${this.contextPath}/${getConnectorsPrefix()}/uploader?type=${type}${userSpace ? '&space='+ userSpace : ''}"
 	}
 
