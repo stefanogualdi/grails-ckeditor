@@ -18,10 +18,10 @@ package org.gualdi.grails.plugins.ckeditor
 
 import grails.converters.JSON
 import groovy.json.StreamingJsonBuilder
-import org.gualdi.grails.plugins.ckeditor.utils.PathUtils
-import org.gualdi.grails.plugins.ckeditor.utils.ImageUtils
 import org.gualdi.grails.plugins.ckeditor.utils.FileUtils
+import org.gualdi.grails.plugins.ckeditor.utils.ImageUtils
 import org.gualdi.grails.plugins.ckeditor.utils.MimeUtils
+import org.gualdi.grails.plugins.ckeditor.utils.PathUtils
 
 class OpenFileManagerConnectorController {
 
@@ -37,13 +37,13 @@ class OpenFileManagerConnectorController {
 
     /**
      * Filemanager connector
-     * 
+     *
      */
     def fileManager = {
         log.debug "begin fileManager()"
 
         def mode = params.mode
-        def type = params.type 
+        def type = params.type
         def space = params.space
         def showThumbs = params.showThumbs == 'true'
 
@@ -52,6 +52,7 @@ class OpenFileManagerConnectorController {
 
         if (log.isDebugEnabled()) {
             log.debug "=============================================="
+            log.debug "FILEMANAGER"
             log.debug "baseDir = ${baseDir}"
             log.debug "baseUrl = ${baseUrl}"
             log.debug "type = ${type}"
@@ -59,7 +60,7 @@ class OpenFileManagerConnectorController {
             log.debug "showThumbs = ${showThumbs}"
             log.debug "=============================================="
         }
-        
+
         def resp
         switch (mode) {
             case 'getinfo':
@@ -100,6 +101,35 @@ class OpenFileManagerConnectorController {
         else {
             return null
         }
+    }
+
+    def uploader = {
+        log.debug "begin uploader()"
+
+        def mode = params.mode
+        def type = params.type
+        def space = params.space
+        def showThumbs = params.showThumbs == 'true'
+
+        def baseUrl = PathUtils.getBaseUrl(params)
+        def baseDir = getBaseDir(baseUrl)
+
+        if (log.isDebugEnabled()) {
+            log.debug "=============================================="
+            log.debug "QUICKUPLOAD"
+            log.debug "baseDir = ${baseDir}"
+            log.debug "baseUrl = ${baseUrl}"
+            log.debug "type = ${type}"
+            log.debug "space = ${space}"
+            log.debug "showThumbs = ${showThumbs}"
+            log.debug "=============================================="
+        }
+
+        quickUpload(baseDir, baseUrl, "/", type, request)
+
+        log.debug "end uploader()"
+
+        return
     }
 
     private getBaseDir(baseUrl) {
@@ -157,16 +187,16 @@ class OpenFileManagerConnectorController {
         def preview
         def fileType
         def properties
-        if (file.isDirectory()){
+        if (file.isDirectory()) {
             path = PathUtils.checkSlashes(path, "L+ R+", true)
             preview = g.resource(dir: "js/ofm/images/fileicons", file: "_Open.png", plugin: "ckeditor")
             fileType = 'dir'
             properties = [
-                'Date Created': '',
-                'Date Modified': '',
-                'Width': '',
-                'Height': '',
-                'Size': ''
+                    'Date Created': '',
+                    'Date Modified': '',
+                    'Width': '',
+                    'Height': '',
+                    'Size': ''
             ]
         }
         else {
@@ -193,22 +223,22 @@ class OpenFileManagerConnectorController {
             }
 
             properties = [
-                'Date Created': '',
-                'Date Modified': new Date(file.lastModified()).format("dd-MM-yyyy HH:mm:ss"),
-                'Width': width,
-                'Height': height,
-                'Size': fileSize
+                    'Date Created': '',
+                    'Date Modified': new Date(file.lastModified()).format("dd-MM-yyyy HH:mm:ss"),
+                    'Width': width,
+                    'Height': height,
+                    'Size': fileSize
             ]
         }
 
         def resp = [
-            'Path': path,
-            'Filename': file.name,
-            'File Type': fileType,
-            'Preview': "${preview}",
-            'Properties': properties,
-            'Error': '',
-            'Code': 0
+                'Path': path,
+                'Filename': file.name,
+                'File Type': fileType,
+                'Preview': "${preview}",
+                'Properties': properties,
+                'Error': '',
+                'Code': 0
         ]
 
         return resp
@@ -233,14 +263,14 @@ class OpenFileManagerConnectorController {
             if (!newFile.exists()) {
                 if (isDirectory || FileUtils.isFileAllowed(newName, type)) {
                     try {
-                        if(oldFile.renameTo(newFile)) {
+                        if (oldFile.renameTo(newFile)) {
                             def tmpJSON = [
-                                'Old Path' : oldName,
-                                'Old Name' : oldFile.name,
-                                'New Path' : path + newFile.name + (isDirectory ? '/' : ''),
-                                'New Name' : newFile.name,
-                                'Error' : '',
-                                'Code' : 0
+                                    'Old Path': oldName,
+                                    'Old Name': oldFile.name,
+                                    'New Path': path + newFile.name + (isDirectory ? '/' : ''),
+                                    'New Name': newFile.name,
+                                    'Error': '',
+                                    'Code': 0
                             ]
 
                             resp = (tmpJSON as JSON).toString()
@@ -270,7 +300,7 @@ class OpenFileManagerConnectorController {
 
     private delete(baseDir, path) {
         def file = new File(baseDir + PathUtils.checkSlashes(path, "L-"))
-        
+
         def resp
         if (PathUtils.isSafePath(baseDir, file)) {
             if (file.exists()) {
@@ -278,39 +308,39 @@ class OpenFileManagerConnectorController {
                     try {
                         def deleteClosure
                         deleteClosure = {
-                           it.eachDir(deleteClosure)
-                           it.eachFile {
-                               it.delete()
-                           }
+                            it.eachDir(deleteClosure)
+                            it.eachFile {
+                                it.delete()
+                            }
                         }
                         deleteClosure file
                         file.delete()
 
                         def tmpJSON = [
-                            'Path': path,
-                            'Error': '',
-                            'Code': 0
+                                'Path': path,
+                                'Error': '',
+                                'Code': 0
                         ]
 
                         resp = (tmpJSON as JSON).toString()
                     }
-                    catch(SecurityException se) {
+                    catch (SecurityException se) {
                         resp = error('ofm.noPermissions', 'No permissions')
                     }
                 }
                 else {
                     try {
-                        if(file.delete()) {
+                        if (file.delete()) {
                             def tmpJSON = [
-                                'Path': path,
-                                'Error': '',
-                                'Code': 0
+                                    'Path': path,
+                                    'Error': '',
+                                    'Code': 0
                             ]
 
                             resp = (tmpJSON as JSON).toString()
                         }
                         else {
-                            resp = error('ofm.invalidFilename','Invalid file name')
+                            resp = error('ofm.invalidFilename', 'Invalid file name')
                         }
                     }
                     catch (SecurityException se) {
@@ -319,11 +349,11 @@ class OpenFileManagerConnectorController {
                 }
             }
             else {
-                resp = error('ofm.fileDoesNotExists','File does not exists')
+                resp = error('ofm.fileDoesNotExists', 'File does not exists')
             }
         }
         else {
-            resp = error('ofm.noPermissions', 'No permissions')    
+            resp = error('ofm.noPermissions', 'No permissions')
         }
 
         return resp
@@ -342,7 +372,7 @@ class OpenFileManagerConnectorController {
 
         def resp
         if (!file) {
-            resp = error('ofm.invalidFilename','Invalid file', true)
+            resp = error('ofm.invalidFilename', 'Invalid file', true)
         }
         else {
             def uploadPath = new File(baseDir + PathUtils.checkSlashes(currentPath, "L- R+"))
@@ -351,7 +381,7 @@ class OpenFileManagerConnectorController {
             def f = PathUtils.splitFilename(newName)
             if (FileUtils.isAllowed(f.ext, type)) {
                 def fileToSave = new File(uploadPath, newName)
-                if ( !overwrite ) {
+                if (!overwrite) {
                     def idx = 1
                     while (fileToSave.exists()) {
                         newName = "${f.name}(${idx}).${f.ext}"
@@ -362,10 +392,10 @@ class OpenFileManagerConnectorController {
                 file.transferTo(fileToSave)
 
                 def tmpJSON = [
-                    'Path': currentPath,
-                    'Name': newName,
-                    'Error': '',
-                    'Code': 0
+                        'Path': currentPath,
+                        'Name': newName,
+                        'Error': '',
+                        'Code': 0
                 ]
                 resp = (tmpJSON as JSON).toString()
                 resp = "<textarea>${resp}</textarea>"
@@ -377,7 +407,7 @@ class OpenFileManagerConnectorController {
 
         return resp
     }
-    
+
     private addFolder(baseDir, path, name) {
         def newDir = new File(baseDir + PathUtils.checkSlashes(path, "L- R+") + name)
 
@@ -389,15 +419,15 @@ class OpenFileManagerConnectorController {
             try {
                 if (newDir.mkdir()) {
                     def tmpJSON = [
-                        'Parent': path,
-                        'Name': name,
-                        'Error': '',
-                        'Code': 0
+                            'Parent': path,
+                            'Name': name,
+                            'Error': '',
+                            'Code': 0
                     ]
                     resp = (tmpJSON as JSON).toString()
                 }
                 else {
-                    resp = error('ofm.invalidFolderName', 'invalid folder name')
+                    resp = error('ofm.invalidFolderName', 'Invalid folder name')
                 }
             }
             catch (SecurityException se) {
@@ -437,8 +467,7 @@ class OpenFileManagerConnectorController {
 
         byte[] buff = null
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))
-        try
-        {
+        try {
             buff = new byte[2048]
             int bytesRead = 0
             while ((bytesRead = bis.read(buff, 0, buff.size())) != -1) {
@@ -469,8 +498,7 @@ class OpenFileManagerConnectorController {
 
         byte[] buff = null
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))
-        try
-        {
+        try {
             buff = new byte[2048]
             int bytesRead = 0
             while ((bytesRead = bis.read(buff, 0, buff.size())) != -1) {
@@ -484,6 +512,77 @@ class OpenFileManagerConnectorController {
         }
 
         return null
+    }
+
+    private quickUpload(baseDir, baseUrl, currentPath, type, request) {
+        def config = grailsApplication.config.ckeditor
+        def overwrite = config.upload.overwrite ?: false
+
+        def resType = type?.toLowerCase()
+        if (resType == 'file') {
+            resType = 'link'
+        }
+
+        def isUploadEnabled = config.upload."${resType}".upload
+
+        def errorMsg = ""
+
+        def idxSpec = ""
+        def f
+
+        if (isUploadEnabled) {
+            if (request.method != "POST") {
+                errorMsg = simpleError("ofm.invalidCall", "Invalid call")
+            }
+            else {
+                def file = request.getFile("upload")
+                if (!file) {
+                    errorMsg = simpleError("ofm.invalidFile", "Invalid file")
+                }
+                else {
+                    def uploadPath = new File(baseDir + PathUtils.checkSlashes(currentPath, "L- R+"))
+                    def newName = file.originalFilename
+
+                    f = PathUtils.splitFilename(newName)
+                    if (FileUtils.isAllowed(f.ext, type)) {
+                        def fileToSave = new File(uploadPath, newName)
+                        if (!overwrite) {
+                            def idx = 1
+                            while (fileToSave.exists()) {
+                                idxSpec = "(${idx})"
+                                newName = "${f.name}${idxSpec}.${f.ext}"
+                                fileToSave = new File(uploadPath, newName)
+                                idx++
+                            }
+                        }
+                        file.transferTo(fileToSave)
+                    }
+                    else {
+                        errorMsg = simpleError("ofm.invalidFileType", "Invalid file type")
+                    }
+                }
+            }
+        }
+        else {
+            errorMsg = simpleError("ofm.uploadsDisabled", "Uploads disabled")
+        }
+
+        def encodedFilename = URLEncoder.encode(f.name, "UTF-8")
+        if (encodedFilename.indexOf('%') == -1) {
+            encodedFilename = f.name
+        }
+
+        response.setHeader("Cache-Control", "no-cache")
+        render(contentType: "text/html", encoding: "UTF-8") {
+            def tmpUrl = config?.upload?.baseurl
+            if (tmpUrl) {
+                baseUrl = "${PathUtils.checkSlashes(tmpUrl, "L- R-", true)}/${PathUtils.checkSlashes(baseUrl, "L- R-", true)}"
+            }
+
+            def fname = errorMsg ? "" : "${request.contextPath}/${baseUrl}/${encodedFilename}${idxSpec}.${f.ext}"
+
+            script(type: "text/javascript", "window.parent.CKEDITOR.tools.callFunction(${params.CKEditorFuncNum}, '${fname}', '${errorMsg}');")
+        }
     }
 
     private error(key, message, useTextarea = false) {
@@ -501,5 +600,17 @@ class OpenFileManagerConnectorController {
         }
 
         return jsonError
+    }
+
+    private simpleError(key, message) {
+        def msg
+        try {
+            msg = messageSource.getMessage(key, null, request.getLocale())
+        }
+        catch (org.springframework.context.NoSuchMessageException nsme) {
+            msg = message
+        }
+
+        return msg
     }
 }

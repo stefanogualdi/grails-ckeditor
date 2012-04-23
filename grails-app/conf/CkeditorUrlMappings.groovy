@@ -20,6 +20,6 @@ class CkeditorUrlMappings {
         }
 
         // File uploader
-        delegate.(prefix + "/standard/uploader") (controller: "standardFileManagerConnector", action: "uploader")
+        delegate.(prefix + "/uploader") (controller: "openFileManagerConnector", action: "uploader")
     }
 }

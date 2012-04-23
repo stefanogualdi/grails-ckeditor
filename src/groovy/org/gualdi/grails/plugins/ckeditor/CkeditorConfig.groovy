@@ -168,7 +168,8 @@ class CkeditorConfig {
 	}
 	
 	def getUploadUrl(type, userSpace) {
-		return "${this.contextPath}/${getConnectorsPrefix()}/standard/uploader?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}" 
+		//return "${this.contextPath}/${getConnectorsPrefix()}/standard/uploader?Type=${type}${userSpace ? '&userSpace='+ userSpace : ''}"
+        return "${this.contextPath}/${getConnectorsPrefix()}/uploader?type=${type}${userSpace ? '&space='+ userSpace : ''}"
 	}
 
     def getConfiguration() {
