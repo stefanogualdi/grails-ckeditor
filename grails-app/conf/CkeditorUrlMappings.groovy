@@ -7,9 +7,6 @@ class CkeditorUrlMappings {
         def prefix = "/${CkeditorConfig.getConnectorsPrefix()}"
         def uploadPrefix = CkeditorConfig.getUploadPrefix()
 
-        // Legacy file manager
-        delegate.(prefix + "/standard/filemanager") (controller: "standardFileManagerConnector", action: "connector")
-
         // Open File Manager
         delegate.(prefix + "/ofm") (controller: "openFileManagerConnector", action: "index")
         delegate.(prefix + "/ofm/filemanager") (controller: "openFileManagerConnector", action: "fileManager")
