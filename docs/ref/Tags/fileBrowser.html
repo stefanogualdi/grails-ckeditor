@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>CKeditor plugin 3.6.2.2</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass(el) {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/gettingStarted.html"><strong>2</strong><span>Getting started</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/configuration.html"><strong>3</strong><span>Configuration</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/tags.html"><strong>4</strong><span>Tags reference</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/security.html"><strong>5</strong><span>Security</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/advanced.html"><strong>6</strong><span>Advanced topics</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/faq.html"><strong>7</strong><span>FAQ</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/history.html"><strong>8</strong><span>History</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>CKeditor web WYSIWYG editor integration plugin.
+</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="reference corner-all">
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                <h1>Tag fileBrowser</h1><p class="paragraph"/>Renders a link to open a stand alone file browser not associated with an editor instance<p class="paragraph"/><div class="code"><pre>&#60;ckeditor:fileBrowser&#62;Open file browser&#60;/ckeditor:fileBrowser&#62;</pre></div><p class="paragraph"/>available attributes are:<p class="paragraph"/><table class="wiki-table" cellpadding="0" cellspacing="0" border="0"><tr><th>Attribute</th><th>Description</th></tr><tr class="table-odd"><td><strong class="bold">type</strong></td><td>Type of resource (default: "")</td></tr><tr class="table-even"><td><strong class="bold">userSpace</strong></td><td>Name of the file user space to use for file browsing and uploads (default: "")</td></tr><tr class="table-odd"><td><strong class="bold">fileBrowser</strong></td><td>File manager to use. Possible values: ofm, standard (default: "standard")</td></tr><tr class="table-even"><td><strong class="bold">viewMode</strong></td><td>View mode for Open File Manager. Possible values: grid, list (default: "grid")</td></tr><tr class="table-odd"><td><strong class="bold">showThumbs</strong></td><td>Show images' thumbnails in Open File Manager. Possible values: true, false (default: false)</td></tr><tr class="table-even"><td><strong class="bold">target</strong></td><td>Target attribute for the generated &#60;A&#62; tag (default: "")</td></tr></table><p class="paragraph"/>if you just need the link to the file browser there is a <strong class="bold">fileBrowserLink</strong> tag:<p class="paragraph"/><div class="code"><pre>&#60;a href=<span class="java&#45;quote">"$&#123;ckeditor:fileBrowserLink(type:'Image', userSpace:'userone')&#125;"</span>&#62;Open file browser&#60;/a&#62;</pre></div><p class="paragraph"/>If you want get back the path of the selected item in the file browser simply define a javascript function called <strong class="bold">ckeditorFileBrowserItemSelected</strong> in the page containing the opening link.<p class="paragraph"/><div class="code"><pre>&#60;script type=<span class="java&#45;quote">"text/javascript"</span> charset=<span class="java&#45;quote">"utf&#45;8"</span>&#62;
+	function ckeditorFileBrowserItemSelected(path) &#123;
+		// <span class="java&#45;keyword">do</span> whatever you want with path
+		alert(path);
+	&#125;
+&#60;/script&#62;</pre></div><p class="paragraph"/>Keep in mind that the stand alone file browser is designed to be opened in a separate browser window.<p class="paragraph"/>This option is only valid when using Open File Manager.
+
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block">
+                        <h1 class="menu-title" onclick="toggleRef(nextElement(this))">Tags</h1>
+                        <div class="menu-sub selected">
+                            
+                            
+                            <div class="menu-item"><a href="../../ref/Tags/config.html">config</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Tags/editor.html">editor</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Tags/fileBrowser.html">fileBrowser</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Tags/fileBrowserLink.html">fileBrowserLink</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Tags/resources.html">resources</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+
+<script type="text/javascript" src="../../js/docs.js"></script>
+
+</body>
+</html>
