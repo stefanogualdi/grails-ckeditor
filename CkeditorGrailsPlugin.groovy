@@ -38,5 +38,5 @@ CKeditor web WYSIWYG editor integration plugin.
     def issueManagement = [system: "JIRA", url: "http://jira.grails.org/browse/GPCKEDITOR"]
     def scm = [url: "http://github.com/stefanogualdi/grails-ckeditor/"]
 
-    def documentation = "http://grails.org/plugin/ckeditor"
+    def documentation = "http://stefanogualdi.github.com/grails-ckeditor/"
 }
