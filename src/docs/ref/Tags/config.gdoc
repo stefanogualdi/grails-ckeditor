@@ -1,0 +1,61 @@
+h1. Tag config
+
+This tag give full access to every configuration option exposed by CKEditor.
+
+The config tag provides two syntaxes for simple and complex option definition.
+
+All the configuration options defined with this tag will be used in every editor instance defined after it.
+
+Option names are case sensitive and must be written as indicated in the official documentation.
+
+For a full reference of the available options please refer to the [official documentation|http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html]
+
+h4. Simple option
+
+{code:html}
+<ckeditor:config OptionName="option_value" />
+{code}
+
+Many options can be set in the same tag:
+
+{code:html}
+<ckeditor:config
+    OptionOne="option_one_value"
+    OptionTwo="option_two_value" />
+{code}
+
+Examples:
+
+Set height and width for all the following editor's instances
+
+{code:html}
+<ckeditor:config
+    height="300px"
+    width="50%" />
+{code}
+
+Set the enter key handling strategy for all the following editor's instances
+
+{code:html}
+<ckeditor:config enterMode="CKEDITOR.ENTER_DIV" />
+{code}
+
+h4. Complex option
+
+{code:html}
+<ckeditor:config var="option_name">
+[structured_option_value]
+</ckeditor:config>
+{code}
+
+Examples:
+
+Define a new toolbar
+
+{code:html}
+<ckeditor:config var="toolbar_Mytoolbar">
+[
+    [ 'Source', '-', 'Bold', 'Italic' ]
+]
+</ckeditor:config>
+{code}

@@ -1,0 +1,55 @@
+h1. Tag editor
+
+This tag renders the wysiwyg editor in the page
+
+{code:html}
+<ckeditor:editor name="text">
+Initial text
+</ckeditor:editor>
+{code}
+
+available attributes are:
+
+{table}
+Attribute | Description
+*id* | Id of the instance to be created. If not specified defaults to *name*
+*name* | Field name (default: "editor")
+*userSpace* | Name of the file user space to use for file browsing and uploads (default: "")
+*fileBrowser* | File manager to use. Possible values: ofm, standard (default: "ofm")
+*viewMode* | View mode for Open File Manager. Possible values: grid, list (default: "grid")
+*showThumbs* | Show images' thumbnails in Open File Manager. Possible values: true, false (default: false)
+*removeInstance* | Remove ckeditor instance before creation. Useful for ajax forms. Possible values: true, false (default: false)
+*options* | Configuration options, as defined in the config tag section.
+{table}
+
+in the editor tag you can also specify every configuration option you like. Those options will be local to the instance that defines them.
+
+Examples:
+
+Renders an editor with custom size and a simple toolbar
+
+{code:html}
+<ckeditor:editor name="myeditor" height="400px" width="80%" toolbar="Basic">
+${initialValue}
+</ckeditor:editor>
+{code}
+
+Renders an editor with a custom toolbar defined in the page
+
+{code:html}
+<ckeditor:config var="toolbar_Mytoolbar">
+[
+    [ 'Source', '-', 'Bold', 'Italic' ]
+]
+</ckeditor:config>
+
+<ckeditor:editor name="myeditor" toolbar="Mytoolbar">
+${initialValue}
+</ckeditor:editor>
+{code}
+
+{note}
+For security reasons the *userSpace* attribute cannot contain any special character.
+Any invalid character will be removed.
+{note}
+

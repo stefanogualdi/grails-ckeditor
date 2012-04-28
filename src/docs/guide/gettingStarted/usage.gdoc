@@ -1,0 +1,20 @@
+To start using the plugin simply add to you head section:
+
+{code}
+<head>
+...
+    <ckeditor:resources/>
+...
+</head>
+{code}
+
+and in you page:
+
+{code:html}
+<ckeditor:editor name="myeditor" height="400px" width="80%">
+${initialValue}
+</ckeditor:editor>
+{code}
+
+Please refer to the [Configuration|guide:configuration] section to understand how to configure the file manager.
+

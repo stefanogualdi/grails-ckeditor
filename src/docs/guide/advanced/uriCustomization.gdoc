@@ -1,0 +1,8 @@
+Since version 3.4.0.1 it is possible to customize the URI's used to invoke the plugin's connectors.
+
+Eg:
+{code}
+ckeditor.connectors.prefix = "/my/app/ck/"
+{code}
+
+

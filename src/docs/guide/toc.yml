@@ -1,0 +1,26 @@
+introduction:
+    title: Introduction
+    license: License
+    currentVersion: Current version
+    sourceCode: Source code
+gettingStarted:
+    title: Getting started
+    installation: Installation
+    usage: Usage
+configuration:
+    title: Configuration
+    sampleConfig: Sample config file
+tags:
+    title: Tags reference
+security:
+    title: Security
+advanced:
+    title: Advanced topics
+    uriCustomization: Internal URI's customization
+    customTypes: Custom upload types
+faq:
+    title: FAQ
+history:
+    title: History
+
+

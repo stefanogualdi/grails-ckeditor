@@ -1,0 +1,27 @@
+The plugin can be configured with the standard Config.groovy file.
+
+Actually are available the following options:
+
+{table}
+Config key|Default|Description
+*ckeditor.config*|none|File name, relative to the webapp root, for the custom config file
+*ckeditor.skipAllowedItemsCheck*|false|Skip the check on valid options names
+*ckeditor.defaulFileBrowser*|none|Define the default file browser if not defined in tags. Possible values are: standard, ofm
+*ckeditor.upload.basedir*|/uploads/|Base directory relative to webapp root if baseurl not defined, otherwise the absolute path where to store the uploaded files
+*ckeditor.upload.baseurl*|none|The base URL to access the uploaded files
+*ckeditor.upload.enableContentController*|false|Automatically create a mapping to view files when using baseurl setting
+*ckeditor.upload.overwrite*|false|Overwite files on upload
+*ckeditor.upload.link.browser*|false|Enable file browser for file objects
+*ckeditor.upload.link.upload*|false|Enable upload tab for file objects
+*ckeditor.upload.link.allowed*|\[ \]|Extensions allowed for file objects
+*ckeditor.upload.link.denied*|\[ \]| Extensions denied for file objects
+*ckeditor.upload.image.browser*|false| Enable file browser for image objects
+*ckeditor.upload.image.upload*|false|Enable upload tab for image objects
+*ckeditor.upload.image.allowed*|\[ \]|Extensions allowed for image objects
+*ckeditor.upload.image.denied*|\[ \]|Extensions denied for image objects
+*ckeditor.upload.flash.browser*|false|Enable file browser for flash objects
+*ckeditor.upload.flash.upload*|false|Enable upload tab for flash objects
+*ckeditor.upload.flash.allowed*|\[ \]|Extensions allowed for flash objects
+*ckeditor.upload.flash.denied*|\[ \]|Extensions denied for flash objects
+{table}
+

@@ -1,0 +1,20 @@
+h1. Tag resources
+
+This tag renders the javascript ref required to use the editor.
+
+Must be used inside the head tag of the page in which you want to use the editor.
+
+{code:html}
+<html>
+	<head>
+		<ckeditor:resources />
+	</head>
+
+	<body>
+	</body>
+</html>
+{code}
+
+By default the minified ckeditor's version will be loaded. Adding minified="false" will load the not minified, version. This can be useful for debugging purposes.
+
+During the war generation the source will be stripped and the minified code will always be loaded.

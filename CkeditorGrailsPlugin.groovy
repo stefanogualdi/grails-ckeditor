@@ -28,9 +28,9 @@ class CkeditorGrailsPlugin {
     def author = "Stefano Gualdi"
     def authorEmail = "stefano.gualdi@gmail.com"
     def title = "CKeditor plugin"
-    def description = '''\\
+    def description = """\
 CKeditor web WYSIWYG editor integration plugin.
-'''
+"""
 
     def license = "APACHE"
     def organization = [name: "Stefano Gualdi", url: "http://gualdi.org/"]

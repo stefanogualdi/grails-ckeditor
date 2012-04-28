@@ -1,0 +1,7 @@
+Welcome to the CKeditor plugin for Grails.
+
+This plugin implements the integration layer between Grails and the [CKEditor|http://ckeditor.com] web rich text editor.
+
+This plugin can be used to integrate rich web editing functionality in Grails applications.
+
+The plugin is written in Groovy/Grails without any dependencies on external libraries.

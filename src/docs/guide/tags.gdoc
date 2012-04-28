@@ -1,0 +1,12 @@
+The plugin defines the following custom tags:
+
+{table}
+Tag | Description
+[resources|tags] | Creates the necessary import for the CKEditor's javascripts files
+[config|tags] | Configure the editor instance
+[editor|tags] | Renders the wysiwyg editor
+[fileBrowser|tags] | Creates a link to open just the file browser
+[fileBrowserLink|tags] | Creates an URL to a file browser
+{table}
+
+all the tags belongs to the namespace *ckeditor*
