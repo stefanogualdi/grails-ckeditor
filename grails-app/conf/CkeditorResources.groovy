@@ -25,6 +25,6 @@ def dev = grails.util.GrailsUtil.isDevelopmentEnv()
 
 modules = {
     'ckeditor' {
-        resource url:[plugin: 'ckeditor', dir: 'js/ckeditor', file: 'backbone'+(dev ? '' : '_source')+'.js'], disposition: 'head', exclude:'minify'
+        resource url:[plugin: 'ckeditor', dir: 'js/ckeditor', file: 'ckeditor'+(dev ? '' : '_source')+'.js'], disposition: 'head', exclude:'minify'
     }
 }
