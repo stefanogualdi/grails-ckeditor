@@ -21,7 +21,7 @@ Attribute | Description
 if you just need the link to the file browser there is a *fileBrowserLink* tag:
 
 {code:html}
-<a href="${ckeditor:fileBrowserLink(type:'Image', userSpace:'userone')}">Open file browser</a>
+<a href="${ckeditor.fileBrowserLink(type:'Image', userSpace:'userone')}">Open file browser</a>
 {code}
 
 If you want get back the path of the selected item in the file browser simply define a javascript function called *ckeditorFileBrowserItemSelected* in the page containing the opening link.
