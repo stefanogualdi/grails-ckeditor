@@ -17,7 +17,7 @@
 */
 
 class CkeditorGrailsPlugin {
-    def version = "3.6.4.0"
+    def version = "3.6.6.1.0"
     def grailsVersion = "1.3 > *"
     def dependsOn = [:]
 
