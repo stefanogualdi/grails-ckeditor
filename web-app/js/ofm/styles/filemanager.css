@@ -278,8 +278,6 @@ button {outline: none;}
 #newfolder span { background-image: url(../images/folder_add.png); }
 #home span { background-image: url(../images/house.png); }
 
-/* div.jqi button { background-image: url(../images/circular/yes.png); } */
-
 div.jqi {
 	position: absolute;
 	font-size: 12px;
@@ -328,11 +326,11 @@ button.ON {
 	border: 1px inset #ccc;
 }
 
-#grid span { 
+#grid span {
 	background-image: url(../images/application_view_icons.png);
 }
 
-#list span { 
+#list span {
 	background-image: url(../images/application_view_list.png);
 }
 
