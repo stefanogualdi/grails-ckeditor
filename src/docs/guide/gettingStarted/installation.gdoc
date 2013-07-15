@@ -2,7 +2,7 @@ To install the plugin add a dependency to BuildConfig.groovy:
 
 {code}
 plugins {
-    compile "\:ckeditor\:3.6.2.2"
+    compile "\:ckeditor\:3.6.6.1.0"
 }
 {code}
 
