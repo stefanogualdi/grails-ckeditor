@@ -567,20 +567,23 @@ class OpenFileManagerConnectorController {
             errorMsg = simpleError("ofm.uploadsDisabled", "Uploads disabled")
         }
 
-        def encodedFilename = URLEncoder.encode(f.name, "UTF-8")
-        if (encodedFilename.indexOf('%') == -1) {
-            encodedFilename = f.name
-        }
+        def fname = ''
+        if (!errorMsg) {
+            def encodedFilename = URLEncoder.encode(f.name, "UTF-8")
+            if (encodedFilename.indexOf('%') == -1) {
+                encodedFilename = f.name
+            }
 
-        response.setHeader("Cache-Control", "no-cache")
-        render(contentType: "text/html", encoding: "UTF-8") {
             def tmpUrl = config?.upload?.baseurl
             if (tmpUrl) {
                 baseUrl = "${PathUtils.checkSlashes(tmpUrl, "L- R-", true)}/${PathUtils.checkSlashes(baseUrl, "L- R-", true)}"
             }
 
-            def fname = errorMsg ? "" : "${request.contextPath}/${baseUrl}/${encodedFilename}${idxSpec}.${f.ext}"
+            fname = "${request.contextPath}/${baseUrl}/${encodedFilename}${idxSpec}.${f.ext}"
+        }
 
+        response.setHeader("Cache-Control", "no-cache")
+        render(contentType: "text/html", encoding: "UTF-8") {
             script(type: "text/javascript", "window.parent.CKEDITOR.tools.callFunction(${params.CKEditorFuncNum}, '${fname}', '${errorMsg}');")
         }
     }
