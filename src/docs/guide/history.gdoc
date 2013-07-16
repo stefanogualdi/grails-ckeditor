@@ -1,3 +1,7 @@
+h4. 3.6.6.1.1 (??/07/2013)
+
+* Fix for [GPCKEDITOR-37|http://jira.grails.org/browse/GPCKEDITOR-37]
+
 h4. 3.6.6.1.0 (15/07/2013)
 
 * Fix for [GPCKEDITOR-28|http://jira.grails.org/browse/GPCKEDITOR-28]
