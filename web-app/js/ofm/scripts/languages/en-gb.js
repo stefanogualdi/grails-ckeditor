@@ -1,6 +1,6 @@
 {
     "ALLOWED_FILE_TYPE": "Only following files are allowed : ", 
-    "AUTHORIZATION_REQUIRED": "You are not authorized to use filemanager.", 
+    "AUTHORIZATION_REQUIRED": "You are not authorised to use filemanager.", 
     "DIRECTORY_ALREADY_EXISTS": "The directory '%s' already exists.", 
     "DIRECTORY_NOT_EXIST": "The directory %s does not exist.", 
     "DISALLOWED_FILE_TYPE": "Following files are not allowed : ", 

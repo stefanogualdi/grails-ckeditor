@@ -1,23 +1,31 @@
+/**
+* Icons are from http://icomoon.io/app/
+* color code : #666666
+**/
+
 * {
-	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
-	color: #333;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-ms-box-sizing: border-box;
+    font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
+    color: #333;
+    box-sizing: content-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: content-box;
 }
 
 body {
 	padding: 10px;
-	background-color: #E2EAF3;
+	background-color:#F4F1ED;
+	overflow-x:hidden; /** prevent overflow if #uploader h1 path value is too long */
 }
 
+video, audio {
+	margin:3em;
+}
 #uploader {
 	display: block;
 	text-align: right;
 	height: auto;
 	min-height:30px;
-	max-height: 80px;
 	overflow: hidden;
 }
 
@@ -25,7 +33,10 @@ body {
 	display: block;
 	float: left;
 	text-align: left;
+	line-height:1.9em;
 	font-size: 0.8em;
+	text-shadow:1px 1px 0px #ffffff;
+	word-break: break-all;
 }
 
 #uploadresponse {
@@ -35,13 +46,13 @@ body {
 #splitter {
 	background-color: white;
 	height: 400px;
-	border: 1px solid #ccc;
 	/* no padding allowed */
 }
 
 #filetree {
 	overflow: auto;
 	min-width: 100px;	/* optional */
+	border: 1px solid #ccc;
 	/* no margin or border allowed */
 }
 
@@ -52,22 +63,27 @@ body {
 #fileinfo {
 	min-width: 100px;
 	overflow: auto;
+	border: 1px solid #ccc;
 	/* no margin or border allowed */
 }
 
 #splitter .vsplitbar {
 	width: 6px;
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	background: #E2EAF3 url(../scripts/jquery.splitter/vgrabber.gif) no-repeat center;
+	background: #F4F1ED url(../scripts/jquery.splitter/vgrabber.gif) no-repeat center;
 }
 
 #fileinfo {
 	text-align: center;
+	padding:0;
+	margin:0;
 }
 
 #fileinfo * {
 	font-size: 12px;
+}
+
+#preview {
+	width: 100%;
 }
 
 #preview > img {
@@ -113,16 +129,31 @@ body {
 }
 
 button {
-	border: 1px outset #ccc;
-	padding: 2px;
-	margin-left: 4px;
-	background-image: url(../images/btnOFF.gif);
-	background-repeat: repeat-x;
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	padding:0.1em 0.3em;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	margin:0 0.2em 0.5em 0.2em;
+	line-height:1.7em;
 }
 
 button:hover {
-	border: 1px inset #ccc;
-	background-image: url(../images/btnON.gif);
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
 }
 
 button span {
@@ -131,7 +162,6 @@ button span {
 	background-position: left center;
 	background-repeat: no-repeat;
 	background-color: transparent;
-	height: 16px;
 	white-space: nowrap;
 }
 
@@ -143,6 +173,116 @@ button:focus {
 	outline-width: 0;
 }
 
+/** Input file Replacement */
+#file-input-container {
+	display:inline-block;
+	margin:0;
+	position:relative;
+	top:0px;
+	width:215px;
+	height:32px;
+	overflow: hidden;
+}
+
+/** Firefox hack */
+@-moz-document url-prefix() {
+	#file-input-container  {
+		top:11px;
+		width:255px;
+	}
+}
+
+/** Opera hack */
+x:-o-prefocus, #file-input-container {top:16px;width:205px;}
+
+#newfile {
+	position: absolute;
+	top:0;
+	right:0;
+	height:32px;
+	opacity:0;  filter: alpha(opacity=0);
+	cursor: pointer;
+	border:1px solid blue;
+}
+
+#alt-fileinput {
+	display: inline;
+	wrap: no-wrap;
+}
+
+#filepath {
+	background-color: #F4F1ED;
+	border: 1px solid #dcdcdc;
+	margin: 0;
+	padding: 0.1em 0.3em;
+	line-height: 1.7em;
+	-webkit-border-top-left-radius: 6px;
+	-webkit-border-bottom-left-radius: 6px;
+	-moz-border-radius-topleft: 6px;
+	-moz-border-radius-bottomleft: 6px;
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+
+@-moz-document url-prefix() {
+	#filepath {
+		padding:0.2em 0.3em;
+	}
+}
+button#browse {
+	margin-left:0;
+	-webkit-border-top-left-radius: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	min-height: 16px;
+	min-width: 40px;
+}
+button#browse span {
+	margin:0;
+	padding:0;
+	background: url(../images/plus.png) no-repeat center center;
+	display: block;
+	color:#666;
+	text-shadow: none;
+}
+/** Input file Replacement - end */
+
+#q {
+	background-color: #F2F2F2;
+	border: 1px solid #dcdcdc;
+	margin: 0.5em 0 0;
+	padding: 0.1em 0.3em;
+	line-height: 1.7em;
+	width: 200px;
+	
+}
+
+#search span.q-inactive {
+	color: #a1a1a1;
+	font-style: italic;
+	font-size: 0.85em;
+	position: relative;
+	left: -200px;
+}
+
+#search a.q-reset {
+	display: inline-table;
+	width: 20px;
+	height: 20px;
+	background: url(../images/reset.png) no-repeat center center;
+	position: relative;
+	opacity:0.5;
+	left: -30px;
+	top: 5px;
+	z-index: 24;
+}
+
+/** Opera hack */
+x:-o-prefocus, #search a.q-reset {top:-14px;}
+
 #contents.grid {
 	padding: 25px;
 	text-align: left;
@@ -151,21 +291,20 @@ button:focus {
 #contents.grid li {
 	display: block;
 	float: left;
-	width: 25%;
+	width: 20%;
 	min-height: 128px;
 	text-align: center;
 	overflow: hidden;
 	margin-bottom: 25px;
 	border: 1px solid white;
-	border-radius: 8px;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	-ms-border-radius: 8px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
 }
 
 #contents.grid li:hover {
-	border: 1px solid #ccc;
-	background-color: #eee;
+	border: 1px solid #E5E5E5;
+	background-color:#F7F7F7;
 	cursor: pointer;
 }
 
@@ -197,8 +336,13 @@ div.clip {
 }
 
 #contents.list thead {
-	background-image: url(../images/btnOFF.gif);
-	background-repeat: repeat-x;
+	background: rgb(244,241,237); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(244,241,237,1) 0%, rgba(214,212,209,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(244,241,237,1)), color-stop(100%,rgba(214,212,209,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(244,241,237,1) 0%,rgba(214,212,209,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(244,241,237,1) 0%,rgba(214,212,209,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(244,241,237,1) 0%,rgba(214,212,209,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(244,241,237,1) 0%,rgba(214,212,209,1) 100%); /* W3C */
 	border-bottom: 1px solid #ccc;
 }
 
@@ -207,12 +351,18 @@ div.clip {
 	cursor: pointer;
 }
 
-#contents.list th.headerSortUp,
-#contents.list th.headerSortDown {
-	background-image: url(../images/btnON.gif);
+#contents.list th.tablesorter-headerAsc,
+#contents.list th.tablesorter-headerDesc {
+	background: rgb(214,212,209); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(214,212,209,1) 0%, rgba(244,241,237,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(214,212,209,1)), color-stop(100%,rgba(244,241,237,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(214,212,209,1) 0%,rgba(244,241,237,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(214,212,209,1) 0%,rgba(244,241,237,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(214,212,209,1) 0%,rgba(244,241,237,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(214,212,209,1) 0%,rgba(244,241,237,1) 100%); /* W3C */
 }
 
-#contents.list th.headerSortUp span {
+#contents.list th.tablesorter-headerAsc span {
 	display: block;
 	width: 100%;
 	padding-right: 20px;
@@ -221,7 +371,7 @@ div.clip {
 	background-position: right center;
 }
 
-#contents.list th.headerSortDown span {
+#contents.list th.tablesorter-headerDesc span {
 	display: block;
 	width: 100%;
 	padding-right: 20px;
@@ -255,7 +405,7 @@ div.clip {
 }
 
 .contextMenu {
-	background-color: #E2EAF3;
+	background-color:#F4F1ED;
 }
 
 .contextMenu li.hover a {
@@ -267,16 +417,17 @@ div.clip {
 }
 
 /* these apply to the contextual menus as well as the buttons */
-button {outline: none;}
 #select span, .contextMenu li.select a { background-image: url(../images/accept.png); }
-#download span, .contextMenu li.download a { background-image: url(../images/disk.png); }
+#download span, .contextMenu li.download a { background-image: url(../images/download.png); }
 #rename span, .contextMenu li.rename a { background-image: url(../images/pencil.png); }
 #delete span, .contextMenu li.delete a { background-image: url(../images/bin_closed.png); }
-#upload span { background-image: url(../images/add.png); }
+#upload span { background-image: url(../images/upload.png); }
 #upload span.loading { background-image: url(../images/ajax-loader.gif);color:#555555;font-size:0.9em; }
 #parentfolder span { background-image: url(../images/parentfolder.png); }
 #newfolder span { background-image: url(../images/folder_add.png); }
 #home span { background-image: url(../images/house.png); }
+
+/* div.jqi button { background-image: url(../images/circular/yes.png); } */
 
 div.jqi {
 	position: absolute;
@@ -284,16 +435,12 @@ div.jqi {
 	font-weight: bold;
 	min-width: 300px;
 	padding: 10px;
-	background-color: #E2EAF3;
-	border: 2px solid #ccc;
-	border-radius: 8px;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
+	background-color:#F4F1ED;
+	border: 1px solid #888;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
 	-ms-border-radius: 8px;
-	box-shadow: 2px 2px 8px #ccc;
-	-moz-box-shadow: 2px 2px 8px #ccc;
-	-webkit-box-shadow: 2px 2px 8px #ccc;
-	-ms-box-shadow: 2px 2px 8px #ccc;
 }
 
 .jqiclose {
@@ -307,11 +454,18 @@ div.jqi {
 
 div.jqi button {
 	margin-top: 20px;
+	margin-right:0.5em;
 	float: right;
 }
+div#jqistates {padding:1em;}
 
-.jqifade{
-	background-color: white;
+div.jqimessage p {
+ padding:0.3em;
+ color:#555;
+}
+
+div.jqifade{
+	background-color: #000000;
 }
 
 #grid span,
@@ -322,15 +476,15 @@ div.jqi button {
 }
 
 button.ON {
-	background-image: url(../images/btnON.gif);
+	background:none repeat scroll 0 0 #F9F8F7;
 	border: 1px inset #ccc;
 }
 
-#grid span {
+#grid span { 
 	background-image: url(../images/application_view_icons.png);
 }
 
-#list span {
+#list span { 
 	background-image: url(../images/application_view_list.png);
 }
 

@@ -32,7 +32,66 @@ class OpenFileManagerConnectorController {
      *
      */
     def index = {
-        render view: "/ofm"
+        render view: "/ofm", model: [config: getOFMConfig()]
+    }
+
+    private getOFMConfig() {
+        def ofmConfig = [:]
+
+        // Config object
+        def config = grailsApplication.config.ckeditor
+
+        // Base url
+        def bUrl = PathUtils.getBaseUrl([space: params.space, type: params.type])
+        if (config?.upload?.baseurl) {
+            bUrl = PathUtils.checkSlashes(config?.upload?.baseurl, "L- R-") + PathUtils.checkSlashes(bUrl, "R-")
+        }
+        else {
+            bUrl = PathUtils.checkSlashes(bUrl, "R-")
+        }
+        ofmConfig.baseUrl = "${request.contextPath}/${bUrl}"
+
+        // File connector
+        ofmConfig.fileConnector = params.fileConnector
+
+        // Current space
+        ofmConfig.space = params.space
+
+        // Browser type
+        ofmConfig.type = params.type
+
+        // Locale
+        def locale = request.getLocale().toString()[0..1]
+        if (!(locale in CkeditorConfig.OFM_LOCALES)) {
+            locale = 'en'
+        }
+        ofmConfig.currentLocale = locale
+
+        // View mode
+        ofmConfig.viewMode = params?.viewMode ?: "grid"
+
+        // Show thumbs
+        ofmConfig.showThumbs = params?.showThumbs ? params?.showThumbs == 'true' : false
+
+        // Allowed extensions
+        def extensionsConfig = getExtensionsConfig(ofmConfig.type)
+        ofmConfig.uploadRestrictions = extensionsConfig.allowed.collect { "'${it}'" }.join(",")
+
+        ofmConfig
+    }
+
+    private getExtensionsConfig(type) {
+        def config = grailsApplication.config.ckeditor.upload
+
+        def resourceType = type.toLowerCase()
+        if (resourceType == 'file') {
+            resourceType = 'link'
+        }
+
+        def allowed = config."${resourceType}".allowed ?: []
+        def denied = config."${resourceType}".denied ?: []
+
+        [allowed: allowed, denied: denied]
     }
 
     /**
