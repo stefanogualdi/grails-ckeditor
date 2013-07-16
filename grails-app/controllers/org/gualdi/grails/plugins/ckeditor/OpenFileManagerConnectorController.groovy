@@ -42,14 +42,22 @@ class OpenFileManagerConnectorController {
         def config = grailsApplication.config.ckeditor
 
         // Base url
+        def tmp
         def bUrl = PathUtils.getBaseUrl([space: params.space, type: params.type])
         if (config?.upload?.baseurl) {
-            bUrl = PathUtils.checkSlashes(config?.upload?.baseurl, "L- R-") + PathUtils.checkSlashes(bUrl, "R-")
+            if (config?.upload?.baseurl.startsWith("http")) {
+                tmp = PathUtils.checkSlashes(config?.upload?.baseurl, "R-")
+            }
+            else {
+                tmp = PathUtils.checkSlashes(config?.upload?.baseurl, "L+ R-")
+            }
+            bUrl = tmp + PathUtils.checkSlashes(bUrl, "R-")
         }
         else {
-            bUrl = PathUtils.checkSlashes(bUrl, "R-")
+            tmp = PathUtils.checkSlashes(bUrl, "R-")
+            bUrl = "${request.contextPath}/${tmp}"
         }
-        ofmConfig.baseUrl = "${request.contextPath}/${bUrl}"
+        ofmConfig.baseUrl = bUrl
 
         // File connector
         ofmConfig.fileConnector = params.fileConnector
@@ -268,7 +276,12 @@ class OpenFileManagerConnectorController {
                 if (showThumbs) {
                     def config = grailsApplication.config.ckeditor
                     if (config?.upload?.baseurl) {
-                        preview = g.resource(file: PathUtils.checkSlashes(config?.upload?.baseurl, "L+ R-") + baseUrl + path)
+                        if (config?.upload?.baseurl.startsWith("http")) {
+                            preview = PathUtils.checkSlashes(config?.upload?.baseurl, "R-") + baseUrl + path
+                        }
+                        else {
+                            preview = PathUtils.checkSlashes(config?.upload?.baseurl, "L+ R-") + baseUrl + path
+                        }
                     }
                     else {
                         preview = g.resource(file: baseUrl + path)
