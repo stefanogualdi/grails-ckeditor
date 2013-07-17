@@ -3,7 +3,7 @@ Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
-CKEDITOR.skins.add( 'BootstrapCK-Skin', (function()
+CKEDITOR.skins.add( 'twitterbootstrap', (function()
 {
     var uiColorStylesheetId = 'cke_ui_color';
 
@@ -21,56 +21,56 @@ CKEDITOR.skins.add( 'BootstrapCK-Skin', (function()
             var uiColorMenus = [];
             var uiColorRegex = /\$color/g;
             var uiColorMenuCss = "/* UI Color Support */\
-.cke_skin_BootstrapCK-Skin .cke_menuitem .cke_icon_wrapper\
+.cke_skin_twitterbootstrap .cke_menuitem .cke_icon_wrapper\
 {\
     background-color: $color !important;\
     border-color: $color !important;\
 }\
 \
-.cke_skin_BootstrapCK-Skin .cke_menuitem a:hover .cke_icon_wrapper,\
-.cke_skin_BootstrapCK-Skin .cke_menuitem a:focus .cke_icon_wrapper,\
-.cke_skin_BootstrapCK-Skin .cke_menuitem a:active .cke_icon_wrapper\
+.cke_skin_twitterbootstrap .cke_menuitem a:hover .cke_icon_wrapper,\
+.cke_skin_twitterbootstrap .cke_menuitem a:focus .cke_icon_wrapper,\
+.cke_skin_twitterbootstrap .cke_menuitem a:active .cke_icon_wrapper\
 {\
     background-color: $color !important;\
     border-color: $color !important;\
 }\
 \
-.cke_skin_BootstrapCK-Skin .cke_menuitem a:hover .cke_label,\
-.cke_skin_BootstrapCK-Skin .cke_menuitem a:focus .cke_label,\
-.cke_skin_BootstrapCK-Skin .cke_menuitem a:active .cke_label\
+.cke_skin_twitterbootstrap .cke_menuitem a:hover .cke_label,\
+.cke_skin_twitterbootstrap .cke_menuitem a:focus .cke_label,\
+.cke_skin_twitterbootstrap .cke_menuitem a:active .cke_label\
 {\
     background-color: $color !important;\
 }\
 \
-.cke_skin_BootstrapCK-Skin .cke_menuitem a.cke_disabled:hover .cke_label,\
-.cke_skin_BootstrapCK-Skin .cke_menuitem a.cke_disabled:focus .cke_label,\
-.cke_skin_BootstrapCK-Skin .cke_menuitem a.cke_disabled:active .cke_label\
+.cke_skin_twitterbootstrap .cke_menuitem a.cke_disabled:hover .cke_label,\
+.cke_skin_twitterbootstrap .cke_menuitem a.cke_disabled:focus .cke_label,\
+.cke_skin_twitterbootstrap .cke_menuitem a.cke_disabled:active .cke_label\
 {\
     background-color: transparent !important;\
 }\
 \
-.cke_skin_BootstrapCK-Skin .cke_menuitem a.cke_disabled:hover .cke_icon_wrapper,\
-.cke_skin_BootstrapCK-Skin .cke_menuitem a.cke_disabled:focus .cke_icon_wrapper,\
-.cke_skin_BootstrapCK-Skin .cke_menuitem a.cke_disabled:active .cke_icon_wrapper\
+.cke_skin_twitterbootstrap .cke_menuitem a.cke_disabled:hover .cke_icon_wrapper,\
+.cke_skin_twitterbootstrap .cke_menuitem a.cke_disabled:focus .cke_icon_wrapper,\
+.cke_skin_twitterbootstrap .cke_menuitem a.cke_disabled:active .cke_icon_wrapper\
 {\
     background-color: $color !important;\
     border-color: $color !important;\
 }\
 \
-.cke_skin_BootstrapCK-Skin .cke_menuitem a.cke_disabled .cke_icon_wrapper\
+.cke_skin_twitterbootstrap .cke_menuitem a.cke_disabled .cke_icon_wrapper\
 {\
     background-color: $color !important;\
     border-color: $color !important;\
 }\
 \
-.cke_skin_BootstrapCK-Skin .cke_menuseparator\
+.cke_skin_twitterbootstrap .cke_menuseparator\
 {\
     background-color: $color !important;\
 }\
 \
-.cke_skin_BootstrapCK-Skin .cke_menuitem a:hover,\
-.cke_skin_BootstrapCK-Skin .cke_menuitem a:focus,\
-.cke_skin_BootstrapCK-Skin .cke_menuitem a:active\
+.cke_skin_twitterbootstrap .cke_menuitem a:hover,\
+.cke_skin_twitterbootstrap .cke_menuitem a:focus,\
+.cke_skin_twitterbootstrap .cke_menuitem a:active\
 {\
     background-color: $color !important;\
 }";
@@ -209,7 +209,7 @@ CKEDITOR.skins.add( 'BootstrapCK-Skin', (function()
                     dialog = data.dialog,
                     contents = dialog.parts.contents;
 
-                if ( data.skin != 'BootstrapCK-Skin' )
+                if ( data.skin != 'twitterbootstrap' )
                     return;
 
                 contents.setStyles(
