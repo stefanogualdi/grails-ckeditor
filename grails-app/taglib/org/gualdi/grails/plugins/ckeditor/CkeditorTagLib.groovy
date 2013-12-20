@@ -27,20 +27,13 @@ class CkeditorTagLib {
     static namespace = "ckeditor"
 
     def resources = { attrs ->
-        // In production always use minified version 
-        def minified = true
-        if (Environment.current != Environment.PRODUCTION) {
-            minified = attrs?.minified ? attrs?.minified == 'true' : true
-        }
-        attrs.remove('minified')
-        
         def editor = new Ckeditor(request, attrs)
-        out << editor.renderResources(minified)
+        out << editor.renderResources()
     }
 
 	def config = { attrs, body ->
         def cfg = new CkeditorConfig(request)
-		
+
 		def var = attrs.remove('var');
         try {
 			if (var) {
