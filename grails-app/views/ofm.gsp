@@ -54,7 +54,7 @@
                 },
                 security: {
                     uploadPolicy: "DISALLOW_ALL",
-                    uploadRestrictions: [${config.uploadRestrictions}]
+                    uploadRestrictions: [${raw(config.uploadRestrictions)}]
                 },
                 upload: {
                     overwrite: false,
