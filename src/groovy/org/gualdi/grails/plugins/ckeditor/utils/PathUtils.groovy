@@ -16,7 +16,7 @@
 
 package org.gualdi.grails.plugins.ckeditor.utils
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import grails.util.Holders
 import org.gualdi.grails.plugins.ckeditor.CkeditorConfig
 import org.apache.commons.lang.WordUtils
 
@@ -26,7 +26,7 @@ import org.apache.commons.lang.WordUtils
 class PathUtils {
 
     static getBaseUrl(params) {
-        def config = ConfigurationHolder.config.ckeditor
+        def config = Holders.config.ckeditor
 
         def baseUrl
         if (config?.upload?.baseurl) {

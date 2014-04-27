@@ -16,7 +16,7 @@
 
 package org.gualdi.grails.plugins.ckeditor.utils
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import grails.util.Holders
 
 /**
  * @author Stefano Gualdi <stefano.gualdi@gmail.com>
@@ -28,7 +28,7 @@ class FileUtils {
     }
 
     static isAllowed(ext, type) {
-		def config = ConfigurationHolder.config.ckeditor.upload
+        def config = Holders.config.ckeditor.upload
 
 		def resourceType = type.toLowerCase()
         if (resourceType == 'file') {

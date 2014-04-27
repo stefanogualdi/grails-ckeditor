@@ -16,7 +16,7 @@
 
 package org.gualdi.grails.plugins.ckeditor.utils
 
-import org.codehaus.groovy.grails.plugins.PluginManagerHolder
+import grails.util.Holders
 
 /**
  * @author Stefano Gualdi <stefano.gualdi@gmail.com>
@@ -25,7 +25,7 @@ import org.codehaus.groovy.grails.plugins.PluginManagerHolder
 class PluginUtils {
 
 	static getPluginResourcePath(contextPath, pluginName) {
-		String pluginVersion = PluginManagerHolder?.pluginManager?.getGrailsPlugin(pluginName)?.version
-		return "${contextPath}/plugins/${pluginName.toLowerCase()}-$pluginVersion"
+        String pluginVersion = Holders.pluginManager.getGrailsPlugin(pluginName)?.version
+        return "${contextPath}/plugins/${pluginName.toLowerCase()}-$pluginVersion"
 	}
 }

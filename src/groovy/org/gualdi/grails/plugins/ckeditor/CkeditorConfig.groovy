@@ -16,11 +16,11 @@
 
 package org.gualdi.grails.plugins.ckeditor
 
+import grails.util.Holders
 import org.apache.log4j.Logger
 import org.gualdi.grails.plugins.ckeditor.utils.PluginUtils
 import org.gualdi.grails.plugins.ckeditor.utils.PathUtils
 import org.gualdi.grails.plugins.ckeditor.exceptions.UnknownOptionException
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.apache.commons.lang.WordUtils
 
 /**
@@ -81,7 +81,7 @@ class CkeditorConfig {
 	def localConfig
 
     CkeditorConfig(request, attrs = null) {
-        def cfg = ConfigurationHolder.config
+        def cfg = Holders.config
 
 		this.contextPath = request.contextPath
 		this.basePath = PluginUtils.getPluginResourcePath(this.contextPath, this.PLUGIN_NAME)
@@ -167,7 +167,7 @@ class CkeditorConfig {
 	}
 
     def getConfiguration() {
-		def ckconfig = ConfigurationHolder.config.ckeditor
+		def ckconfig = Holders.config.ckeditor
 
 		def customConfig = ckconfig?.config 
 		if (customConfig && !this.config["customConfig"]) {
@@ -214,12 +214,12 @@ class CkeditorConfig {
     }
 
     static getConnectorsPrefix() {
-        def prefix = ConfigurationHolder.config.ckeditor?.connectors?.prefix ?: DEFAULT_CONNECTORS_PREFIX
+        def prefix = Holders.config.ckeditor?.connectors?.prefix ?: DEFAULT_CONNECTORS_PREFIX
         return PathUtils.checkSlashes(prefix, "L- R-", true)
     }
 
     static getUploadPrefix() {
-        def ckconfig = ConfigurationHolder.config.ckeditor
+        def ckconfig = Holders.config.ckeditor
         def prefix = null
         if (ckconfig?.upload?.baseurl && ckconfig?.upload?.enableContentController) {
             prefix = PathUtils.checkSlashes(ckconfig?.upload?.baseurl, "L+ R-", true)
