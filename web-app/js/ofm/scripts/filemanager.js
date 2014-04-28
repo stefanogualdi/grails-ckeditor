@@ -28,14 +28,12 @@ $.urlParam = function(name){
   Setup, Layout, and Status Functions
 ---------------------------------------------------------*/
 
-// UNUSED - config is defined in the caller page
-// We retrieve config settings from filemanager.config.js
-/*
+// We retrieve config settings from config url
 var config = (function () {
     var json = null;
     $.ajax({
         'async': false,
-        'url': ofmBase + '/scripts/filemanager.config.js',
+        'url': configUrl,
         'dataType': "json",
         cache: false,
         'success': function (data) {
@@ -44,11 +42,11 @@ var config = (function () {
     });
     return json;
 })();
-*/
 
-// UNUSED - config is defined in the caller page
-// Sets paths to connectors based on language selection.
-// var fileConnector = 'connectors/' + config.options.lang + '/filemanager.' + config.options.lang;
+var ofmBase = config.custom.ofmBase;
+var fileConnector = config.custom.fileConnector;
+var space = config.custom.space;
+var type = config.custom.type;
 
 var capabilities = new Array('select', 'download', 'rename', 'delete');
 

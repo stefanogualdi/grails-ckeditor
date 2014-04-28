@@ -9,6 +9,7 @@ class CkeditorUrlMappings {
 
         // Open File Manager
         delegate.(prefix + "/ofm") (controller: "openFileManagerConnector", action: "index")
+        delegate.(prefix + "/ofm/config") (controller: "openFileManagerConnector", action: "config")
         delegate.(prefix + "/ofm/filemanager") (controller: "openFileManagerConnector", action: "fileManager")
 
         // Images outside the web-app dir

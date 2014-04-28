@@ -32,7 +32,78 @@ class OpenFileManagerConnectorController {
      *
      */
     def index = {
-        render view: "/ofm", model: [config: getOFMConfig()]
+        render view: "/ofm", model: [configUrl: getConfigUrl()]
+    }
+
+    def config = {
+        def ofmConfig = getOFMConfig()
+        def finalConfig = [
+            custom: [
+                ofmBase: "${resource(dir: 'js/ofm', plugin: 'ckeditor')}",
+                fileConnector: "${ofmConfig.fileConnector}",
+                space: "${ofmConfig.space ?: ''}",
+                type: "${ofmConfig.type}",
+            ],
+            options: [
+                // Fixed settins
+                lang: "grails",
+                serverRoot: false,
+                fileRoot: '/',
+                relPath: "${ofmConfig.baseUrl}",
+                showFullPath: false,
+                searchBox: false, // broken
+
+                // Configurable settings
+                culture: "${ofmConfig.currentLocale}",
+                defaultViewMode: "${ofmConfig.viewMode}",
+                showThumbs: ofmConfig.showThumbs,
+                autoload: true,
+                browseOnly: false,
+                showConfirmation: true,
+                listFile: true,
+                fileSorting: "TYPE_ASC",
+                chars_only_latin: true,
+                dateFormat: "d M Y H:i",
+                logger: false,
+                plugins: []
+            ],
+            security: [
+                uploadPolicy: "DISALLOW_ALL",
+                uploadRestrictions: ofmConfig.uploadRestrictions
+            ],
+            upload: [
+                overwrite: false,
+                imagesOnly: false,
+                fileSizeLimit: 'auto'
+            ],
+            exclude: [],
+            images: [],
+            videos: [],
+            audios: [],
+            extras: [
+                extra_js_async: true
+            ],
+            icons: [
+                path: "${resource(dir: 'js/ofm/images/fileicons', plugin: 'ckeditor')}",
+                directory: "_Open.png",
+                default: "default.png"
+            ]
+        ];
+
+        render finalConfig as JSON
+    }
+
+    private getConfigUrl() {
+        def prefix = CkeditorConfig.connectorsPrefix
+
+        def type = params.type
+        def userSpace = params.space
+        def showThumbs = params.showThumb
+        def viewMode = params.viewMode
+
+        def url = "${request.contextPath}/${prefix}/ofm/config?fileConnector=${request.contextPath}/${prefix}/ofm/filemanager&type=${type}${userSpace ? '&space=' + userSpace : ''}${showThumbs ? '&showThumbs=' + showThumbs : ''}${'&viewMode=' + viewMode}"
+
+        return url
     }
 
     private getOFMConfig() {
@@ -83,7 +154,7 @@ class OpenFileManagerConnectorController {
 
         // Allowed extensions
         def extensionsConfig = getExtensionsConfig(ofmConfig.type)
-        ofmConfig.uploadRestrictions = extensionsConfig.allowed.collect { "'${it}'" }.join(",")
+        ofmConfig.uploadRestrictions = extensionsConfig.allowed.collect { "${it}" }
 
         ofmConfig
     }
@@ -91,7 +162,7 @@ class OpenFileManagerConnectorController {
     private getExtensionsConfig(type) {
         def config = grailsApplication.config.ckeditor.upload
 
-        def resourceType = type.toLowerCase()
+        def resourceType = type?.toLowerCase()
         if (resourceType == 'file') {
             resourceType = 'link'
         }

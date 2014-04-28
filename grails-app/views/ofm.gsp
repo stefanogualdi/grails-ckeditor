@@ -22,58 +22,7 @@
 
         <script type="text/javascript">
             // Base config
-            var ofmBase ="${resource(dir: 'js/ofm', plugin: 'ckeditor')}";
-            var fileConnector = '${config.fileConnector}';
-            var space = '${config.space}';
-            var type = '${config.type}';
-
-            // OFM options
-            var config = {
-                options: {
-                    // Fixed settins
-                    lang: "grails",
-                    serverRoot: false,
-                    fileRoot: '/',
-                    relPath: "${config.baseUrl}",
-                    showFullPath: false,
-                    searchBox: false, // broken
-
-                    // Configurable settings
-                    culture: "${config.currentLocale}",
-                    defaultViewMode: "${config.viewMode}",
-                    showThumbs: ${config.showThumbs},
-                    autoload: true,
-                    browseOnly: false,
-                    showConfirmation: true,
-                    listFile: true,
-                    fileSorting: "TYPE_ASC",
-                    chars_only_latin: true,
-                    dateFormat: "d M Y H:i",
-                    logger: false,
-                    plugins: []
-                },
-                security: {
-                    uploadPolicy: "DISALLOW_ALL",
-                    uploadRestrictions: [${config.uploadRestrictions}]
-                },
-                upload: {
-                    overwrite: false,
-                    imagesOnly: false,
-                    fileSizeLimit: 'auto'
-                },
-                exclude: {},
-                images: {},
-                videos: {},
-                audios: {},
-                extras: {
-                    extra_js_async: true
-                },
-                icons: {
-                    path: "${resource(dir: 'js/ofm/images/fileicons', plugin: 'ckeditor')}",
-                    directory: "_Open.png",
-                    default: "default.png"
-                }
-            };
+            var configUrl = "${configUrl}";
         </script>
     </head>
 
