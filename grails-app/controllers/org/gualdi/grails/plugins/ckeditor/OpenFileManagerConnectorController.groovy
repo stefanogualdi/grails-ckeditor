@@ -45,29 +45,30 @@ class OpenFileManagerConnectorController {
                 type: "${ofmConfig.type}",
             ],
             options: [
-                // Fixed settins
-                lang: "grails",
-                serverRoot: false,
-                fileRoot: '/',
-                relPath: "${ofmConfig.baseUrl}",
-                showFullPath: false,
-                searchBox: false, // broken
-
-                // Configurable settings
                 culture: "${ofmConfig.currentLocale}",
+                lang: "grails",
                 defaultViewMode: "${ofmConfig.viewMode}",
-                showThumbs: ofmConfig.showThumbs,
                 autoload: true,
+                showFullPath: false,
+                showTitleAttr: false,
                 browseOnly: false,
                 showConfirmation: true,
+                showThumbs: ofmConfig.showThumbs,
+                generateThumbnails: false,
+                searchBox: false,
                 listFile: true,
                 fileSorting: "TYPE_ASC",
                 chars_only_latin: true,
                 dateFormat: "d M Y H:i",
+                serverRoot: false,
+                fileRoot: '/',
+                relPath: "${ofmConfig.baseUrl}",
                 logger: false,
+                capabilities:  ["select", "download", "rename", "delete"],
                 plugins: []
             ],
             security: [
+                allowChangeExtensions: false,
                 uploadPolicy: "DISALLOW_ALL",
                 uploadRestrictions: ofmConfig.uploadRestrictions
             ],
@@ -80,7 +81,16 @@ class OpenFileManagerConnectorController {
             images: [],
             videos: [],
             audios: [],
+            edit: [
+                enabled: false,
+                lineNumbers: true,
+                lineWrapping: true,
+                codeHighlight: false,
+                theme: "elegant",
+                editExt: []
+            ],
             extras: [
+                extra_js: [],
                 extra_js_async: true
             ],
             icons: [

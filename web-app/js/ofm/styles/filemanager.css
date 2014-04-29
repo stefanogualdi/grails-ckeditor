@@ -5,12 +5,12 @@
 
 * {
     font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
-    color: #333;
     box-sizing: content-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -ms-box-sizing: content-box;
 }
+
 
 body {
 	padding: 10px;
@@ -32,11 +32,15 @@ video, audio {
 #uploader h1 {
 	display: block;
 	float: left;
-	text-align: left;
+	margin-left:1em;
 	line-height:1.9em;
 	font-size: 0.8em;
 	text-shadow:1px 1px 0px #ffffff;
 	word-break: break-all;
+}
+
+button#home {
+	float:left;
 }
 
 #uploadresponse {
@@ -82,6 +86,10 @@ video, audio {
 	font-size: 12px;
 }
 
+#fileinfo *:not(."CodeMirror") {
+	color: #333;
+}
+
 #preview {
 	width: 100%;
 }
@@ -91,9 +99,9 @@ video, audio {
 	max-width: 80%;
 }
 
-#fileinfo > h1 {
-	font-size: 16px;
-	margin: 100px auto;
+#fileinfo h1 {
+	font-size: 18px;
+	margin: 10px auto;
 }
 
 #preview dl {
@@ -134,6 +142,7 @@ button {
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
 	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	cursor: pointer;
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
 	background-color:#ededed;
 	-moz-border-radius:6px;
@@ -167,33 +176,30 @@ button span {
 
 button:active,
 button:focus {
-	font-weight: bold;
+	color:#000;
 	outline-color: transparent;
 	outline-style: none;
 	outline-width: 0;
 }
 
+button.edition { color: black;}
+
 /** Input file Replacement */
+
+
+input, button {
+  vertical-align: text-top;
+}
+
 #file-input-container {
-	display:inline-block;
+	display:inline;
 	margin:0;
 	position:relative;
-	top:0px;
-	width:215px;
+	top:0;
+	width:255px;
 	height:32px;
 	overflow: hidden;
 }
-
-/** Firefox hack */
-@-moz-document url-prefix() {
-	#file-input-container  {
-		top:11px;
-		width:255px;
-	}
-}
-
-/** Opera hack */
-x:-o-prefocus, #file-input-container {top:16px;width:205px;}
 
 #newfile {
 	position: absolute;
@@ -203,6 +209,14 @@ x:-o-prefocus, #file-input-container {top:16px;width:205px;}
 	opacity:0;  filter: alpha(opacity=0);
 	cursor: pointer;
 	border:1px solid blue;
+}
+
+.hidden-file-input {
+	display: inline-block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 1px;
+	z-index:-1;
 }
 
 #alt-fileinput {
@@ -216,6 +230,7 @@ x:-o-prefocus, #file-input-container {top:16px;width:205px;}
 	margin: 0;
 	padding: 0.1em 0.3em;
 	line-height: 1.7em;
+	height:100%;
 	-webkit-border-top-left-radius: 6px;
 	-webkit-border-bottom-left-radius: 6px;
 	-moz-border-radius-topleft: 6px;
@@ -229,6 +244,8 @@ x:-o-prefocus, #file-input-container {top:16px;width:205px;}
 		padding:0.2em 0.3em;
 	}
 }
+
+
 button#browse {
 	margin-left:0;
 	-webkit-border-top-left-radius: 0px;
@@ -266,6 +283,7 @@ button#browse span {
 	font-size: 0.85em;
 	position: relative;
 	left: -200px;
+	top: 8px;
 }
 
 #search a.q-reset {
@@ -276,7 +294,7 @@ button#browse span {
 	position: relative;
 	opacity:0.5;
 	left: -30px;
-	top: 5px;
+	top: 13px;
 	z-index: 24;
 }
 
@@ -284,18 +302,17 @@ button#browse span {
 x:-o-prefocus, #search a.q-reset {top:-14px;}
 
 #contents.grid {
-	padding: 25px;
+	padding: 15px;
 	text-align: left;
 }
 
 #contents.grid li {
-	display: block;
-	float: left;
-	width: 20%;
-	min-height: 128px;
+	display: inline-block;
+	width: 142px;
+	min-height: 142px;
 	text-align: center;
 	overflow: hidden;
-	margin-bottom: 25px;
+	margin: 10px;
 	border: 1px solid white;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
@@ -419,13 +436,18 @@ div.clip {
 /* these apply to the contextual menus as well as the buttons */
 #select span, .contextMenu li.select a { background-image: url(../images/accept.png); }
 #download span, .contextMenu li.download a { background-image: url(../images/download.png); }
-#rename span, .contextMenu li.rename a { background-image: url(../images/pencil.png); }
+#rename span, .contextMenu li.rename a { background-image: url(../images/tag.png); }
+#move span, .contextMenu li.move a { background-image: url(../images/move.png); }
+#replace span, .contextMenu li.replace a { background-image: url(../images/replace.png); }
 #delete span, .contextMenu li.delete a { background-image: url(../images/bin_closed.png); }
 #upload span { background-image: url(../images/upload.png); }
 #upload span.loading { background-image: url(../images/ajax-loader.gif);color:#555555;font-size:0.9em; }
 #parentfolder span { background-image: url(../images/parentfolder.png); }
 #newfolder span { background-image: url(../images/folder_add.png); }
 #home span { background-image: url(../images/house.png); }
+
+a#edit-file span {display:none}
+a#edit-file {display:inline-block;background-image: url(../images/pencil.png);width:16px;height:16px}
 
 /* div.jqi button { background-image: url(../images/circular/yes.png); } */
 
@@ -496,4 +518,40 @@ button.ON {
 	display:inline-table;
 	width:30px;
 	height:30px;
+}
+
+#close-btn {
+	margin-top:5px;
+	display:block;
+	width:100%;
+	font-variant: small-caps;
+	padding:0.5em;
+}
+
+div.CodeMirror {
+	text-align:left;
+	width:70%;
+	border: 1px solid #eee;
+  height: auto;
+	margin:2em auto;
+}
+
+/* IE10-11 styles */
+html[data-useragent*='MSIE 10.0'] #uploader button,
+html[data-useragent*='MSIE 11.0'] #uploader button {
+	vertical-align: top;
+}
+html[data-useragent*='MSIE 10.0'] #file-input-container,
+html[data-useragent*='MSIE 11.0'] #file-input-container {
+ 	width: 220px;
+ 	height: 32px;
+ 	overflow: hidden;
+}
+html[data-useragent*='MSIE 10.0'] #filepath,
+html[data-useragent*='MSIE 11.0'] #filepath {
+	height: 22px;
+}
+html[data-useragent*='MSIE 10.0'] #newfile,
+html[data-useragent*='MSIE 11.0'] #newfile {
+	height: 23px;
 }
