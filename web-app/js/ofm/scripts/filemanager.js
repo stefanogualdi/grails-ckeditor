@@ -569,36 +569,9 @@ var selectItem = function(data) {
 		var url = relPath + data['Path'];
 	}
     
-	if(window.opener || window.tinyMCEPopup || $.urlParam('CKEditorCleanUpFuncNum') || $.urlParam('CKEditor')) {
-	 	if(window.tinyMCEPopup){
-        	// use TinyMCE > 3.0 integration method
-            var win = tinyMCEPopup.getWindowArg("window");
-			win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = url;
-            if (typeof(win.ImageDialog) != "undefined") {
-				// Update image dimensions
-            	if (win.ImageDialog.getImageData)
-                 	win.ImageDialog.getImageData();
+	if(window.opener || $.urlParam('CKEditorCleanUpFuncNum') || $.urlParam('CKEditor')) {
 
-                // Preview if necessary
-                if (win.ImageDialog.showPreviewImage)
-					win.ImageDialog.showPreviewImage(url);
-			}
-			tinyMCEPopup.close();
-			return;
-		}
-	 // tinymce 4 and colorbox
-	 	if($.urlParam('field_name')){
-	 		parent.document.getElementById($.urlParam('field_name')).value = url;
-	 		
-	 		if(typeof parent.tinyMCE !== "undefined") {
-		 		parent.tinyMCE.activeEditor.windowManager.close();
-		 	}
-		 	if(typeof parent.$.fn.colorbox !== "undefined") {
-		 		parent.$.fn.colorbox.close();
-		 	}
-	 	}
-	 	
-		else if($.urlParam('CKEditor')){
+		if($.urlParam('CKEditor')){
 			// use CKEditor 3.0 + integration method
 			if (window.opener) {
 				// Popup
@@ -609,15 +582,12 @@ var selectItem = function(data) {
 				parent.CKEDITOR.tools.callFunction($.urlParam('CKEditorCleanUpFuncNum'));
 			}
 		} else {
-			// use FCKEditor 2.0 integration method
-			if(data['Properties']['Width'] != ''){
-				var p = url;
-				var w = data['Properties']['Width'];
-				var h = data['Properties']['Height'];			
-				window.opener.SetUrl(p,w,h);
-			} else {
-				window.opener.SetUrl(url);
-			}		
+            try {
+                window.opener.ckeditorFileBrowserItemSelected(url);
+            }
+            catch (e) {
+                // Ignored
+            }
 		}
 
 		if (window.opener) {
