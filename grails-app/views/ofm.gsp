@@ -1,4 +1,4 @@
-<%@ expressionCodec="none" %>
+<%@page scriptletCodec="none" %>
 
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@
 
         <script type="text/javascript">
             // Base config
-            var configUrl = "${configUrl}";
+            var configUrl = "<%= configUrl %>";
         </script>
     </head>
 
@@ -81,5 +81,3 @@
         </div>
     </body>
 </html>
-
-
