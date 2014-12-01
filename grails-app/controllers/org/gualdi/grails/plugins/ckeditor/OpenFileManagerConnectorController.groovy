@@ -27,10 +27,7 @@ class OpenFileManagerConnectorController {
 
     def messageSource
 
-    /**
-     * Entry point
-     *
-     */
+    /** Entry point */
     def index = {
         render view: "/ofm", model: [configUrl: getConfigUrl()]
     }
@@ -126,7 +123,7 @@ class OpenFileManagerConnectorController {
         def tmp
         def bUrl = PathUtils.getBaseUrl([space: params.space, type: params.type])
         if (config?.upload?.baseurl) {
-            if (config?.upload?.baseurl.startsWith("http")) {
+            if (config?.upload?.baseurl?.startsWith("http")) {
                 tmp = PathUtils.checkSlashes(config?.upload?.baseurl, "R-")
             }
             else {
@@ -198,16 +195,14 @@ class OpenFileManagerConnectorController {
         def baseUrl = PathUtils.getBaseUrl(params)
         def baseDir = getBaseDir(baseUrl)
 
-        if (log.isDebugEnabled()) {
-            log.debug "=============================================="
-            log.debug "FILEMANAGER"
-            log.debug "baseDir = ${baseDir}"
-            log.debug "baseUrl = ${baseUrl}"
-            log.debug "type = ${type}"
-            log.debug "space = ${space}"
-            log.debug "showThumbs = ${showThumbs}"
-            log.debug "=============================================="
-        }
+        log.debug "=============================================="
+        log.debug "FILEMANAGER"
+        log.debug "baseDir = ${baseDir}"
+        log.debug "baseUrl = ${baseUrl}"
+        log.debug "type = ${type}"
+        log.debug "space = ${space}"
+        log.debug "showThumbs = ${showThumbs}"
+        log.debug "=============================================="
 
         def resp
         switch (mode) {
@@ -262,16 +257,14 @@ class OpenFileManagerConnectorController {
         def baseUrl = PathUtils.getBaseUrl(params)
         def baseDir = getBaseDir(baseUrl)
 
-        if (log.isDebugEnabled()) {
-            log.debug "=============================================="
-            log.debug "QUICKUPLOAD"
-            log.debug "baseDir = ${baseDir}"
-            log.debug "baseUrl = ${baseUrl}"
-            log.debug "type = ${type}"
-            log.debug "space = ${space}"
-            log.debug "showThumbs = ${showThumbs}"
-            log.debug "=============================================="
-        }
+        log.debug "=============================================="
+        log.debug "QUICKUPLOAD"
+        log.debug "baseDir = ${baseDir}"
+        log.debug "baseUrl = ${baseUrl}"
+        log.debug "type = ${type}"
+        log.debug "space = ${space}"
+        log.debug "showThumbs = ${showThumbs}"
+        log.debug "=============================================="
 
         quickUpload(baseDir, baseUrl, "/", type, request)
 
@@ -357,7 +350,7 @@ class OpenFileManagerConnectorController {
                 if (showThumbs) {
                     def config = grailsApplication.config.ckeditor
                     if (config?.upload?.baseurl) {
-                        if (config?.upload?.baseurl.startsWith("http")) {
+                        if (config?.upload?.baseurl?.startsWith("http")) {
                             preview = PathUtils.checkSlashes(config?.upload?.baseurl, "R-") + baseUrl + path
                         }
                         else {
