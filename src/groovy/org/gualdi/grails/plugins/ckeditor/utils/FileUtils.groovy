@@ -30,15 +30,15 @@ class FileUtils {
     static isAllowed(ext, type) {
         def config = Holders.config.ckeditor.upload
 
-		def resourceType = type.toLowerCase()
+        def resourceType = type.toLowerCase()
         if (resourceType == 'file') {
             resourceType = 'link'
         }
-		def fileExt = ext.toLowerCase()
+        def fileExt = ext.toLowerCase()
 
-		def allowed = config."${resourceType}".allowed ?: []
-		def denied = config."${resourceType}".denied ?: []
+        def allowed = config."${resourceType}".allowed ?: []
+        def denied = config."${resourceType}".denied ?: []
 
-		return ((fileExt in allowed || allowed.empty ) && !(fileExt in denied))
+        return ((fileExt in allowed || allowed.empty) && !(fileExt in denied))
     }
 }

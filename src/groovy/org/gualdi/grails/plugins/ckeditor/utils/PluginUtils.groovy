@@ -24,8 +24,8 @@ import grails.util.Holders
 
 class PluginUtils {
 
-	static getPluginResourcePath(contextPath, pluginName) {
+    static getPluginResourcePath(contextPath, pluginName) {
         String pluginVersion = Holders.pluginManager.getGrailsPlugin(pluginName)?.version
         return "${contextPath}/plugins/${pluginName.toLowerCase()}-$pluginVersion"
-	}
+    }
 }
