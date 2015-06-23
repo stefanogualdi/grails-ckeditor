@@ -288,6 +288,8 @@ class OpenFileManagerConnectorController {
             baseDir = PathUtils.checkSlashes(config?.upload?.basedir, "L+ R-") + PathUtils.checkSlashes(baseUrl, "L+ R+")
         }
         else {
+            /** TODO: this is in place to get the files outside the web-app **/
+            baseUrl = "../".concat(baseUrl)
             baseDir = servletContext.getRealPath(baseUrl)
             baseDir = PathUtils.checkSlashes(baseDir, "R+")
         }

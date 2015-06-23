@@ -15,9 +15,6 @@
  */
 
 package org.gualdi.grails.plugins.ckeditor
-
-import grails.util.Environment
-
 /**
  * @author Stefano Gualdi <stefano.gualdi@gmail.com>
  */
@@ -52,6 +49,11 @@ class CkeditorTagLib {
     def editor = { attrs, body ->
         def editor = new Ckeditor(request, attrs, body())
         out << editor.renderEditor()
+    }
+
+    def inlineEditor = { attrs, body ->
+        def editor = new Ckeditor(request, attrs, body())
+        out << editor.renderInlineEditor()
     }
 
 	def fileBrowser = { attrs, body ->

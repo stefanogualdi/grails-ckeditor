@@ -1,7 +1,7 @@
 grails.project.work.dir = "target"
 
-grails.project.target.level = 1.6
-grails.project.source.level = 1.6
+grails.project.target.level = 1.7
+grails.project.source.level = 1.7
 
 grails.project.dependency.resolution = {
     inherits "global" // inherit Grails' default dependencies
@@ -16,7 +16,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        build ":tomcat:$grailsVersion"
+        build ":tomcat:7.0.55"
         build ':release:2.2.1', ':rest-client-builder:1.0.3', {
             export = false
         }
