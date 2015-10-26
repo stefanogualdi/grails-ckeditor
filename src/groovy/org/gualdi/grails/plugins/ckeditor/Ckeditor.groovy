@@ -27,11 +27,11 @@ class Ckeditor {
     private final Logger log = Logger.getLogger(getClass())
 
     def config
-	def initialValue
+    def initialValue
 
     Ckeditor(request, attrs, value = "") {
-		this.config = new CkeditorConfig(request, attrs)
-		this.initialValue = value
+        this.config = new CkeditorConfig(request, attrs)
+        this.initialValue = value
     }
 
     def renderResources() {
@@ -45,9 +45,9 @@ class Ckeditor {
     def renderEditor() {
         StringBuffer outb = new StringBuffer()
 
-		if (!this.config.append) {
-        	outb << """<textarea id="${this.config.instanceId}" name="${this.config.instanceName}">${this.initialValue?.encodeAsHTML()}</textarea>\n"""
-		}
+        if (!this.config.append) {
+            outb << """<textarea id="${this.config.instanceId}" name="${this.config.instanceName}">${this.initialValue?.encodeAsHTML()}</textarea>\n"""
+        }
         outb << """<script type="text/javascript">\n"""
 
         if (this.config.removeInstance) {
@@ -55,14 +55,14 @@ class Ckeditor {
         }
 
         outb << """CKEDITOR."""
-		if (this.config.append) {
-			outb << """appendTo"""
-		}
-		else {
-			outb << """replace"""
-		}
-		outb << """('${this.config.instanceId}'"""
-		outb << this.config.configuration
+        if (this.config.append) {
+            outb << """appendTo"""
+        }
+        else {
+            outb << """replace"""
+        }
+        outb << """('${this.config.instanceId}'"""
+        outb << this.config.configuration
         outb << """);\n"""
         outb << """</script>\n"""
 
@@ -88,10 +88,10 @@ class Ckeditor {
         outb << this.initialValue.encodeAsHTML()
         outb << "</a>"
 
-		return outb.toString()
+        return outb.toString()
     }
 
     def renderFileBrowserLink() {
-		return this.config.getBrowseUrl(this.config.type, this.config.userSpace, this.config.fileBrowser, this.config.showThumbs, this.config.viewMode)
+        return this.config.getBrowseUrl(this.config.type, this.config.userSpace, this.config.fileBrowser, this.config.showThumbs, this.config.viewMode)
     }
 }
