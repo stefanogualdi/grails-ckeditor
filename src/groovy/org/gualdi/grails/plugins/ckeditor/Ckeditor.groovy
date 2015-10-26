@@ -69,6 +69,34 @@ class Ckeditor {
         return outb.toString()
     }
 
+    def renderInlineEditor() {
+        StringBuffer outb = new StringBuffer()
+
+        if (!this.config.append) {
+            outb << """<div id="${this.config.instanceId}" name="${this.config.instanceName}" contenteditable="true">${this.initialValue?.encodeAsHTML()}</div>\n"""
+        }
+        outb << """<script type="text/javascript">\n"""
+
+        if (this.config.removeInstance) {
+            outb << """if (CKEDITOR.instances['${this.config.instanceId}']){CKEDITOR.remove(CKEDITOR.instances['${this.config.instanceId}']);}\n"""
+        }
+
+        outb << """CKEDITOR.disableAutoInline = true;"""
+        outb << """CKEDITOR."""
+        if (this.config.append) {
+            outb << """appendTo"""
+        }
+        else {
+            outb << """inline"""
+        }
+        outb << """('${this.config.instanceId}'"""
+        outb << this.config.configuration
+        outb << """);\n"""
+        outb << """</script>\n"""
+
+        return outb.toString()
+    }
+
     def renderFileBrowser() {
         StringBuffer outb = new StringBuffer()
 
