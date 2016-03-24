@@ -5,15 +5,15 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <title>File Manager</title>
-        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file: 'reset.css', plugin: 'ckeditor')}"/>
-        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/scripts/jquery.filetree', file: 'jqueryFileTree.css', plugin: 'ckeditor')}"/>
-        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/scripts/jquery.contextmenu', file: 'jquery.contextMenu-1.01.css', plugin: 'ckeditor')}"/>
-        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file: 'filemanager.css', plugin: 'ckeditor')}"/>
+        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file: 'reset.css')}"/>
+        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/scripts/jquery.filetree', file: 'jqueryFileTree.css')}"/>
+        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/scripts/jquery.contextmenu', file: 'jquery.contextMenu-1.01.css')}"/>
+        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file: 'filemanager.css')}"/>
         <!--[if IE 9]>
-        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file: 'ie9.css', plugin: 'ckeditor')}" />
+        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file: 'ie9.css')}" />
         <![endif]-->
         <!--[if lte IE 8]>
-        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file: 'ie8.css', plugin: 'ckeditor')}" />
+        <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/ofm/styles', file: 'ie8.css')}" />
         <![endif]-->
 
         <script type="text/javascript">
@@ -70,14 +70,14 @@
                 <li class="delete separator"><a href="#delete"></a></li>
             </ul>
 
-            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file: 'jquery-1.8.3.min.js', plugin: 'ckeditor')}"></script>
-            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file: 'jquery.form-3.24.js', plugin: 'ckeditor')}"></script>
-            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts/jquery.splitter', file: 'jquery.splitter-1.5.1.js', plugin: 'ckeditor')}"></script>
-            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts/jquery.filetree', file: 'jqueryFileTree.js', plugin: 'ckeditor')}"></script>
-            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts/jquery.contextmenu', file: 'jquery.contextMenu-1.01.js', plugin: 'ckeditor')}"></script>
-            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file: 'jquery.impromptu-3.2.min.js', plugin: 'ckeditor')}"></script>
-            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file: 'jquery.tablesorter-2.7.2.min.js', plugin: 'ckeditor')}"></script>
-            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file: 'filemanager.min.js', plugin: 'ckeditor')}"></script>
+            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file: 'jquery-1.8.3.min.js')}"></script>
+            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file: 'jquery.form-3.24.js')}"></script>
+            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts/jquery.splitter', file: 'jquery.splitter-1.5.1.js')}"></script>
+            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts/jquery.filetree', file: 'jqueryFileTree.js')}"></script>
+            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts/jquery.contextmenu', file: 'jquery.contextMenu-1.01.js')}"></script>
+            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file: 'jquery.impromptu-3.2.min.js')}"></script>
+            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file: 'jquery.tablesorter-2.7.2.min.js')}"></script>
+            <script type="text/javascript" src="${resource(dir: 'js/ofm/scripts', file: 'filemanager.min.js')}"></script>
         </div>
     </body>
 </html>

@@ -26,6 +26,6 @@ class PluginUtils {
 
     static getPluginResourcePath(contextPath, pluginName) {
         String pluginVersion = Holders.pluginManager.getGrailsPlugin(pluginName)?.version
-        return "${contextPath}/plugins/${pluginName.toLowerCase()}-$pluginVersion"
+        return "${contextPath}/static"
     }
 }
