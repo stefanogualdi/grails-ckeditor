@@ -1,9 +1,0 @@
-To install the plugin add a dependency to BuildConfig.groovy:
-
-{code}
-plugins {
-    compile "\:ckeditor\:3.6.6.1.0"
-}
-{code}
-
-You can find the dependency declaration for the latest version on the [plugin portal page|http://grails.org/plugin/ckeditor].

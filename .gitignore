@@ -1,8 +1,27 @@
-.DS_Store
-target
-*.zip
-.svn
+# JetBrains IntelliJ IDEA files
+.idea/
+*.iml
 *.iws
-docs/gapi/*
+.gradle
+build/
+
+# Log files
+*.log
+
+# Libraries and others
+*.zip
+
+# Target
+target/
+target-eclipse/
+
+.DS_Store
+
+docs/
 plugin.xml
-.idea/workspace.xml
+.settings
+
+# Unused grails files
+.classpath
+.project
+test/reports
