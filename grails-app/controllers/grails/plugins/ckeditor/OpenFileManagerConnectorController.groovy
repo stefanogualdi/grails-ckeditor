@@ -35,7 +35,7 @@ class OpenFileManagerConnectorController {
         def ofmConfig = getOFMConfig()
         def finalConfig = [
             custom: [
-                ofmBase: "${resource(dir: 'js/ofm', plugin: 'ckeditor')}",
+                ofmBase: "${resource(dir: 'js/ofm')}",
                 fileConnector: "${ofmConfig.fileConnector}",
                 space: "${ofmConfig.space ?: ''}",
                 type: "${ofmConfig.type}",
@@ -184,7 +184,6 @@ class OpenFileManagerConnectorController {
      *
      */
     def fileManager() {
-        println params
         log.debug "begin fileManager()"
 
         def mode = params.mode
