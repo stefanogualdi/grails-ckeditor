@@ -48,7 +48,6 @@ class PathUtils {
             typeName = WordUtils.capitalize(typeName)
             baseUrl += "/" + typeName
         }
-
         return baseUrl
     }
 
