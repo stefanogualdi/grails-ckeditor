@@ -19,6 +19,7 @@ package grails.plugins.ckeditor
 import grails.converters.JSON
 import grails.plugins.ckeditor.utils.FileUtils
 import grails.plugins.ckeditor.utils.ImageUtils
+import grails.plugins.ckeditor.utils.MimeUtils
 import grails.plugins.ckeditor.utils.PathUtils
 import groovy.json.StreamingJsonBuilder
 
@@ -90,7 +91,7 @@ class OpenFileManagerConnectorController {
                 extra_js_async: true
             ],
             icons: [
-                path: "${resource(dir: 'js/ofm/images/fileicons', plugin: 'ckeditor')}",
+                path: "${resource(dir: 'js/ofm/images/fileicons')}",
                 directory: "_Open.png",
                 default: "default.png"
             ]
@@ -329,7 +330,7 @@ class OpenFileManagerConnectorController {
         def properties
         if (file.isDirectory()) {
             path = PathUtils.checkSlashes(path, "L+ R+", true)
-            preview = g.resource(dir: "js/ofm/images/fileicons", file: "_Open.png", plugin: "ckeditor")
+            preview = resource(dir: "js/ofm/images/fileicons", file: "_Open.png")
             fileType = 'dir'
             properties = [
                     'Date Created': '',
@@ -344,20 +345,20 @@ class OpenFileManagerConnectorController {
             fileType = fileParts.ext?.toString()?.toLowerCase()
             fileSize = file.length()
 
-            preview = g.resource(dir: "js/ofm/images/fileicons", file: "${fileParts.ext.toLowerCase()}.png", plugin: "ckeditor")
+            preview = resource(dir: "js/ofm/images/fileicons", file: "${fileParts.ext.toLowerCase()}.png")
             if (fileType in CkeditorConfig.OFM_IMAGE_EXTS) {
                 if (showThumbs) {
                     def config = grailsApplication.config.ckeditor
                     if (config?.upload?.baseurl) {
                         if (config?.upload?.baseurl?.startsWith("http")) {
-                            preview = PathUtils.checkSlashes(config?.upload?.baseurl, "R-") + baseUrl + path
+                            preview = resource(file: PathUtils.checkSlashes(config?.upload?.baseurl, "R-") + baseUrl + path)
                         }
                         else {
-                            preview = PathUtils.checkSlashes(config?.upload?.baseurl, "L+ R-") + baseUrl + path
+                            preview = resource(file: PathUtils.checkSlashes(config?.upload?.baseurl, "L+ R-") + baseUrl + path)
                         }
                     }
                     else {
-                        preview = g.resource(file: baseUrl + path)
+                        preview = resource(file: baseUrl + path)
                     }
                 }
                 def imgDim = ImageUtils.calculateImageDimension(file, fileType)
