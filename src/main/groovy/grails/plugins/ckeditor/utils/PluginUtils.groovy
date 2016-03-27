@@ -16,8 +16,6 @@
 
 package grails.plugins.ckeditor.utils
 
-import grails.util.Holders
-
 /**
  * @author Stefano Gualdi <stefano.gualdi@gmail.com>
  */
@@ -25,7 +23,6 @@ import grails.util.Holders
 class PluginUtils {
 
     static getPluginResourcePath(contextPath, pluginName) {
-//        String pluginVersion = Holders.pluginManager.getGrailsPlugin(pluginName)?.version
-        return "${contextPath}"
+        return contextPath
     }
 }
