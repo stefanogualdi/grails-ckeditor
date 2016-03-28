@@ -1,0 +1,29 @@
+File bintrayProperties = project.rootProject.file('bintray.properties')
+if (bintrayProperties.exists()) {
+  Properties properties = new Properties()
+  properties.load(bintrayProperties.newDataInputStream())
+
+  ext {
+    bintrayUsername = properties.bintrayUsername
+    bintrayApiKey = properties.bintrayApiKey
+  }
+
+  grailsPublish {
+    user = project.bintrayUsername
+    key = project.bintrayApiKey
+
+    githubSlug = 'stefanogualdi/grails-ckeditor'
+
+    license {
+      name = 'Apache-2.0'
+    }
+
+    title = "Ckeditor"
+    desc = "CKeditor web WYSIWYG editor integration plugin."
+
+    developers = [stefanogualdi: 'Stefano Gualdi', pbehl: 'Puneet Behl']
+
+    portalUser = ""
+    portalPassword = ""
+  }
+}
