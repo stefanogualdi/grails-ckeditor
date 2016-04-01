@@ -1,0 +1,20 @@
+= Ckeditor Plugin - Reference Documentation
+Stefano Gualdi
+
+:cksource: http://cksource.com
+
+include::introduction.adoc[]
+
+include::gettingStarted.adoc[]
+
+include::configuration.adoc[]
+
+include::tags.adoc[]
+
+include::security.adoc[]
+
+include::advanced.adoc[]
+
+// include::faq.adoc[]
+
+include::history.adoc[]

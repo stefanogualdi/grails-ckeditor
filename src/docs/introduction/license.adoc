@@ -1,0 +1,5 @@
+=== License
+
+This plugin is released under the http://www.apache.org/licenses/LICENSE-2.0[Apache License, Version 2.0]
+
+Please refer to http://ckeditor.com/license for the licensing schemes provided by http://cksource.com[CKSource]

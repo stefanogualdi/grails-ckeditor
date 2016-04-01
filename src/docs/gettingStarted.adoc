@@ -1,0 +1,5 @@
+== Getting started
+
+include::gettingStarted/installation.adoc[]
+
+include::gettingStarted/usage.adoc[]

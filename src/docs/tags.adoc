@@ -1,0 +1,26 @@
+== Tags
+
+The plugin defines the following custom tags:
+
+[cols="30,70"]
+|===
+| Tag                     | Description
+| <<resources-tag>>       | Creates the necessary import for the CKEditor's javascripts files
+| <<config-tag>>          | Configure the editor instance
+| <<editor-tag>>          | Renders the wysiwyg editor
+| <<fileBrowser-tag>>     | Creates a link to open just the file browser
+| <<fileBrowserLink-tag>> | Creates an URL to a file browser
+|===
+
+all the tags belongs to the namespace *ckeditor*
+
+include::tags/resources.adoc[]
+
+include::tags/config.adoc[]
+
+include::tags/editor.adoc[]
+
+include::tags/fileBrowser.adoc[]
+
+include::tags/fileBrowserLink.adoc[]
+

@@ -1,0 +1,70 @@
+== Security
+
+The plugin defines some url mappings to the controllers implementing the integration functionalities.
+
+[WARNING]
+====
+If your application doesn't protect all the URIs you must ensure that such mappings are blocked to prevent unauthorized access.
+====
+
+Since version 3.4.0 the mappings are defined as follow:
+
+* /ck/standard/filemanager
+* /ck/standard/uploader
+* /ck/ofm/filemanager
+* /ck/ofm/filetree
+
+in version 3.3.2:
+
+* /ckconnector
+* /ckuploader
+* /ofm/filemanager
+* /ofm/filetree
+
+in versions before 3.3.2:
+
+* /ckconnector
+* /ckuploader
+
+The controllers names are:
+
+since version 3.4.0:
+
+* openFileManagerConnector
+* standardFileManagerConnector
+
+in version 3.3.2:
+
+* ckeditor
+* openFileManagerConnector
+
+in versions before 3.3.2:
+
+* ckeditor
+
+Also you can create filter that checks userSpace
+
+[source, groovy]
+----
+class OfmSecurityFilters {
+    def springSecurityService
+    def filters = {
+        ckOfm(controller: 'openFileManagerConnector', action: '*') {
+            before = {
+                if (springSecurityService.currentUser?.id != params.space?.toLong()) {
+                    response.sendError(403)
+                    return false
+                }
+            }
+        }
+        ckUpload(controller: 'standardFileManagerConnector', action: '*') {
+            before = {
+                if (springSecurityService.currentUser?.id != params.space?.toLong()) {
+                    response.sendError(403)
+                    return false
+                }
+            }
+        }
+    }
+}
+----

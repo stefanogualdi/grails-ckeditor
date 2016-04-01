@@ -1,0 +1,11 @@
+=== Internal URI's customization
+
+Since version 3.4.0.1 it is possible to customize the URI's used to invoke the plugin's connectors.
+
+Eg:
+[source, groovy]
+----
+ckeditor.connectors.prefix = "/my/app/ck/"
+----
+
+

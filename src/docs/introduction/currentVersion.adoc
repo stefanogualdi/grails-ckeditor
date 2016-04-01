@@ -1,0 +1,22 @@
+=== Current version
+
+[NOTE]
+====
+The versioning model has changed. Since version 3.3.2 the version number of the plugin will reflect the one of the underline integrated CKeditor library.
+If necessary a 4th level point release number will be used for successive changes on the plugin's code with same version of CKeditor.
+
+Eg.
+|===
+| CKeditor release | Initial plugin version | Maintenance release
+| 3.3.2            | 3.3.2.0                | 3.3.2.1
+| 3.4              | 3.4.0                  | 3.4.0.1
+| 3.6.6.1          | 3.6.6.1.0              | 3.6.6.1.1
+|===
+
+====
+
+Current version is *{revnumber}*
+
+Based on http://ckeditor.com[CKEditor] version *{ckeditorVersion}*
+
+This version is developed with *Grails {grailsVersion}*
