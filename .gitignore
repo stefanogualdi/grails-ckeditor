@@ -17,7 +17,6 @@ target-eclipse/
 
 .DS_Store
 
-docs/
 plugin.xml
 .settings
 
