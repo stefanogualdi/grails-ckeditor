@@ -22,7 +22,7 @@ plugin.xml
 
 # Sensible settings
 bintray.properties
-local.properties
+github.properties
 
 # Unused grails files
 .classpath

@@ -27,3 +27,29 @@ if (bintrayProperties.exists()) {
     portalPassword = ""
   }
 }
+
+// Publish gh-pages on github
+apply plugin: "org.ajoberstar.github-pages"
+
+File githubProperties = project.rootProject.file('github.properties')
+if (githubProperties.exists()) {
+  Properties properties = new Properties()
+  properties.load(githubProperties.newDataInputStream())
+
+  ext {
+    githubApiKey = properties.bintrayApiKey
+  }
+
+  githubPages {
+    repoUri = 'https://github.com/stefanogualdi/grails-ckeditor.git'
+
+    credentials {
+      username = project.hasProperty('githubApyKey') ? project.githubApiKey : ''
+      password = ''
+    }
+
+    pages {
+      from "${buildDir}/docs"
+    }
+  }
+}
