@@ -1,0 +1,14 @@
+=== Acknowledgments
+
+Many thanks to all the users who reported issues and sent me pull requests.
+
+In particular I would like to thank:
+
+* https://github.com/puneetbehl[Puneet Behl]
+* https://github.com/jdgiotta[John D Giotta]
+* https://github.com/stokito[Sergey Ponomarev]
+* https://github.com/mgdelacroix[Miguel de la Cruz]
+* https://github.com/jcyto[jcyto]
+* https://github.com/Tulga[Tulga]
+* https://github.com/rvargas[Rafael Vargas]
+* https://github.com/RaananW[Raanan Weber]

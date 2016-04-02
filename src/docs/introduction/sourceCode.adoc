@@ -1,9 +1,11 @@
 === Source code
 
-The full source code for this plugin can be found on http://github.com/stefanogualdi/grails-ckeditor[GitHub]
+The full source code for this plugin can be found on http://github.com/stefanogualdi/grails-ckeditor[GitHub].
 
-For issues, improvements or new features go to the plugin's http://jira.grails.org/browse/GPCKEDITOR[JIRA page]
+The master branch is for the Grails 3.x version. The code for the Grails 2.x version is on branch: `grails-2.x`.
+
+For issues, improvements or new features go to the plugin's go to https://github.com/stefanogualdi/grails-ckeditor/issues[GitHub issues].
 
 To contact me directly my email address is stefano DOT gualdi AT gmail DOT com
 
-Also, feel free to send me any correction about this document.
+Feel free to send me any correction about this document.

@@ -12,4 +12,6 @@ include::introduction/license.adoc[]
 
 include::introduction/currentVersion.adoc[]
 
+include::introduction/acknowledgments.adoc[]
+
 include::introduction/sourceCode.adoc[]

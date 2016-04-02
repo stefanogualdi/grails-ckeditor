@@ -15,7 +15,7 @@ Eg.
 
 ====
 
-Current version is *{revnumber}*
+Current version is *{revnumber}* (for Grails 2.x the latest version is *4.5.4.1*)
 
 Based on http://ckeditor.com[CKEditor] version *{ckeditorVersion}*
 
