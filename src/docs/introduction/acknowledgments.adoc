@@ -12,3 +12,5 @@ In particular I would like to thank:
 * https://github.com/Tulga[Tulga]
 * https://github.com/rvargas[Rafael Vargas]
 * https://github.com/RaananW[Raanan Weber]
+* Teppo Peltonen
+* Paulo Alexandre Freitas

@@ -1,6 +1,10 @@
 == History
 
-* 3.6.6.1.1 (??/07/2013)
+* 4.5.4.0 (02/04/2016)
+
+** Porting to Grails 3.x (Thanks to https://github.com/puneetbehl[Puneet Behl])
+
+* 3.6.6.1.1 (07/2013)
 
 ** Fix for http://jira.grails.org/browse/GPCKEDITOR-37[GPCKEDITOR-37]
 
