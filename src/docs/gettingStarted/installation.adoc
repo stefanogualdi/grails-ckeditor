@@ -2,10 +2,22 @@
 
 To install the plugin add a dependency to BuildConfig.groovy:
 
-[source, groovy]
+[source, groovy, subs="attributes,verbatim"]
 ----
 plugins {
-    compile ":ckeditor:3.6.6.1.0"
+    compile ":ckeditor:4.5.4.1"
+}
+----
+
+To install the plugin with Grails 3.x:
+
+[source, groovy, subs="attributes,verbatim"]
+----
+repositories {
+    maven { url "http://dl.bintray.com/stefanogualdi/plugins" }
+}
+dependencies {
+    compile "org.grails.plugins:ckeditor:{revnumber}"
 }
 ----
 
