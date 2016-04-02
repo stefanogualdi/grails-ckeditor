@@ -37,19 +37,25 @@ if (githubProperties.exists()) {
   properties.load(githubProperties.newDataInputStream())
 
   ext {
-    githubApiKey = properties.bintrayApiKey
+    githubUsername = properties.githubUsername
+    githubPassword = properties.githubPassword
+    githubApiKey = properties.githubApiKey
   }
 
   githubPages {
     repoUri = 'https://github.com/stefanogualdi/grails-ckeditor.git'
 
     credentials {
-      username = project.hasProperty('githubApyKey') ? project.githubApiKey : ''
-      password = ''
+      // username = project.hasProperty('githubApiKey') ? project.githubApiKey : ''
+      username = project.hasProperty('githubUsername') ? project.githubUsername : ''
+      password = project.hasProperty('githubPassword') ? project.githubPassword : ''
     }
 
     pages {
       from "${buildDir}/docs"
     }
+  }
+
+  task publishDocs(dependsOn: [docs, publishGhPages]) << {
   }
 }
