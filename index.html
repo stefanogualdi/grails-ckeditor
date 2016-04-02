@@ -580,7 +580,20 @@ If necessary a 4th level point release number will be used for successive change
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">plugins {
-    compile ":ckeditor:3.6.6.1.0"
+    compile ":ckeditor:4.5.4.1"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To install the plugin with Grails 3.x:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">repositories {
+    maven { url "http://dl.bintray.com/stefanogualdi/plugins" }
+}
+dependencies {
+    compile "org.grails.plugins:ckeditor:4.5.4.0"
 }</code></pre>
 </div>
 </div>
@@ -1684,7 +1697,7 @@ upload {
 <div id="footer">
 <div id="footer-text">
 Version 4.5.4.0<br>
-Last updated 2016-04-01 10:36:46 CEST
+Last updated 2016-04-02 09:40:07 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
