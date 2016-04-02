@@ -1,8 +1,24 @@
 == History
 
+=== Grails 3.x version
+
 * 4.5.4.0 (02/04/2016)
 
 ** Porting to Grails 3.x (Thanks to https://github.com/puneetbehl[Puneet Behl])
+
+=== Grails 2.x version
+
+* 4.5.4.1 (22/03/2016)
+
+** Fix for https://github.com/stefanogualdi/grails-ckeditor/issues/13[#13] (Thanks to https://github.com/jdgiotta[John D Giotta])
+
+* 4.5.4.0 (26/10/2015)
+
+** Upgrade to CKEditor 4.5.4
+
+* 4.4.0.0 (22/05/2014)
+
+** Upgrade to CKEditor 4.4.0
 
 * 3.6.6.1.1 (07/2013)
 
