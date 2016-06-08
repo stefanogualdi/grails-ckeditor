@@ -13,7 +13,7 @@ buildscript {
     }
 }
 
-version "4.5.4.0"
+version "4.5.9.0"
 group "org.grails.plugins"
 
 apply plugin:"eclipse"
@@ -25,7 +25,7 @@ apply plugin:"org.grails.grails-gsp"
 ext {
     grailsVersion = project.grailsVersion
     gradleWrapperVersion = project.gradleWrapperVersion
-    ckeditorVersion = "4.5.4"
+    ckeditorVersion = "4.5.9"
 }
 
 repositories {
