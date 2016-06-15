@@ -228,6 +228,89 @@ class CkeditorConfig {
 
     // See: http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html
     static final ALLOWED_CONFIG_ITEMS = [
+            //filtering feature
+            'allowedContent',
+            'disallowedContent',
+            'pasteFilter',
+
+            //Auto Embed Plugin
+            'autoEmbed_widget',
+
+            //Enhance Image Plugin
+            'image2_alignClasses',
+            'image2_captionedClass',
+            'image2_disableResizer',
+            'image2_prefillDimensions',
+
+            //adapters/jquery.js
+            'jqueryOverrideVal',
+
+            //language Plugin
+            'language_list',
+
+            //Magic Line Plugin
+            'magicline_color',
+            'magicline_everywhere',
+            'magicline_holdDistance',
+            'magicline_keystrokeNext',
+            'magicline_keystrokePrevious',
+            'magicline_tabuList',
+            'magicline_triggerOffset',
+
+            // Mathematical Formulas Plugin
+            'mathJaxClass',
+            'mathJaxLib',
+
+            //Notification Plugin
+            'notification_duration',
+
+            //Sharped Spaces Plugin
+            'sharedSpaces',
+
+            //WSC
+            'wsc_cmd',
+            'wsc_customDictionaryIds',
+            'wsc_customLoaderScript',
+            'wsc_customerId',
+            'wsc_lang',
+            'wsc_userDictionaryName',
+
+            'removeButtons',
+            'on',
+            'clipboard_defaultContentType',
+            'dataIndentationChars',
+            'emailProtection',
+            'extraAllowedContent',
+            'fileTools_defaultFileName',
+            'flashAddEmbedTag',
+            'flashConvertOnEdit',
+            'flashEmbedTagOnly',
+
+            'floatSpaceDockedOffsetX',
+            'floatSpaceDockedOffsetY',
+            'floatSpacePinnedOffsetX',
+            'floatSpacePinnedOffsetY',
+            'floatSpacePreferRight ',
+
+            'htmlEncodeOutput',
+            'imageUploadUrl',
+            'linkJavaScriptLinksAllowed',
+            'linkShowAdvancedTab',
+            'linkShowTargetTab',
+            'sourceAreaTabSize',
+            'title',
+            'uploadUrl',
+            'useComputedState',
+
+
+            //optional Plugin
+            'codeSnippetGeshi_url',
+            'codeSnippet_codeClass',
+            'codeSnippet_languages',
+            'codeSnippet_theme',
+            'embed_provider',
+            'grayt_autoStartup',
+
             // Items not listed in main config file
             'uiColor',
             'readOnly',
@@ -280,6 +363,7 @@ class CkeditorConfig {
             'colorButton_colors',
             'colorButton_foreStyle',
             'colorButton_backStyle',
+            'colorButton_enableAutomatic',
 
             // plugins/contextmenu/plugin.js
             'browserContextMenuOnCtrl',
@@ -294,6 +378,7 @@ class CkeditorConfig {
             'dialog_startupFocusTab',
             'dialog_magnetDistance',
             'dialog_buttonsOrder',
+            'dialog_noConfirmCancel',
             'removeDialogTabs',
 
             // plugins/editingblock/plugin.js
@@ -311,6 +396,7 @@ class CkeditorConfig {
 
             // plugins/filebrowser/plugin.js
             'filebrowserBrowseUrl',
+            'filebrowserImageBrowseLinkUrl',
             'filebrowserUploadUrl',
             'filebrowserImageBrowseUrl',
             'filebrowserFlashBrowseUrl',
@@ -352,6 +438,7 @@ class CkeditorConfig {
             // plugins/image/plugin.js
             'image_removeLinkByEmptyURL',
             'image_previewText',
+            'image_prefillDimensions',
 
             // plugins/indent/plugin.js
             'indentOffset',
@@ -375,6 +462,10 @@ class CkeditorConfig {
             // plugins/pastefromword/plugin.js
             'pasteFromWordPromptCleanup',
             'pasteFromWordCleanupFile',
+            'pasteFromWordNumberedHeadingToList',
+            'pasteFromWordRemoveFontStyles',
+            'pasteFromWordRemoveStyles',
+
 
             // plugins/pastetext/plugin.js
             'forcePasteAsPlainText',
@@ -403,6 +494,22 @@ class CkeditorConfig {
             'scayt_customDictionaryIds',
             'scayt_userDictionaryName',
             'scayt_contextMenuItemsOrder',
+            'scayt_disableOptionsStorage',
+            'scayt_elementsToIgnore',
+            'scayt_handleCheckDirty',
+            'scayt_handleUndoRedo',
+            'scayt_ignoreAllCapsWords',
+            'scayt_ignoreDomainNames',
+            'scayt_ignoreWordsWithMixedCases',
+            'scayt_ignoreWordsWithNumbers',
+            'scayt_inlineModeImmediateMarkup',
+            'scayt_minWordLength',
+            'scayt_multiLanguageMode',
+            'scayt_multiLanguageStyles',
+            'scayt_serviceHost',
+            'scayt_servicePath',
+            'scayt_servicePort',
+            'scayt_serviceProtocol',
 
             // plugins/showblocks/plugin.js
             'startupOutlineBlocks',
@@ -444,6 +551,7 @@ class CkeditorConfig {
             'toolbarCanCollapse',
             'toolbarStartupExpanded',
             'toolbarGroupCycling',
+            'toolbarGroups',
 
             // plugins/undo/plugin.js
             'undoStackSize',
