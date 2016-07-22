@@ -14,3 +14,5 @@ In particular I would like to thank:
 * https://github.com/RaananW[Raanan Weber]
 * Teppo Peltonen
 * Paulo Alexandre Freitas
+* https://github.com/se-jaeger[se-jaeger]
+* https://github.com/elm[Florian Mutter])
