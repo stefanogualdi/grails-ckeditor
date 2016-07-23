@@ -16,3 +16,4 @@ In particular I would like to thank:
 * Paulo Alexandre Freitas
 * https://github.com/se-jaeger[se-jaeger]
 * https://github.com/elm[Florian Mutter])
+* https://github.com/benlucchesi[Ben Lucchesi]

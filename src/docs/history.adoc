@@ -2,9 +2,10 @@
 
 === Grails 3.x version
 
-* 4.5.9.0 (09/06/2016)
+* 4.5.9.0 (??/07/2016)
 
 ** Update ckeditor to version 4.5.9 (Thanks to https://github.com/se-jaeger[se-jaeger] and https://github.com/elm[Florian Mutter])
+** Remove UrlMappings.groovy from plugin (Thanks to https://github.com/benlucchesi[Ben Lucchesi])
 
 * 4.5.4.0 (02/04/2016)
 
