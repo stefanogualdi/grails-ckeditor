@@ -17,3 +17,4 @@ In particular I would like to thank:
 * https://github.com/se-jaeger[se-jaeger]
 * https://github.com/elm[Florian Mutter])
 * https://github.com/benlucchesi[Ben Lucchesi]
+* https://github.com/goedef[Fred de Goede]
