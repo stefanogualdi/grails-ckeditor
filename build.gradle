@@ -20,8 +20,7 @@ buildscript {
 }
 
 version "4.5.9.1"
-group "net.codebuilders" // so we don't collide if upstream releases
-// group "org.grails.plugins"
+group "org.grails.plugins"
 
 // standard
 apply plugin:"eclipse"
@@ -151,7 +150,6 @@ jar {
 
 groovydoc {
     docTitle = "Grails CkEditor Plugin API"
-    header = "Code Builders, LLC" // doesn't seem to work
     footer = "Generated documentation ${version}"
     windowTitle = docTitle
     use = true // create class and package usage pages
@@ -164,7 +162,6 @@ java {
     withJavadocJar()
     withSourcesJar()
 }
-
 
 publishing {
     publications {
@@ -184,13 +181,12 @@ publishing {
                 name = 'Grails CKeditor Plugin API'
                 packaging = 'jar'
                 description = 'CKeditor web WYSIWYG editor integration plugin.'
-                url = 'http://codebuilders.net'
-                inceptionYear = '2016'
+                url = 'https://github.com/stefanogualdi/grails-ckeditor'
 
                 scm {
-                    url = 'https://github.com/cbmarcum/mybusiness'
-                    developerConnection = 'https://github.com/cbmarcum/mybusiness'
-                    connection = 'https://github.com/cbmarcum/mybusiness'
+                    url = 'https://github.com/stefanogualdi/grails-ckeditor'
+                    developerConnection = 'https://github.com/stefanogualdi/grails-ckeditor'
+                    connection = 'https://github.com/stefanogualdi/grails-ckeditor'
                 }
 
                 licenses {
@@ -211,14 +207,6 @@ publishing {
                         name = 'Puneet Behl'
                         email = 'behlp@objectcomputing.com'
                         url = 'https://github.com/puneetbehl'
-                    }
-                    developer {
-                        name = 'Carl Marcum'
-                        email = 'carl.marcum@codebuilders.net'
-                        url = 'http://codebuilders.net'
-                        organization = 'Code Builders, LLC'
-                        organizationUrl = 'http://codebuilders.net'
-
                     }
                 }
             }
